@@ -33,7 +33,7 @@ service RpcV2CborCorpusTests with [CoreProtocolTestService, DefaultsProtocolTest
 service RestJson1CorpusTests with [HttpBindingProtocolTestService, DefaultsProtocolTestService] {}
 
 @restXml
-service RestXmlCorpusTests with [HttpBindingProtocolTestService, DefaultsProtocolTestService] {}
+service RestXmlCorpusTests with [HttpBindingProtocolTestService, DefaultsProtocolTestService, XmlTraitsProtocolTestService] {}
 
 // =============================================================================
 // Apply @http to core operations for REST protocol compatibility.
@@ -74,6 +74,20 @@ apply NestedDefaults @http(method: "POST", uri: "/corpus/NestedDefaults")
 apply RequiredMembers @http(method: "POST", uri: "/corpus/RequiredMembers")
 apply NullSparseMembers @http(method: "POST", uri: "/corpus/NullSparseMembers")
 apply ClientOptionalDefaults @http(method: "POST", uri: "/corpus/ClientOptionalDefaults")
+
+// XML traits operations
+apply FlattenedListOfScalars @http(method: "POST", uri: "/corpus/FlattenedListOfScalars")
+apply FlattenedListOfStructs @http(method: "POST", uri: "/corpus/FlattenedListOfStructs")
+apply FlattenedListOfLists @http(method: "POST", uri: "/corpus/FlattenedListOfLists")
+apply FlattenedListOfMaps @http(method: "POST", uri: "/corpus/FlattenedListOfMaps")
+apply FlattenedListOfUnions @http(method: "POST", uri: "/corpus/FlattenedListOfUnions")
+apply FlattenedMapOfScalars @http(method: "POST", uri: "/corpus/FlattenedMapOfScalars")
+apply FlattenedMapOfStructs @http(method: "POST", uri: "/corpus/FlattenedMapOfStructs")
+apply FlattenedMapOfMaps @http(method: "POST", uri: "/corpus/FlattenedMapOfMaps")
+apply FlattenedMapOfLists @http(method: "POST", uri: "/corpus/FlattenedMapOfLists")
+apply FlattenedMapOfUnions @http(method: "POST", uri: "/corpus/FlattenedMapOfUnions")
+apply FlattenedSparseListOfStructs @http(method: "POST", uri: "/corpus/FlattenedSparseListOfStructs")
+apply FlattenedSparseMapOfStructs @http(method: "POST", uri: "/corpus/FlattenedSparseMapOfStructs")
 
 // =============================================================================
 // Query protocols — need special handling (no unions, no document type).
