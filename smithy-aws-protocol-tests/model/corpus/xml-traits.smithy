@@ -20,6 +20,8 @@ service XmlTraitsProtocolTestService with [CoreProtocolTestService] {
         FlattenedMapOfUnions
         FlattenedSparseListOfStructs
         FlattenedSparseMapOfStructs
+        XmlAttributeMembers
+        XmlNamespaceMembers
     ]
 }
 
@@ -213,4 +215,75 @@ operation FlattenedSparseMapOfStructs {
         @xmlFlattened @xmlName("xmlValues")
         values: SparseSimpleStructMap
     }
+}
+
+// =============================================================================
+// @xmlAttribute — scalar members serialized as XML attributes
+// =============================================================================
+
+operation XmlAttributeMembers {
+    input := {
+        value: XmlAttributeStruct
+    }
+    output := {
+        value: XmlAttributeStruct
+    }
+}
+
+structure XmlAttributeStruct {
+    @xmlAttribute
+    @xmlName("id")
+    id: String
+
+    @xmlAttribute
+    @xmlName("enabled")
+    enabled: Boolean
+
+    @xmlName("xmlContent")
+    content: String
+
+    @xmlName("xmlNested")
+    nested: XmlAttributeNestedStruct
+}
+
+structure XmlAttributeNestedStruct {
+    @xmlAttribute
+    @xmlName("name")
+    name: String
+
+    @xmlName("xmlValue")
+    value: String
+}
+
+// =============================================================================
+// @xmlNamespace — xmlns declarations on structs and members
+// =============================================================================
+
+operation XmlNamespaceMembers {
+    input := {
+        value: XmlNamespaceStruct
+    }
+    output := {
+        value: XmlNamespaceStruct
+    }
+}
+
+@xmlNamespace(uri: "https://example.com/ns")
+structure XmlNamespaceStruct {
+    @xmlName("xmlName")
+    name: String
+
+    @xmlNamespace(uri: "https://example.com/nested", prefix: "nested")
+    @xmlName("xmlNested")
+    nested: XmlNamespaceNestedStruct
+
+    @xmlNamespace(uri: "https://example.com/list")
+    @xmlName("xmlValues")
+    values: StringList
+}
+
+@xmlNamespace(uri: "https://example.com/nested", prefix: "nested")
+structure XmlNamespaceNestedStruct {
+    @xmlName("xmlValue")
+    value: String
 }

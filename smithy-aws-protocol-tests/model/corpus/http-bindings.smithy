@@ -20,6 +20,7 @@ service HttpBindingProtocolTestService with [CoreProtocolTestService] {
         HttpPayloadStruct
         HttpPayloadBlob
         HttpPayloadString
+        HttpPayloadStreamingBlob
         HttpResponseCode
     ]
 }
@@ -251,6 +252,25 @@ operation HttpPayloadString {
         payload: String
     }
 }
+
+@http(method: "POST", uri: "/HttpPayloadStreamingBlob")
+operation HttpPayloadStreamingBlob {
+    input := {
+        @httpHeader("Content-Type")
+        contentType: String
+        @httpPayload
+        payload: StreamingBlob = ""
+    }
+    output := {
+        @httpHeader("Content-Type")
+        contentType: String
+        @httpPayload
+        payload: StreamingBlob = ""
+    }
+}
+
+@streaming
+blob StreamingBlob
 
 // =============================================================================
 // Response code

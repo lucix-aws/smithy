@@ -90,6 +90,8 @@ apply FlattenedMapOfLists @http(method: "POST", uri: "/corpus/FlattenedMapOfList
 apply FlattenedMapOfUnions @http(method: "POST", uri: "/corpus/FlattenedMapOfUnions")
 apply FlattenedSparseListOfStructs @http(method: "POST", uri: "/corpus/FlattenedSparseListOfStructs")
 apply FlattenedSparseMapOfStructs @http(method: "POST", uri: "/corpus/FlattenedSparseMapOfStructs")
+apply XmlAttributeMembers @http(method: "POST", uri: "/corpus/XmlAttributeMembers")
+apply XmlNamespaceMembers @http(method: "POST", uri: "/corpus/XmlNamespaceMembers")
 
 // =============================================================================
 // Query protocols
