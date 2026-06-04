@@ -6,6 +6,8 @@ use aws.protocols#awsJson1_0
 use aws.protocols#awsJson1_1
 use aws.protocols#restJson1
 use aws.protocols#restXml
+use aws.protocols#awsQuery
+use aws.protocols#ec2Query
 use smithy.protocols#rpcv2Cbor
 
 // =============================================================================
@@ -90,6 +92,13 @@ apply FlattenedSparseListOfStructs @http(method: "POST", uri: "/corpus/Flattened
 apply FlattenedSparseMapOfStructs @http(method: "POST", uri: "/corpus/FlattenedSparseMapOfStructs")
 
 // =============================================================================
-// Query protocols — need special handling (no unions, no document type).
-// To be added with appropriate shape subsetting.
+// Query protocols
 // =============================================================================
+
+@awsQuery
+@xmlNamespace(uri: "https://corpus.example.com/")
+service AwsQueryCorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, XmlTraitsProtocolTestService] {}
+
+@ec2Query
+@xmlNamespace(uri: "https://corpus.example.com/")
+service Ec2QueryCorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, XmlTraitsProtocolTestService] {}
