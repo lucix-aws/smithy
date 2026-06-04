@@ -80,6 +80,8 @@ operation ScalarMembers {
         doubleMember: Double
         @jsonName("jsonStringMember") @xmlName("xmlStringMember")
         stringMember: String
+        @jsonName("jsonMediaTypeMember") @xmlName("xmlMediaTypeMember")
+        mediaTypeMember: MediaTypeJsonString
         @jsonName("jsonBlobMember") @xmlName("xmlBlobMember")
         blobMember: Blob
         @jsonName("jsonDateTimeMember") @xmlName("xmlDateTimeMember")
@@ -113,6 +115,8 @@ operation ScalarMembers {
         doubleMember: Double
         @jsonName("jsonStringMember") @xmlName("xmlStringMember")
         stringMember: String
+        @jsonName("jsonMediaTypeMember") @xmlName("xmlMediaTypeMember")
+        mediaTypeMember: MediaTypeJsonString
         @jsonName("jsonBlobMember") @xmlName("xmlBlobMember")
         blobMember: Blob
         @jsonName("jsonDateTimeMember") @xmlName("xmlDateTimeMember")
@@ -319,6 +323,8 @@ union CorpusUnion {
     doubleValue: Double
     @jsonName("jsonStringValue") @xmlName("xmlStringValue")
     stringValue: String
+    @jsonName("jsonMediaTypeValue") @xmlName("xmlMediaTypeValue")
+    mediaTypeValue: MediaTypeJsonString
     @jsonName("jsonBlobValue") @xmlName("xmlBlobValue")
     blobValue: Blob
     @jsonName("jsonTimestampValue") @xmlName("xmlTimestampValue")
@@ -377,6 +383,8 @@ structure ScalarStruct {
     doubleMember: Double
     @jsonName("jsonStringMember") @xmlName("xmlStringMember")
     stringMember: String
+    @jsonName("jsonMediaTypeMember") @xmlName("xmlMediaTypeMember")
+    mediaTypeMember: MediaTypeJsonString
     @jsonName("jsonBlobMember") @xmlName("xmlBlobMember")
     blobMember: Blob
     @jsonName("jsonDateTimeMember") @xmlName("xmlDateTimeMember")
@@ -598,6 +606,8 @@ structure SimpleStruct {
     integerMember: Integer
     @jsonName("jsonBooleanMember") @xmlName("xmlBooleanMember")
     booleanMember: Boolean
+    @jsonName("jsonMediaTypeMember") @xmlName("xmlMediaTypeMember")
+    mediaTypeMember: MediaTypeJsonString
 }
 
 // --- Lists ---
@@ -621,6 +631,9 @@ timestamp DateTimeTimestamp
 
 @timestampFormat("http-date")
 timestamp HttpDateTimestamp
+
+@mediaType("application/json")
+string MediaTypeJsonString
 
 list CorpusStringEnumList { member: CorpusStringEnum }
 list CorpusIntEnumList { member: CorpusIntEnum }
