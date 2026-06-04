@@ -15,27 +15,27 @@ use smithy.protocols#rpcv2Cbor
 // =============================================================================
 
 @awsJson1_0
-service AwsJson10CorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, DocumentProtocolTestService] {}
+service AwsJson10CorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, DocumentProtocolTestService, EventStreamProtocolTestService] {}
 
 @awsJson1_1
-service AwsJson11CorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, DocumentProtocolTestService] {}
+service AwsJson11CorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, DocumentProtocolTestService, EventStreamProtocolTestService] {}
 
 // =============================================================================
 // CBOR RPC — body serde + defaults, no HTTP bindings
 // =============================================================================
 
 @rpcv2Cbor
-service RpcV2CborCorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService] {}
+service RpcV2CborCorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, EventStreamProtocolTestService] {}
 
 // =============================================================================
 // REST protocols — all three layers
 // =============================================================================
 
 @restJson1
-service RestJson1CorpusTests with [HttpBindingProtocolTestService, DefaultsProtocolTestService, DocumentProtocolTestService] {}
+service RestJson1CorpusTests with [HttpBindingProtocolTestService, DefaultsProtocolTestService, DocumentProtocolTestService, EventStreamProtocolTestService] {}
 
 @restXml
-service RestXmlCorpusTests with [HttpBindingProtocolTestService, DefaultsProtocolTestService, XmlTraitsProtocolTestService] {}
+service RestXmlCorpusTests with [HttpBindingProtocolTestService, DefaultsProtocolTestService, XmlTraitsProtocolTestService, EventStreamProtocolTestService] {}
 
 // =============================================================================
 // Apply @http to core operations for REST protocol compatibility.
@@ -75,6 +75,14 @@ apply DocumentMembers @http(method: "POST", uri: "/corpus/DocumentMembers")
 apply ListOfDocuments @http(method: "POST", uri: "/corpus/ListOfDocuments")
 apply MapOfDocuments @http(method: "POST", uri: "/corpus/MapOfDocuments")
 apply DocumentUnion @http(method: "POST", uri: "/corpus/DocumentUnion")
+
+// Event stream operations
+apply EventStreamResponse @http(method: "POST", uri: "/corpus/EventStreamResponse")
+apply EventStreamResponseBlobPayload @http(method: "POST", uri: "/corpus/EventStreamResponseBlobPayload")
+apply EventStreamResponseHeaders @http(method: "POST", uri: "/corpus/EventStreamResponseHeaders")
+apply EventStreamError @http(method: "POST", uri: "/corpus/EventStreamError")
+apply EventStreamRequest @http(method: "POST", uri: "/corpus/EventStreamRequest")
+apply EventStreamInitialResponse @http(method: "POST", uri: "/corpus/EventStreamInitialResponse")
 
 // Defaults operations
 apply DefaultScalars @http(method: "POST", uri: "/corpus/DefaultScalars")
