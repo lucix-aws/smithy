@@ -15,10 +15,10 @@ use smithy.protocols#rpcv2Cbor
 // =============================================================================
 
 @awsJson1_0
-service AwsJson10CorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService] {}
+service AwsJson10CorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, DocumentProtocolTestService] {}
 
 @awsJson1_1
-service AwsJson11CorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService] {}
+service AwsJson11CorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, DocumentProtocolTestService] {}
 
 // =============================================================================
 // CBOR RPC — body serde + defaults, no HTTP bindings
@@ -32,7 +32,7 @@ service RpcV2CborCorpusTests with [CoreProtocolTestService, DefaultsProtocolTest
 // =============================================================================
 
 @restJson1
-service RestJson1CorpusTests with [HttpBindingProtocolTestService, DefaultsProtocolTestService] {}
+service RestJson1CorpusTests with [HttpBindingProtocolTestService, DefaultsProtocolTestService, DocumentProtocolTestService] {}
 
 @restXml
 service RestXmlCorpusTests with [HttpBindingProtocolTestService, DefaultsProtocolTestService, XmlTraitsProtocolTestService] {}
@@ -68,6 +68,13 @@ apply RecursiveStruct @http(method: "POST", uri: "/corpus/RecursiveStruct")
 apply RecursiveUnion @http(method: "POST", uri: "/corpus/RecursiveUnion")
 apply EmptyInputOutput @http(method: "POST", uri: "/corpus/EmptyInputOutput")
 apply NoInputOutput @http(method: "POST", uri: "/corpus/NoInputOutput")
+apply ErrorOperation @http(method: "POST", uri: "/corpus/ErrorOperation")
+
+// Document operations
+apply DocumentMembers @http(method: "POST", uri: "/corpus/DocumentMembers")
+apply ListOfDocuments @http(method: "POST", uri: "/corpus/ListOfDocuments")
+apply MapOfDocuments @http(method: "POST", uri: "/corpus/MapOfDocuments")
+apply DocumentUnion @http(method: "POST", uri: "/corpus/DocumentUnion")
 
 // Defaults operations
 apply DefaultScalars @http(method: "POST", uri: "/corpus/DefaultScalars")

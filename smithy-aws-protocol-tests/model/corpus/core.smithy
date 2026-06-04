@@ -57,6 +57,9 @@ service CoreProtocolTestService {
         // Empty/absent body
         EmptyInputOutput
         NoInputOutput
+
+        // Errors
+        ErrorOperation
     ]
 }
 
@@ -596,6 +599,39 @@ operation EmptyInputOutput {
 }
 
 operation NoInputOutput {}
+
+// =============================================================================
+// Errors
+// =============================================================================
+
+operation ErrorOperation {
+    input := {}
+    output := {}
+    errors: [SimpleError, ComplexError]
+}
+
+@error("client")
+structure SimpleError {
+    @jsonName("jsonMessage") @xmlName("xmlMessage") @ec2QueryName("ec2Message")
+    message: String
+}
+
+@error("server")
+structure ComplexError {
+    @jsonName("jsonMessage") @xmlName("xmlMessage") @ec2QueryName("ec2Message")
+    message: String
+    @jsonName("jsonCode") @xmlName("xmlCode") @ec2QueryName("ec2Code")
+    code: Integer
+    @jsonName("jsonNested") @xmlName("xmlNested") @ec2QueryName("ec2Nested")
+    nested: ComplexNestedError
+}
+
+structure ComplexNestedError {
+    @jsonName("jsonStringMember") @xmlName("xmlStringMember") @ec2QueryName("ec2StringMember")
+    stringMember: String
+    @jsonName("jsonIntegerMember") @xmlName("xmlIntegerMember") @ec2QueryName("ec2IntegerMember")
+    integerMember: Integer
+}
 
 // =============================================================================
 // Shared shape definitions
