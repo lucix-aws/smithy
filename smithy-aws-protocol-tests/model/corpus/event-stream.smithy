@@ -11,6 +11,7 @@ service EventStreamProtocolTestService with [CoreProtocolTestService] {
         EventStreamResponse
         EventStreamResponseBlobPayload
         EventStreamResponseHeaders
+        EventStreamResponseImplicitPayload
         EventStreamError
         EventStreamRequest
         EventStreamInitialResponse
@@ -100,6 +101,31 @@ structure HeaderEvent {
     blobHeader: Blob
     @eventPayload
     body: String
+}
+
+// =============================================================================
+// Response stream — @eventHeader + implicit payload (no @eventPayload)
+// =============================================================================
+
+operation EventStreamResponseImplicitPayload {
+    input := {}
+    output := {
+        @httpPayload @required events: ImplicitPayloadEventStream
+    }
+}
+
+@streaming
+union ImplicitPayloadEventStream {
+    dataEvent: ImplicitPayloadEvent
+}
+
+structure ImplicitPayloadEvent {
+    @eventHeader
+    requestId: String
+    // These become the protocol-specific document body (implicit payload):
+    content: String
+    count: Integer
+    nested: SimpleStruct
 }
 
 // =============================================================================

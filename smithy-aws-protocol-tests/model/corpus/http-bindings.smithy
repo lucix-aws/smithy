@@ -21,6 +21,7 @@ service HttpBindingProtocolTestService with [CoreProtocolTestService] {
         HttpPayloadBlob
         HttpPayloadString
         HttpPayloadStreamingBlob
+        HttpImplicitPayload
         HttpResponseCode
     ]
 }
@@ -210,7 +211,33 @@ operation HttpPrefixHeaders {
 }
 
 // =============================================================================
-// Payload
+// Implicit payload — members without HTTP binding traits become the body
+// =============================================================================
+
+@http(method: "POST", uri: "/HttpImplicitPayload")
+operation HttpImplicitPayload {
+    input := {
+        @httpHeader("X-Token")
+        token: String
+        @httpQuery("query")
+        queryParam: String
+        // These are the implicit payload (serialized as JSON/XML body):
+        name: String
+        age: Integer
+        nested: SimpleStruct
+    }
+    output := {
+        @httpHeader("X-Token")
+        token: String
+        // These are the implicit payload:
+        name: String
+        age: Integer
+        nested: SimpleStruct
+    }
+}
+
+// =============================================================================
+// Explicit payload
 // =============================================================================
 
 @http(method: "POST", uri: "/HttpPayloadStruct")
