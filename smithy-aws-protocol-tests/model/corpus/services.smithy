@@ -15,27 +15,27 @@ use smithy.protocols#rpcv2Cbor
 // =============================================================================
 
 @awsJson1_0
-service AwsJson10CorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, DocumentProtocolTestService, EventStreamProtocolTestService] {}
+service AwsJson10CorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, DocumentProtocolTestService, EventStreamProtocolTestService, MiscSerdeTraitProtocolTestService] {}
 
 @awsJson1_1
-service AwsJson11CorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, DocumentProtocolTestService, EventStreamProtocolTestService] {}
+service AwsJson11CorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, DocumentProtocolTestService, EventStreamProtocolTestService, MiscSerdeTraitProtocolTestService] {}
 
 // =============================================================================
 // CBOR RPC — body serde + defaults, no HTTP bindings
 // =============================================================================
 
 @rpcv2Cbor
-service RpcV2CborCorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, EventStreamProtocolTestService] {}
+service RpcV2CborCorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, EventStreamProtocolTestService, MiscSerdeTraitProtocolTestService] {}
 
 // =============================================================================
 // REST protocols — all three layers
 // =============================================================================
 
 @restJson1
-service RestJson1CorpusTests with [HttpBindingProtocolTestService, DefaultsProtocolTestService, DocumentProtocolTestService, EventStreamProtocolTestService] {}
+service RestJson1CorpusTests with [HttpBindingProtocolTestService, DefaultsProtocolTestService, DocumentProtocolTestService, EventStreamProtocolTestService, MiscSerdeTraitProtocolTestService] {}
 
 @restXml
-service RestXmlCorpusTests with [HttpBindingProtocolTestService, DefaultsProtocolTestService, XmlTraitsProtocolTestService, EventStreamProtocolTestService] {}
+service RestXmlCorpusTests with [HttpBindingProtocolTestService, DefaultsProtocolTestService, XmlTraitsProtocolTestService, EventStreamProtocolTestService, MiscSerdeTraitProtocolTestService] {}
 
 // =============================================================================
 // Apply @http to core operations for REST protocol compatibility.
@@ -108,6 +108,14 @@ apply FlattenedSparseListOfStructs @http(method: "POST", uri: "/corpus/Flattened
 apply FlattenedSparseMapOfStructs @http(method: "POST", uri: "/corpus/FlattenedSparseMapOfStructs")
 apply XmlAttributeMembers @http(method: "POST", uri: "/corpus/XmlAttributeMembers")
 apply XmlNamespaceMembers @http(method: "POST", uri: "/corpus/XmlNamespaceMembers")
+apply XmlNamedListMembers @http(method: "POST", uri: "/corpus/XmlNamedListMembers")
+apply XmlNamedMapMembers @http(method: "POST", uri: "/corpus/XmlNamedMapMembers")
+
+// Misc serde trait operations
+apply EndpointHostPrefix @http(method: "POST", uri: "/corpus/EndpointHostPrefix")
+apply EndpointHostLabel @http(method: "POST", uri: "/corpus/EndpointHostLabel")
+apply IdempotencyTokenOp @http(method: "POST", uri: "/corpus/IdempotencyTokenOp")
+apply RequestCompressionOp @http(method: "POST", uri: "/corpus/RequestCompressionOp")
 
 // =============================================================================
 // Query protocols
@@ -115,8 +123,8 @@ apply XmlNamespaceMembers @http(method: "POST", uri: "/corpus/XmlNamespaceMember
 
 @awsQuery
 @xmlNamespace(uri: "https://corpus.example.com/")
-service AwsQueryCorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, XmlTraitsProtocolTestService] {}
+service AwsQueryCorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, XmlTraitsProtocolTestService, MiscSerdeTraitProtocolTestService] {}
 
 @ec2Query
 @xmlNamespace(uri: "https://corpus.example.com/")
-service Ec2QueryCorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, XmlTraitsProtocolTestService] {}
+service Ec2QueryCorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, XmlTraitsProtocolTestService, MiscSerdeTraitProtocolTestService] {}

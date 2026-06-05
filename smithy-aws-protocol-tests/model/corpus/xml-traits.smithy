@@ -22,6 +22,8 @@ service XmlTraitsProtocolTestService with [CoreProtocolTestService] {
         FlattenedSparseMapOfStructs
         XmlAttributeMembers
         XmlNamespaceMembers
+        XmlNamedListMembers
+        XmlNamedMapMembers
     ]
 }
 
@@ -286,4 +288,70 @@ structure XmlNamespaceStruct {
 structure XmlNamespaceNestedStruct {
     @xmlName("xmlValue")
     value: String
+}
+
+// =============================================================================
+// @xmlName on list member — changes the element name inside the wrapper
+// =============================================================================
+
+operation XmlNamedListMembers {
+    input := {
+        @xmlName("xmlStrings")
+        strings: XmlNamedStringList
+        @xmlName("xmlIntegers")
+        integers: XmlNamedIntegerList
+    }
+    output := {
+        @xmlName("xmlStrings")
+        strings: XmlNamedStringList
+        @xmlName("xmlIntegers")
+        integers: XmlNamedIntegerList
+    }
+}
+
+@xmlNamespace(uri: "https://xml-list.example.com")
+list XmlNamedStringList {
+    @xmlName("item")
+    member: String
+}
+
+@xmlNamespace(uri: "https://xml-list.example.com")
+list XmlNamedIntegerList {
+    @xmlName("item")
+    member: Integer
+}
+
+// =============================================================================
+// @xmlName on map key/value — changes key/value element names inside entry
+// =============================================================================
+
+operation XmlNamedMapMembers {
+    input := {
+        @xmlName("xmlStrings")
+        strings: XmlNamedStringMap
+        @xmlName("xmlIntegers")
+        integers: XmlNamedIntegerMap
+    }
+    output := {
+        @xmlName("xmlStrings")
+        strings: XmlNamedStringMap
+        @xmlName("xmlIntegers")
+        integers: XmlNamedIntegerMap
+    }
+}
+
+@xmlNamespace(uri: "https://xml-map.example.com")
+map XmlNamedStringMap {
+    @xmlName("AttrKey")
+    key: String
+    @xmlName("AttrValue")
+    value: String
+}
+
+@xmlNamespace(uri: "https://xml-map.example.com")
+map XmlNamedIntegerMap {
+    @xmlName("AttrKey")
+    key: String
+    @xmlName("AttrValue")
+    value: Integer
 }
