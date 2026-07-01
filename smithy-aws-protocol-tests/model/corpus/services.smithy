@@ -15,27 +15,31 @@ use smithy.protocols#rpcv2Cbor
 // =============================================================================
 
 @awsJson1_0
-service AwsJson10CorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, DocumentProtocolTestService, EventStreamProtocolTestService, MiscSerdeTraitProtocolTestService] {}
+service AwsJson10CorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, DocumentProtocolTestService, EventStreamProtocolTestService, HttpErrorProtocolTestService, NoProtocolTraitsBehaviorService, MiscSerdeTraitProtocolTestService] {}
 
 @awsJson1_1
-service AwsJson11CorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, DocumentProtocolTestService, EventStreamProtocolTestService, MiscSerdeTraitProtocolTestService] {}
+service AwsJson11CorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, DocumentProtocolTestService, EventStreamProtocolTestService, HttpErrorProtocolTestService, NoProtocolTraitsBehaviorService, MiscSerdeTraitProtocolTestService] {}
 
 // =============================================================================
-// CBOR RPC — body serde + defaults, no HTTP bindings
+// RPC v2 — body serde + defaults, no HTTP bindings
 // =============================================================================
 
 @rpcv2Cbor
-service RpcV2CborCorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, EventStreamProtocolTestService, MiscSerdeTraitProtocolTestService] {}
+service RpcV2CborCorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, EventStreamProtocolTestService, HttpErrorProtocolTestService, NoProtocolTraitsBehaviorService, MiscSerdeTraitProtocolTestService] {}
+
+// TODO: uncomment when rpcV2Json trait is available
+// @rpcV2Json
+// service RpcV2JsonCorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, DocumentProtocolTestService, EventStreamProtocolTestService, HttpErrorProtocolTestService, NoProtocolTraitsBehaviorService, MiscSerdeTraitProtocolTestService] {}
 
 // =============================================================================
 // REST protocols — all three layers
 // =============================================================================
 
 @restJson1
-service RestJson1CorpusTests with [HttpBindingProtocolTestService, DefaultsProtocolTestService, DocumentProtocolTestService, EventStreamProtocolTestService, MiscSerdeTraitProtocolTestService] {}
+service RestJson1CorpusTests with [HttpBindingProtocolTestService, DefaultsProtocolTestService, DocumentProtocolTestService, EventStreamProtocolTestService, HttpErrorProtocolTestService, NoProtocolTraitsBehaviorService, MiscSerdeTraitProtocolTestService] {}
 
 @restXml
-service RestXmlCorpusTests with [HttpBindingProtocolTestService, DefaultsProtocolTestService, XmlTraitsProtocolTestService, EventStreamProtocolTestService, MiscSerdeTraitProtocolTestService] {}
+service RestXmlCorpusTests with [HttpBindingProtocolTestService, DefaultsProtocolTestService, XmlTraitsProtocolTestService, EventStreamProtocolTestService, HttpErrorProtocolTestService, NoProtocolTraitsBehaviorService, MiscSerdeTraitProtocolTestService] {}
 
 // =============================================================================
 // Apply @http to core operations for REST protocol compatibility.
@@ -110,6 +114,18 @@ apply XmlAttributeMembers @http(method: "POST", uri: "/corpus/XmlAttributeMember
 apply XmlNamespaceMembers @http(method: "POST", uri: "/corpus/XmlNamespaceMembers")
 apply XmlNamedListMembers @http(method: "POST", uri: "/corpus/XmlNamedListMembers")
 apply XmlNamedMapMembers @http(method: "POST", uri: "/corpus/XmlNamedMapMembers")
+apply FlattenedXmlNamedListMembers @http(method: "POST", uri: "/corpus/FlattenedXmlNamedListMembers")
+apply FlattenedXmlNamedMapMembers @http(method: "POST", uri: "/corpus/FlattenedXmlNamedMapMembers")
+
+// Http error operation
+apply HttpErrorOperation @http(method: "POST", uri: "/corpus/HttpErrorOperation")
+
+// No-traits operations
+apply NoTraitScalarMembers @http(method: "POST", uri: "/corpus/NoTraitScalarMembers")
+apply NoTraitStructOfScalars @http(method: "POST", uri: "/corpus/NoTraitStructOfScalars")
+apply NoTraitListOfScalars @http(method: "POST", uri: "/corpus/NoTraitListOfScalars")
+apply NoTraitMapOfScalars @http(method: "POST", uri: "/corpus/NoTraitMapOfScalars")
+apply NoTraitUnionMembers @http(method: "POST", uri: "/corpus/NoTraitUnionMembers")
 
 // Misc serde trait operations
 apply EndpointHostPrefix @http(method: "POST", uri: "/corpus/EndpointHostPrefix")
@@ -123,8 +139,8 @@ apply RequestCompressionOp @http(method: "POST", uri: "/corpus/RequestCompressio
 
 @awsQuery
 @xmlNamespace(uri: "https://corpus.example.com/")
-service AwsQueryCorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, XmlTraitsProtocolTestService, MiscSerdeTraitProtocolTestService] {}
+service AwsQueryCorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, XmlTraitsProtocolTestService, NoProtocolTraitsBehaviorService, MiscSerdeTraitProtocolTestService] {}
 
 @ec2Query
 @xmlNamespace(uri: "https://corpus.example.com/")
-service Ec2QueryCorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, XmlTraitsProtocolTestService, MiscSerdeTraitProtocolTestService] {}
+service Ec2QueryCorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, XmlTraitsProtocolTestService, NoProtocolTraitsBehaviorService, MiscSerdeTraitProtocolTestService] {}

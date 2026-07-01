@@ -24,6 +24,8 @@ service XmlTraitsProtocolTestService with [CoreProtocolTestService] {
         XmlNamespaceMembers
         XmlNamedListMembers
         XmlNamedMapMembers
+        FlattenedXmlNamedListMembers
+        FlattenedXmlNamedMapMembers
     ]
 }
 
@@ -354,4 +356,39 @@ map XmlNamedIntegerMap {
     key: String
     @xmlName("AttrValue")
     value: Integer
+}
+
+// =============================================================================
+// @xmlFlattened + @xmlName on list/map member target — the member-level xmlName
+// becomes the repeated element name when flattened
+// =============================================================================
+
+operation FlattenedXmlNamedListMembers {
+    input := {
+        @xmlFlattened
+        strings: XmlNamedStringList
+        @xmlFlattened
+        integers: XmlNamedIntegerList
+    }
+    output := {
+        @xmlFlattened
+        strings: XmlNamedStringList
+        @xmlFlattened
+        integers: XmlNamedIntegerList
+    }
+}
+
+operation FlattenedXmlNamedMapMembers {
+    input := {
+        @xmlFlattened
+        strings: XmlNamedStringMap
+        @xmlFlattened
+        integers: XmlNamedIntegerMap
+    }
+    output := {
+        @xmlFlattened
+        strings: XmlNamedStringMap
+        @xmlFlattened
+        integers: XmlNamedIntegerMap
+    }
 }
