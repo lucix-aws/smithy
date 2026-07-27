@@ -9,6 +9,7 @@ use aws.protocols#restXml
 use aws.protocols#awsQuery
 use aws.protocols#ec2Query
 use smithy.protocols#rpcv2Cbor
+use smithy.protocols#rpcv2Json
 
 // =============================================================================
 // JSON RPC protocols — body serde + defaults, no HTTP bindings
@@ -27,9 +28,8 @@ service AwsJson11CorpusTests with [CoreProtocolTestService, DefaultsProtocolTest
 @rpcv2Cbor
 service RpcV2CborCorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, EventStreamProtocolTestService, HttpErrorProtocolTestService, NoProtocolTraitsBehaviorService, MiscSerdeTraitProtocolTestService] {}
 
-// TODO: uncomment when rpcV2Json trait is available
-// @rpcV2Json
-// service RpcV2JsonCorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, DocumentProtocolTestService, EventStreamProtocolTestService, HttpErrorProtocolTestService, NoProtocolTraitsBehaviorService, MiscSerdeTraitProtocolTestService] {}
+@rpcv2Json
+service RpcV2JsonCorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, DocumentProtocolTestService, EventStreamProtocolTestService, HttpErrorProtocolTestService, NoProtocolTraitsBehaviorService, MiscSerdeTraitProtocolTestService] {}
 
 // =============================================================================
 // REST protocols — all three layers
@@ -116,6 +116,9 @@ apply XmlNamedListMembers @http(method: "POST", uri: "/corpus/XmlNamedListMember
 apply XmlNamedMapMembers @http(method: "POST", uri: "/corpus/XmlNamedMapMembers")
 apply FlattenedXmlNamedListMembers @http(method: "POST", uri: "/corpus/FlattenedXmlNamedListMembers")
 apply FlattenedXmlNamedMapMembers @http(method: "POST", uri: "/corpus/FlattenedXmlNamedMapMembers")
+apply XmlNameOnTargetShape @http(method: "POST", uri: "/corpus/XmlNameOnTargetShape")
+apply XmlNamePrefixed @http(method: "POST", uri: "/corpus/XmlNamePrefixed")
+apply XmlNamespaceOnUnion @http(method: "POST", uri: "/corpus/XmlNamespaceOnUnion")
 
 // Http error operation
 apply HttpErrorOperation @http(method: "POST", uri: "/corpus/HttpErrorOperation")

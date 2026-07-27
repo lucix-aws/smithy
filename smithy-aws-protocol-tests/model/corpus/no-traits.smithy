@@ -43,10 +43,14 @@ operation NoTraitScalarMembers {
 /// Timestamp members have no @timestampFormat — protocol uses its default.
 structure NoTraitScalarStruct {
     booleanMember: Boolean
+    byteMember: Byte
+    shortMember: Short
     integerMember: Integer
     longMember: Long
     floatMember: Float
     doubleMember: Double
+    bigIntegerMember: BigInteger
+    bigDecimalMember: BigDecimal
     stringMember: String
     blobMember: Blob
     timestampMember: Timestamp

@@ -83,6 +83,10 @@ operation ScalarMembers {
         floatMember: Float
         @jsonName("jsonDoubleMember") @xmlName("xmlDoubleMember") @ec2QueryName("ec2DoubleMember")
         doubleMember: Double
+        @jsonName("jsonBigIntegerMember") @xmlName("xmlBigIntegerMember") @ec2QueryName("ec2BigIntegerMember")
+        bigIntegerMember: BigInteger
+        @jsonName("jsonBigDecimalMember") @xmlName("xmlBigDecimalMember") @ec2QueryName("ec2BigDecimalMember")
+        bigDecimalMember: BigDecimal
         @jsonName("jsonStringMember") @xmlName("xmlStringMember") @ec2QueryName("ec2StringMember")
         stringMember: String
         @jsonName("jsonMediaTypeMember") @xmlName("xmlMediaTypeMember") @ec2QueryName("ec2MediaTypeMember")
@@ -118,6 +122,10 @@ operation ScalarMembers {
         floatMember: Float
         @jsonName("jsonDoubleMember") @xmlName("xmlDoubleMember") @ec2QueryName("ec2DoubleMember")
         doubleMember: Double
+        @jsonName("jsonBigIntegerMember") @xmlName("xmlBigIntegerMember") @ec2QueryName("ec2BigIntegerMember")
+        bigIntegerMember: BigInteger
+        @jsonName("jsonBigDecimalMember") @xmlName("xmlBigDecimalMember") @ec2QueryName("ec2BigDecimalMember")
+        bigDecimalMember: BigDecimal
         @jsonName("jsonStringMember") @xmlName("xmlStringMember") @ec2QueryName("ec2StringMember")
         stringMember: String
         @jsonName("jsonMediaTypeMember") @xmlName("xmlMediaTypeMember") @ec2QueryName("ec2MediaTypeMember")
@@ -386,6 +394,10 @@ structure ScalarStruct {
     floatMember: Float
     @jsonName("jsonDoubleMember") @xmlName("xmlDoubleMember") @ec2QueryName("ec2DoubleMember")
     doubleMember: Double
+    @jsonName("jsonBigIntegerMember") @xmlName("xmlBigIntegerMember") @ec2QueryName("ec2BigIntegerMember")
+    bigIntegerMember: BigInteger
+    @jsonName("jsonBigDecimalMember") @xmlName("xmlBigDecimalMember") @ec2QueryName("ec2BigDecimalMember")
+    bigDecimalMember: BigDecimal
     @jsonName("jsonStringMember") @xmlName("xmlStringMember") @ec2QueryName("ec2StringMember")
     stringMember: String
     @jsonName("jsonMediaTypeMember") @xmlName("xmlMediaTypeMember") @ec2QueryName("ec2MediaTypeMember")

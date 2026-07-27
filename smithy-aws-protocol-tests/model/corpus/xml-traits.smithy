@@ -26,6 +26,9 @@ service XmlTraitsProtocolTestService with [CoreProtocolTestService] {
         XmlNamedMapMembers
         FlattenedXmlNamedListMembers
         FlattenedXmlNamedMapMembers
+        XmlNameOnTargetShape
+        XmlNamePrefixed
+        XmlNamespaceOnUnion
     ]
 }
 
@@ -391,4 +394,97 @@ operation FlattenedXmlNamedMapMembers {
         @xmlFlattened
         integers: XmlNamedIntegerMap
     }
+}
+
+// =============================================================================
+// @xmlName on a structure/union SHAPE — renames that shape's own root element,
+// but MUST NOT influence the element name of a member that targets it. The
+// member name (or member-level @xmlName) always wins; the target shape's
+// @xmlName must never appear on the wire for the member element.
+// =============================================================================
+
+operation XmlNameOnTargetShape {
+    input := {
+        // No member-level @xmlName: element must be the member name "structTarget",
+        // never the target shape's @xmlName ("ShouldNotAppearStruct").
+        structTarget: XmlNameStruct
+        // Member-level @xmlName present: element must be "xmlUnionTarget",
+        // never the target union's @xmlName ("ShouldNotAppearUnion").
+        @xmlName("xmlUnionTarget")
+        unionTarget: XmlNameUnion
+    }
+    output := {
+        structTarget: XmlNameStruct
+        @xmlName("xmlUnionTarget")
+        unionTarget: XmlNameUnion
+    }
+}
+
+@xmlName("ShouldNotAppearStruct")
+structure XmlNameStruct {
+    @xmlName("xmlStringMember")
+    stringMember: String
+}
+
+@xmlName("ShouldNotAppearUnion")
+union XmlNameUnion {
+    @xmlName("xmlStringValue")
+    stringValue: String
+    @xmlName("xmlIntegerValue")
+    integerValue: Integer
+}
+
+// =============================================================================
+// @xmlName with an embedded namespace prefix — the value adheres to the
+// XmlName ABNF (XmlIdentifier ":" XmlIdentifier) and inserts a prefix before
+// the element name. Two cases:
+//   (a) bare prefix with no matching declaration ("hello:foo")
+//   (b) prefix matching a @xmlNamespace prefix declared on the enclosing struct
+//       ("baz:bar" against xmlns:baz)
+// =============================================================================
+
+operation XmlNamePrefixed {
+    input := {
+        value: XmlNamePrefixedStruct
+    }
+    output := {
+        value: XmlNamePrefixedStruct
+    }
+}
+
+@xmlNamespace(uri: "https://example.com/baz", prefix: "baz")
+structure XmlNamePrefixedStruct {
+    // Bare prefixed name, no matching declared namespace prefix.
+    @xmlName("hello:foo")
+    foo: String
+
+    // Prefixed name matching the struct's declared "baz" namespace prefix.
+    @xmlName("baz:bar")
+    bar: String
+}
+
+// =============================================================================
+// @xmlNamespace on a UNION shape — the xmlNamespace selector permits unions.
+// Verifies namespace declaration propagates onto the union's serialized element.
+// =============================================================================
+
+operation XmlNamespaceOnUnion {
+    input := {
+        @xmlName("xmlValue")
+        value: XmlNamespacedUnion
+    }
+    output := {
+        @xmlName("xmlValue")
+        value: XmlNamespacedUnion
+    }
+}
+
+@xmlNamespace(uri: "https://example.com/union")
+union XmlNamespacedUnion {
+    @xmlName("xmlStringValue")
+    stringValue: String
+    @xmlName("xmlIntegerValue")
+    integerValue: Integer
+    @xmlName("xmlStructValue")
+    structValue: SimpleStruct
 }

@@ -2,6 +2,8 @@ $version: "2.0"
 
 namespace aws.protocoltests.corpus
 
+use aws.protocols#ec2QueryName
+
 /// @httpError trait coverage. This overrides the default HTTP status code
 /// derived from @error("client"|"server"). Separated into its own mixin because
 /// the RPC v2 family supports @httpError independently of the full HTTP binding
