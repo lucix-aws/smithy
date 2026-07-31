@@ -89,6 +89,7 @@ apply ScalarMembers @httpRequestTests([
     },
     {
         id: "AwsJson10ScalarMembersNaN",
+        tags: ["non-finite-floats"],
         documentation: "Serializes NaN float values",
         protocol: awsJson1_0,
         method: "POST",
@@ -110,6 +111,7 @@ apply ScalarMembers @httpRequestTests([
     },
     {
         id: "AwsJson10ScalarMembersInfinity",
+        tags: ["non-finite-floats"],
         documentation: "Serializes Infinity float values",
         protocol: awsJson1_0,
         method: "POST",
@@ -131,6 +133,7 @@ apply ScalarMembers @httpRequestTests([
     },
     {
         id: "AwsJson10ScalarMembersNegativeInfinity",
+        tags: ["non-finite-floats"],
         documentation: "Serializes -Infinity float values",
         protocol: awsJson1_0,
         method: "POST",
@@ -171,6 +174,7 @@ apply ScalarMembers @httpRequestTests([
     },
     {
         id: "AwsJson10ScalarMembersOmitsNullValues",
+        tags: ["null-on-wire"],
         documentation: "Non-sparse struct members that are null are omitted",
         protocol: awsJson1_0,
         method: "POST",
@@ -238,6 +242,7 @@ apply ScalarMembers @httpResponseTests([
     },
     {
         id: "AwsJson10ScalarMembersDeserializeNaN",
+        tags: ["non-finite-floats"],
         documentation: "Deserializes NaN float values",
         protocol: awsJson1_0,
         code: 200,
@@ -257,6 +262,7 @@ apply ScalarMembers @httpResponseTests([
     },
     {
         id: "AwsJson10ScalarMembersDeserializeIgnoresUnknownFields",
+        tags: ["unknown-fields"],
         documentation: "Client ignores unrecognized fields in the response",
         protocol: awsJson1_0,
         code: 200,

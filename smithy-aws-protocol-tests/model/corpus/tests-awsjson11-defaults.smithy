@@ -13,6 +13,7 @@ use smithy.test#httpResponseTests
 apply DefaultScalars @httpRequestTests([
     {
         id: "AwsJson11DefaultScalarsOmitsDefaults",
+        tags: ["top-level-default-omission"],
         documentation: "Client does not serialize members set to their default value",
         protocol: awsJson1_1,
         method: "POST",
@@ -50,6 +51,7 @@ apply DefaultScalars @httpRequestTests([
     },
     {
         id: "AwsJson11DefaultScalarsSerializeNonDefaults",
+        tags: ["explicit-over-default"],
         documentation: "Serializes members when explicitly set to non-default values",
         protocol: awsJson1_1,
         method: "POST",
@@ -152,6 +154,7 @@ apply DefaultScalars @httpResponseTests([
 apply DefaultCollections @httpRequestTests([
     {
         id: "AwsJson11DefaultCollectionsOmitsEmptyDefaults",
+        tags: ["top-level-default-omission"],
         documentation: "Client does not serialize empty list/map at default value",
         protocol: awsJson1_1,
         method: "POST",
@@ -171,6 +174,7 @@ apply DefaultCollections @httpRequestTests([
     },
     {
         id: "AwsJson11DefaultCollectionsSerializeNonEmpty",
+        tags: ["explicit-over-default"],
         documentation: "Serializes non-empty list and map",
         protocol: awsJson1_1,
         method: "POST",
@@ -349,6 +353,7 @@ apply RequiredMembers @httpRequestTests([
 apply RequiredMembers @httpResponseTests([
     {
         id: "AwsJson11RequiredMembersDeserializeZeroValues",
+        tags: ["error-correction"],
         documentation: "Client fills zero-values for required fields without defaults when server omits them",
         protocol: awsJson1_1,
         code: 200,
@@ -374,6 +379,7 @@ apply RequiredMembers @httpResponseTests([
     },
     {
         id: "AwsJson11RequiredMembersDeserializeDefaults",
+        tags: ["error-correction"],
         documentation: "Client fills defaults for required fields with @default when server omits them",
         protocol: awsJson1_1,
         code: 200,
@@ -470,6 +476,7 @@ apply NullSparseMembers @httpResponseTests([
 apply ClientOptionalDefaults @httpRequestTests([
     {
         id: "AwsJson11ClientOptionalDefaultsNotPopulated",
+        tags: ["client-optional-default"],
         documentation: "Client does not populate defaults for @clientOptional members",
         protocol: awsJson1_1,
         method: "POST",

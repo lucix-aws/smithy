@@ -16,9 +16,13 @@ use smithy.protocols#rpcv2Json
 // =============================================================================
 
 @awsJson1_0
+@aws.api#service(sdkId: "Json10Corpus", arnNamespace: "json10corpus")
+@aws.auth#sigv4(name: "json10corpus")
 service AwsJson10CorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, DocumentProtocolTestService, EventStreamProtocolTestService, HttpErrorProtocolTestService, NoProtocolTraitsBehaviorService, MiscSerdeTraitProtocolTestService] {}
 
 @awsJson1_1
+@aws.api#service(sdkId: "Json11Corpus", arnNamespace: "json11corpus")
+@aws.auth#sigv4(name: "json11corpus")
 service AwsJson11CorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, DocumentProtocolTestService, EventStreamProtocolTestService, HttpErrorProtocolTestService, NoProtocolTraitsBehaviorService, MiscSerdeTraitProtocolTestService] {}
 
 // =============================================================================

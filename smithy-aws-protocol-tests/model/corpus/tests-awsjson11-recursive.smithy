@@ -352,6 +352,7 @@ apply EmptyInputOutput @httpResponseTests([
     },
     {
         id: "AwsJson11EmptyInputOutputDeserializeEmptyBody",
+        tags: ["absent-response-body"],
         documentation: "Deserializes empty string body as valid empty output",
         protocol: awsJson1_1,
         code: 200,
@@ -391,7 +392,7 @@ apply NoInputOutput @httpRequestTests([
 // ErrorOperation
 // =============================================================================
 
-apply ErrorOperation @httpResponseTests([
+apply SimpleError @httpResponseTests([
     {
         id: "AwsJson11SimpleErrorDeserialize",
         documentation: "Deserializes simple client error with __type discrimination",
@@ -408,11 +409,11 @@ apply ErrorOperation @httpResponseTests([
         },
         params: {
             message: "oops",
-        },
-        error: {
-            shapeId: "aws.protocoltests.corpus#SimpleError",
         }
     },
+])
+
+apply ComplexError @httpResponseTests([
     {
         id: "AwsJson11ComplexErrorDeserialize",
         documentation: "Deserializes complex server error with nested struct",
@@ -439,9 +440,6 @@ apply ErrorOperation @httpResponseTests([
                 stringMember: "nestedValue",
                 integerMember: 99,
             },
-        },
-        error: {
-            shapeId: "aws.protocoltests.corpus#ComplexError",
         }
     },
 ])

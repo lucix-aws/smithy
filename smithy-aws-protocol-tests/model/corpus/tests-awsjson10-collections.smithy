@@ -44,6 +44,7 @@ apply ListOfScalars @httpRequestTests([
     },
     {
         id: "AwsJson10ListOfScalarsEmpty",
+        tags: ["empty"],
         documentation: "Serializes empty lists",
         protocol: awsJson1_0,
         method: "POST",
@@ -107,6 +108,7 @@ apply ListOfScalars @httpResponseTests([
     },
     {
         id: "AwsJson10ListOfScalarsEmptyResponse",
+        tags: ["empty"],
         documentation: "Deserializes empty lists",
         protocol: awsJson1_0,
         code: 200,
@@ -224,6 +226,7 @@ apply MapOfScalars @httpRequestTests([
     },
     {
         id: "AwsJson10MapOfScalarsEmpty",
+        tags: ["empty"],
         documentation: "Serializes empty maps",
         protocol: awsJson1_0,
         method: "POST",
@@ -287,6 +290,7 @@ apply MapOfScalars @httpResponseTests([
     },
     {
         id: "AwsJson10MapOfScalarsEmptyResponse",
+        tags: ["empty"],
         documentation: "Deserializes empty maps",
         protocol: awsJson1_0,
         code: 200,

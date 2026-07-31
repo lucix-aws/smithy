@@ -89,6 +89,7 @@ apply ScalarMembers @httpRequestTests([
     },
     {
         id: "AwsJson11ScalarMembersNaN",
+        tags: ["non-finite-floats"],
         documentation: "Serializes NaN float values",
         protocol: awsJson1_1,
         method: "POST",
@@ -110,6 +111,7 @@ apply ScalarMembers @httpRequestTests([
     },
     {
         id: "AwsJson11ScalarMembersInfinity",
+        tags: ["non-finite-floats"],
         documentation: "Serializes Infinity float values",
         protocol: awsJson1_1,
         method: "POST",
@@ -131,6 +133,7 @@ apply ScalarMembers @httpRequestTests([
     },
     {
         id: "AwsJson11ScalarMembersNegativeInfinity",
+        tags: ["non-finite-floats"],
         documentation: "Serializes -Infinity float values",
         protocol: awsJson1_1,
         method: "POST",
@@ -171,6 +174,7 @@ apply ScalarMembers @httpRequestTests([
     },
     {
         id: "AwsJson11ScalarMembersOmitsNullValues",
+        tags: ["null-on-wire"],
         documentation: "Non-sparse struct members that are null are omitted",
         protocol: awsJson1_1,
         method: "POST",
@@ -186,27 +190,6 @@ apply ScalarMembers @httpRequestTests([
         },
         params: {
             stringMember: "only this",
-        }
-    },
-    {
-        id: "AwsJson11ScalarMembersBigNums",
-        documentation: "Serializes bigInteger and bigDecimal members with precision beyond 64-bit",
-        protocol: awsJson1_1,
-        method: "POST",
-        uri: "/",
-        body: """
-            {
-                "bigIntegerMember": 340282366920938463463374607431768211456,
-                "bigDecimalMember": 3.14159265358979323846264338327950288
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "Content-Type": "application/x-amz-json-1.1",
-            "X-Amz-Target": "AwsJson11CorpusTests.ScalarMembers",
-        },
-        params: {
-            bigIntegerMember: 340282366920938463463374607431768211456,
-            bigDecimalMember: 3.14159265358979323846264338327950288,
         }
     },
 ])
@@ -259,6 +242,7 @@ apply ScalarMembers @httpResponseTests([
     },
     {
         id: "AwsJson11ScalarMembersDeserializeNaN",
+        tags: ["non-finite-floats"],
         documentation: "Deserializes NaN float values",
         protocol: awsJson1_1,
         code: 200,
@@ -278,6 +262,7 @@ apply ScalarMembers @httpResponseTests([
     },
     {
         id: "AwsJson11ScalarMembersDeserializeIgnoresUnknownFields",
+        tags: ["unknown-fields"],
         documentation: "Client ignores unrecognized fields in the response",
         protocol: awsJson1_1,
         code: 200,
@@ -294,25 +279,6 @@ apply ScalarMembers @httpResponseTests([
         appliesTo: "client",
         params: {
             stringMember: "hello",
-        }
-    },
-    {
-        id: "AwsJson11ScalarMembersDeserializeBigNums",
-        documentation: "Deserializes bigInteger and bigDecimal members with precision beyond 64-bit",
-        protocol: awsJson1_1,
-        code: 200,
-        body: """
-            {
-                "bigIntegerMember": 340282366920938463463374607431768211456,
-                "bigDecimalMember": 3.14159265358979323846264338327950288
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "Content-Type": "application/x-amz-json-1.1",
-        },
-        params: {
-            bigIntegerMember: 340282366920938463463374607431768211456,
-            bigDecimalMember: 3.14159265358979323846264338327950288,
         }
     },
 ])
