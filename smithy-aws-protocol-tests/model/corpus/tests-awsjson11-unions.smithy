@@ -173,6 +173,29 @@ apply UnionOfScalars @httpRequestTests([
         },
     },
     {
+        id: "AwsJson11UnionOfScalarsMediaTypeSerialize",
+        documentation: "Serializes union @mediaType string variant",
+        protocol: awsJson1_1,
+        method: "POST",
+        uri: "/",
+        body: """
+            {
+                "value": {
+                    "mediaTypeValue": "{\\\"nested\\\":true}"
+                }
+            }""",
+        bodyMediaType: "application/json",
+        headers: {
+            "Content-Type": "application/x-amz-json-1.1",
+            "X-Amz-Target": "AwsJson11CorpusTests.UnionOfScalars",
+        },
+        params: {
+            value: {
+                mediaTypeValue: "{\"nested\":true}",
+            },
+        },
+    },
+    {
         id: "AwsJson11UnionOfScalarsTimestampSerialize",
         documentation: "Serializes union timestamp variant (epoch seconds on wire)",
         protocol: awsJson1_1,
@@ -392,6 +415,27 @@ apply UnionOfScalars @httpResponseTests([
         },
     },
     {
+        id: "AwsJson11UnionOfScalarsMediaTypeDeserialize",
+        documentation: "Deserializes union @mediaType string variant",
+        protocol: awsJson1_1,
+        code: 200,
+        body: """
+            {
+                "value": {
+                    "mediaTypeValue": "{\\\"nested\\\":true}"
+                }
+            }""",
+        bodyMediaType: "application/json",
+        headers: {
+            "Content-Type": "application/x-amz-json-1.1",
+        },
+        params: {
+            value: {
+                mediaTypeValue: "{\"nested\":true}",
+            },
+        },
+    },
+    {
         id: "AwsJson11UnionOfScalarsTimestampDeserialize",
         documentation: "Deserializes union timestamp variant (epoch seconds on wire)",
         protocol: awsJson1_1,
@@ -473,7 +517,8 @@ apply UnionOfStruct @httpRequestTests([
                     "structValue": {
                         "stringMember": "hello",
                         "integerMember": 42,
-                        "booleanMember": true
+                        "booleanMember": true,
+                        "mediaTypeMember": "{\\\"n\\\":1}"
                     }
                 }
             }""",
@@ -488,6 +533,7 @@ apply UnionOfStruct @httpRequestTests([
                     stringMember: "hello",
                     integerMember: 42,
                     booleanMember: true,
+                    mediaTypeMember: "{\"n\":1}",
                 },
             },
         },
@@ -506,7 +552,8 @@ apply UnionOfStruct @httpResponseTests([
                     "structValue": {
                         "stringMember": "hello",
                         "integerMember": 42,
-                        "booleanMember": true
+                        "booleanMember": true,
+                        "mediaTypeMember": "{\\\"n\\\":1}"
                     }
                 }
             }""",
@@ -520,6 +567,7 @@ apply UnionOfStruct @httpResponseTests([
                     stringMember: "hello",
                     integerMember: 42,
                     booleanMember: true,
+                    mediaTypeMember: "{\"n\":1}",
                 },
             },
         },

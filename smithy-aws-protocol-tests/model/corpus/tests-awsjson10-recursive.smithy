@@ -51,7 +51,10 @@ apply RecursiveStruct @httpRequestTests([
                 "value": {
                     "recursiveList": [
                         {
-                            "stringMember": "inList"
+                            "stringMember": "inList1"
+                        },
+                        {
+                            "stringMember": "inList2"
                         }
                     ]
                 }
@@ -65,7 +68,10 @@ apply RecursiveStruct @httpRequestTests([
             value: {
                 recursiveList: [
                     {
-                        stringMember: "inList",
+                        stringMember: "inList1",
+                    },
+                    {
+                        stringMember: "inList2",
                     },
                 ],
             },
@@ -82,7 +88,10 @@ apply RecursiveStruct @httpRequestTests([
                 "value": {
                     "recursiveMap": {
                         "key1": {
-                            "stringMember": "inMap"
+                            "stringMember": "inMap1"
+                        },
+                        "key2": {
+                            "stringMember": "inMap2"
                         }
                     }
                 }
@@ -96,7 +105,10 @@ apply RecursiveStruct @httpRequestTests([
             value: {
                 recursiveMap: {
                     key1: {
-                        stringMember: "inMap",
+                        stringMember: "inMap1",
+                    },
+                    key2: {
+                        stringMember: "inMap2",
                     },
                 },
             },
@@ -142,7 +154,10 @@ apply RecursiveStruct @httpResponseTests([
                 "value": {
                     "recursiveList": [
                         {
-                            "stringMember": "inList"
+                            "stringMember": "inList1"
+                        },
+                        {
+                            "stringMember": "inList2"
                         }
                     ]
                 }
@@ -155,7 +170,10 @@ apply RecursiveStruct @httpResponseTests([
             value: {
                 recursiveList: [
                     {
-                        stringMember: "inList",
+                        stringMember: "inList1",
+                    },
+                    {
+                        stringMember: "inList2",
                     },
                 ],
             },
@@ -171,7 +189,10 @@ apply RecursiveStruct @httpResponseTests([
                 "value": {
                     "recursiveMap": {
                         "key1": {
-                            "stringMember": "inMap"
+                            "stringMember": "inMap1"
+                        },
+                        "key2": {
+                            "stringMember": "inMap2"
                         }
                     }
                 }
@@ -184,7 +205,10 @@ apply RecursiveStruct @httpResponseTests([
             value: {
                 recursiveMap: {
                     key1: {
-                        stringMember: "inMap",
+                        stringMember: "inMap1",
+                    },
+                    key2: {
+                        stringMember: "inMap2",
                     },
                 },
             },

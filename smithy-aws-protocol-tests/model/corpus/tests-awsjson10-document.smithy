@@ -188,6 +188,80 @@ apply DocumentMembers @httpResponseTests([
         }
     },
     {
+        id: "AwsJson10DocumentMembersDeserializeNumber",
+        documentation: "Deserializes document as a number",
+        protocol: awsJson1_0,
+        code: 200,
+        body: """
+            {
+                "documentValue": 42
+            }""",
+        bodyMediaType: "application/json",
+        headers: {
+            "Content-Type": "application/x-amz-json-1.0",
+        },
+        params: {
+            documentValue: 42,
+        }
+    },
+    {
+        id: "AwsJson10DocumentMembersDeserializeBoolean",
+        documentation: "Deserializes document as a boolean",
+        protocol: awsJson1_0,
+        code: 200,
+        body: """
+            {
+                "documentValue": true
+            }""",
+        bodyMediaType: "application/json",
+        headers: {
+            "Content-Type": "application/x-amz-json-1.0",
+        },
+        params: {
+            documentValue: true,
+        }
+    },
+    {
+        id: "AwsJson10DocumentMembersDeserializeArray",
+        documentation: "Deserializes document as an array",
+        protocol: awsJson1_0,
+        code: 200,
+        body: """
+            {
+                "documentValue": [1, 2, 3]
+            }""",
+        bodyMediaType: "application/json",
+        headers: {
+            "Content-Type": "application/x-amz-json-1.0",
+        },
+        params: {
+            documentValue: [1, 2, 3],
+        }
+    },
+    {
+        id: "AwsJson10DocumentMembersDeserializeNestedStruct",
+        documentation: "Deserializes nested struct containing a document",
+        protocol: awsJson1_0,
+        code: 200,
+        body: """
+            {
+                "nestedStruct": {
+                    "documentMember": {"nested": true},
+                    "stringMember": "hello"
+                }
+            }""",
+        bodyMediaType: "application/json",
+        headers: {
+            "Content-Type": "application/x-amz-json-1.0",
+        },
+        params: {
+            nestedStruct: {
+                documentMember: { nested: true },
+                stringMember: "hello",
+            },
+        }
+    },
+    {
         id: "AwsJson10DocumentMembersDeserializeNull",
         documentation: "Deserializes document as null",
         protocol: awsJson1_0,
@@ -301,7 +375,9 @@ apply MapOfDocuments @httpResponseTests([
                 "values": {
                     "num": 42,
                     "str": "hello",
-                    "bool": true
+                    "bool": true,
+                    "list": [1, 2],
+                    "obj": {"key": "value"}
                 }
             }""",
         bodyMediaType: "application/json",
@@ -313,6 +389,8 @@ apply MapOfDocuments @httpResponseTests([
                 num: 42,
                 str: "hello",
                 bool: true,
+                list: [1, 2],
+                obj: { key: "value" },
             },
         }
     },

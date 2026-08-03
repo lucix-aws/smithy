@@ -182,7 +182,7 @@ apply DefaultCollections @httpRequestTests([
         body: """
             {
                 "defaultList": ["a", "b"],
-                "defaultMap": {"key1": "value1"}
+                "defaultMap": {"key1": "value1", "key2": "value2"}
             }""",
         bodyMediaType: "application/json",
         headers: {
@@ -191,7 +191,7 @@ apply DefaultCollections @httpRequestTests([
         },
         params: {
             defaultList: ["a", "b"],
-            defaultMap: { key1: "value1" },
+            defaultMap: { key1: "value1", key2: "value2" },
         }
     },
 ])
@@ -220,13 +220,33 @@ apply NestedDefaults @httpRequestTests([
                     "nestedList": [
                         {
                             "greeting": "hi",
-                            "count": 5
+                            "count": 5,
+                            "inner": {
+                                "farewell": "bye"
+                            }
+                        },
+                        {
+                            "greeting": "yo",
+                            "count": 6,
+                            "inner": {
+                                "farewell": "later"
+                            }
                         }
                     ],
                     "nestedMap": {
                         "entry1": {
                             "greeting": "hey",
-                            "count": 10
+                            "count": 10,
+                            "inner": {
+                                "farewell": "ciao"
+                            }
+                        },
+                        "entry2": {
+                            "greeting": "sup",
+                            "count": 11,
+                            "inner": {
+                                "farewell": "adios"
+                            }
                         }
                     }
                 }
@@ -249,12 +269,32 @@ apply NestedDefaults @httpRequestTests([
                     {
                         greeting: "hi",
                         count: 5,
+                        inner: {
+                            farewell: "bye",
+                        },
+                    },
+                    {
+                        greeting: "yo",
+                        count: 6,
+                        inner: {
+                            farewell: "later",
+                        },
                     },
                 ],
                 nestedMap: {
                     entry1: {
                         greeting: "hey",
                         count: 10,
+                        inner: {
+                            farewell: "ciao",
+                        },
+                    },
+                    entry2: {
+                        greeting: "sup",
+                        count: 11,
+                        inner: {
+                            farewell: "adios",
+                        },
                     },
                 },
             },
@@ -272,9 +312,10 @@ apply NestedDefaults @httpResponseTests([
             {
                 "topLevel": {
                     "nested": {},
-                    "nestedList": [{}],
+                    "nestedList": [{}, {}],
                     "nestedMap": {
-                        "entry1": {}
+                        "entry1": {},
+                        "entry2": {}
                     }
                 }
             }""",
@@ -294,9 +335,17 @@ apply NestedDefaults @httpResponseTests([
                         greeting: "hello",
                         count: 0,
                     },
+                    {
+                        greeting: "hello",
+                        count: 0,
+                    },
                 ],
                 nestedMap: {
                     entry1: {
+                        greeting: "hello",
+                        count: 0,
+                    },
+                    entry2: {
                         greeting: "hello",
                         count: 0,
                     },
@@ -322,13 +371,13 @@ apply RequiredMembers @httpRequestTests([
                 "requiredString": "hello",
                 "requiredInteger": 42,
                 "requiredBoolean": true,
-                "requiredList": ["a"],
-                "requiredMap": {"key": "value"},
+                "requiredList": ["a", "b"],
+                "requiredMap": {"key1": "value1", "key2": "value2"},
                 "requiredStringWithDefault": "custom",
                 "requiredIntegerWithDefault": 5,
                 "requiredBooleanWithDefault": true,
-                "requiredListWithDefault": ["b"],
-                "requiredMapWithDefault": {"k": "v"}
+                "requiredListWithDefault": ["c", "d"],
+                "requiredMapWithDefault": {"k1": "v1", "k2": "v2"}
             }""",
         bodyMediaType: "application/json",
         headers: {
@@ -339,13 +388,13 @@ apply RequiredMembers @httpRequestTests([
             requiredString: "hello",
             requiredInteger: 42,
             requiredBoolean: true,
-            requiredList: ["a"],
-            requiredMap: { key: "value" },
+            requiredList: ["a", "b"],
+            requiredMap: { key1: "value1", key2: "value2" },
             requiredStringWithDefault: "custom",
             requiredIntegerWithDefault: 5,
             requiredBooleanWithDefault: true,
-            requiredListWithDefault: ["b"],
-            requiredMapWithDefault: { k: "v" },
+            requiredListWithDefault: ["c", "d"],
+            requiredMapWithDefault: { k1: "v1", k2: "v2" },
         }
     },
 ])
@@ -388,8 +437,8 @@ apply RequiredMembers @httpResponseTests([
                 "requiredString": "provided",
                 "requiredInteger": 1,
                 "requiredBoolean": true,
-                "requiredList": ["x"],
-                "requiredMap": {"a": "b"}
+                "requiredList": ["x", "y"],
+                "requiredMap": {"a": "b", "c": "d"}
             }""",
         bodyMediaType: "application/json",
         headers: {
@@ -400,8 +449,8 @@ apply RequiredMembers @httpResponseTests([
             requiredString: "provided",
             requiredInteger: 1,
             requiredBoolean: true,
-            requiredList: ["x"],
-            requiredMap: { a: "b" },
+            requiredList: ["x", "y"],
+            requiredMap: { a: "b", c: "d" },
             requiredStringWithDefault: "default",
             requiredIntegerWithDefault: 0,
             requiredBooleanWithDefault: false,
@@ -424,10 +473,10 @@ apply NullSparseMembers @httpRequestTests([
         uri: "/",
         body: """
             {
-                "sparseStringList": [null, "hello", null],
-                "sparseStringMap": {"key1": null, "key2": "value"},
-                "sparseStructList": [null, {"stringMember": "a"}],
-                "sparseStructMap": {"key1": null, "key2": {"stringMember": "b"}}
+                "sparseStringList": [null, "hello", null, "world", null],
+                "sparseStringMap": {"key1": null, "key2": "value", "key3": "value2"},
+                "sparseStructList": [null, {"stringMember": "a", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"}, null, {"stringMember": "b", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"}],
+                "sparseStructMap": {"key1": null, "key2": {"stringMember": "a", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"}, "key3": {"stringMember": "b", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"}}
             }""",
         bodyMediaType: "application/json",
         headers: {
@@ -435,10 +484,10 @@ apply NullSparseMembers @httpRequestTests([
             "X-Amz-Target": "AwsJson10CorpusTests.NullSparseMembers",
         },
         params: {
-            sparseStringList: [null, "hello", null],
-            sparseStringMap: { key1: null, key2: "value" },
-            sparseStructList: [null, { stringMember: "a" }],
-            sparseStructMap: { key1: null, key2: { stringMember: "b" } },
+            sparseStringList: [null, "hello", null, "world", null],
+            sparseStringMap: { key1: null, key2: "value", key3: "value2" },
+            sparseStructList: [null, { stringMember: "a", integerMember: 1, booleanMember: true, mediaTypeMember: "{\"n\":1}" }, null, { stringMember: "b", integerMember: 2, booleanMember: false, mediaTypeMember: "{\"n\":2}" }],
+            sparseStructMap: { key1: null, key2: { stringMember: "a", integerMember: 1, booleanMember: true, mediaTypeMember: "{\"n\":1}" }, key3: { stringMember: "b", integerMember: 2, booleanMember: false, mediaTypeMember: "{\"n\":2}" } },
         }
     },
 ])
@@ -451,20 +500,20 @@ apply NullSparseMembers @httpResponseTests([
         code: 200,
         body: """
             {
-                "sparseStringList": ["a", null],
-                "sparseStringMap": {"k": null},
-                "sparseStructList": [null],
-                "sparseStructMap": {"k": null}
+                "sparseStringList": [null, "hello", null, "world", null],
+                "sparseStringMap": {"key1": null, "key2": "value", "key3": "value2"},
+                "sparseStructList": [null, {"stringMember": "a", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"}, null, {"stringMember": "b", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"}],
+                "sparseStructMap": {"key1": null, "key2": {"stringMember": "a", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"}, "key3": {"stringMember": "b", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"}}
             }""",
         bodyMediaType: "application/json",
         headers: {
             "Content-Type": "application/x-amz-json-1.0",
         },
         params: {
-            sparseStringList: ["a", null],
-            sparseStringMap: { k: null },
-            sparseStructList: [null],
-            sparseStructMap: { k: null },
+            sparseStringList: [null, "hello", null, "world", null],
+            sparseStringMap: { key1: null, key2: "value", key3: "value2" },
+            sparseStructList: [null, { stringMember: "a", integerMember: 1, booleanMember: true, mediaTypeMember: "{\"n\":1}" }, null, { stringMember: "b", integerMember: 2, booleanMember: false, mediaTypeMember: "{\"n\":2}" }],
+            sparseStructMap: { key1: null, key2: { stringMember: "a", integerMember: 1, booleanMember: true, mediaTypeMember: "{\"n\":1}" }, key3: { stringMember: "b", integerMember: 2, booleanMember: false, mediaTypeMember: "{\"n\":2}" } },
         }
     },
 ])

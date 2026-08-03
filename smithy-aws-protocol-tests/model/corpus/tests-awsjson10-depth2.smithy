@@ -20,8 +20,8 @@ apply ListOfStructs @httpRequestTests([
         body: """
             {
                 "values": [
-                    {"stringMember": "foo", "integerMember": 1, "booleanMember": true},
-                    {"stringMember": "bar", "integerMember": 2, "booleanMember": false}
+                    {"stringMember": "foo", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"},
+                    {"stringMember": "bar", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"}
                 ]
             }""",
         bodyMediaType: "application/json",
@@ -31,8 +31,8 @@ apply ListOfStructs @httpRequestTests([
         },
         params: {
             values: [
-                { stringMember: "foo", integerMember: 1, booleanMember: true },
-                { stringMember: "bar", integerMember: 2, booleanMember: false },
+                { stringMember: "foo", integerMember: 1, booleanMember: true, mediaTypeMember: "{\"n\":1}" },
+                { stringMember: "bar", integerMember: 2, booleanMember: false, mediaTypeMember: "{\"n\":2}" },
             ]
         }
     },
@@ -47,8 +47,8 @@ apply ListOfStructs @httpResponseTests([
         body: """
             {
                 "values": [
-                    {"stringMember": "foo", "integerMember": 1, "booleanMember": true},
-                    {"stringMember": "bar", "integerMember": 2, "booleanMember": false}
+                    {"stringMember": "foo", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"},
+                    {"stringMember": "bar", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"}
                 ]
             }""",
         bodyMediaType: "application/json",
@@ -57,8 +57,8 @@ apply ListOfStructs @httpResponseTests([
         },
         params: {
             values: [
-                { stringMember: "foo", integerMember: 1, booleanMember: true },
-                { stringMember: "bar", integerMember: 2, booleanMember: false },
+                { stringMember: "foo", integerMember: 1, booleanMember: true, mediaTypeMember: "{\"n\":1}" },
+                { stringMember: "bar", integerMember: 2, booleanMember: false, mediaTypeMember: "{\"n\":2}" },
             ]
         }
     },
@@ -252,8 +252,8 @@ apply MapOfStructs @httpRequestTests([
         body: """
             {
                 "values": {
-                    "first": {"stringMember": "foo", "integerMember": 1, "booleanMember": true},
-                    "second": {"stringMember": "bar", "integerMember": 2, "booleanMember": false}
+                    "first": {"stringMember": "foo", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"},
+                    "second": {"stringMember": "bar", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"}
                 }
             }""",
         bodyMediaType: "application/json",
@@ -263,8 +263,8 @@ apply MapOfStructs @httpRequestTests([
         },
         params: {
             values: {
-                first: { stringMember: "foo", integerMember: 1, booleanMember: true },
-                second: { stringMember: "bar", integerMember: 2, booleanMember: false },
+                first: { stringMember: "foo", integerMember: 1, booleanMember: true, mediaTypeMember: "{\"n\":1}" },
+                second: { stringMember: "bar", integerMember: 2, booleanMember: false, mediaTypeMember: "{\"n\":2}" },
             }
         }
     },
@@ -279,8 +279,8 @@ apply MapOfStructs @httpResponseTests([
         body: """
             {
                 "values": {
-                    "first": {"stringMember": "foo", "integerMember": 1, "booleanMember": true},
-                    "second": {"stringMember": "bar", "integerMember": 2, "booleanMember": false}
+                    "first": {"stringMember": "foo", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"},
+                    "second": {"stringMember": "bar", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"}
                 }
             }""",
         bodyMediaType: "application/json",
@@ -289,8 +289,8 @@ apply MapOfStructs @httpResponseTests([
         },
         params: {
             values: {
-                first: { stringMember: "foo", integerMember: 1, booleanMember: true },
-                second: { stringMember: "bar", integerMember: 2, booleanMember: false },
+                first: { stringMember: "foo", integerMember: 1, booleanMember: true, mediaTypeMember: "{\"n\":1}" },
+                second: { stringMember: "bar", integerMember: 2, booleanMember: false, mediaTypeMember: "{\"n\":2}" },
             }
         }
     },
@@ -484,9 +484,9 @@ apply SparseListOfStructs @httpRequestTests([
         body: """
             {
                 "values": [
-                    {"stringMember": "foo", "integerMember": 1, "booleanMember": true},
+                    {"stringMember": "foo", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"},
                     null,
-                    {"stringMember": "bar", "integerMember": 2, "booleanMember": false}
+                    {"stringMember": "bar", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"}
                 ]
             }""",
         bodyMediaType: "application/json",
@@ -496,9 +496,9 @@ apply SparseListOfStructs @httpRequestTests([
         },
         params: {
             values: [
-                { stringMember: "foo", integerMember: 1, booleanMember: true },
+                { stringMember: "foo", integerMember: 1, booleanMember: true, mediaTypeMember: "{\"n\":1}" },
                 null,
-                { stringMember: "bar", integerMember: 2, booleanMember: false },
+                { stringMember: "bar", integerMember: 2, booleanMember: false, mediaTypeMember: "{\"n\":2}" },
             ]
         }
     },
@@ -513,9 +513,9 @@ apply SparseListOfStructs @httpResponseTests([
         body: """
             {
                 "values": [
-                    {"stringMember": "foo", "integerMember": 1, "booleanMember": true},
+                    {"stringMember": "foo", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"},
                     null,
-                    {"stringMember": "bar", "integerMember": 2, "booleanMember": false}
+                    {"stringMember": "bar", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"}
                 ]
             }""",
         bodyMediaType: "application/json",
@@ -524,9 +524,9 @@ apply SparseListOfStructs @httpResponseTests([
         },
         params: {
             values: [
-                { stringMember: "foo", integerMember: 1, booleanMember: true },
+                { stringMember: "foo", integerMember: 1, booleanMember: true, mediaTypeMember: "{\"n\":1}" },
                 null,
-                { stringMember: "bar", integerMember: 2, booleanMember: false },
+                { stringMember: "bar", integerMember: 2, booleanMember: false, mediaTypeMember: "{\"n\":2}" },
             ]
         }
     },
@@ -539,15 +539,16 @@ apply SparseListOfStructs @httpResponseTests([
 apply SparseMapOfStructs @httpRequestTests([
     {
         id: "AwsJson10SparseMapOfStructsSerialize",
-        documentation: "Serializes a sparse map with null value",
+        documentation: "Serializes a sparse map with a null interspersed between populated entries",
         protocol: awsJson1_0,
         method: "POST",
         uri: "/",
         body: """
             {
                 "values": {
-                    "a": {"stringMember": "foo", "integerMember": 1, "booleanMember": true},
-                    "b": null
+                    "a": {"stringMember": "foo", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"},
+                    "b": null,
+                    "c": {"stringMember": "bar", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"}
                 }
             }""",
         bodyMediaType: "application/json",
@@ -557,8 +558,9 @@ apply SparseMapOfStructs @httpRequestTests([
         },
         params: {
             values: {
-                a: { stringMember: "foo", integerMember: 1, booleanMember: true },
+                a: { stringMember: "foo", integerMember: 1, booleanMember: true, mediaTypeMember: "{\"n\":1}" },
                 b: null,
+                c: { stringMember: "bar", integerMember: 2, booleanMember: false, mediaTypeMember: "{\"n\":2}" },
             }
         }
     },
@@ -567,14 +569,15 @@ apply SparseMapOfStructs @httpRequestTests([
 apply SparseMapOfStructs @httpResponseTests([
     {
         id: "AwsJson10SparseMapOfStructsDeserialize",
-        documentation: "Deserializes a sparse map with null value",
+        documentation: "Deserializes a sparse map with a null interspersed between populated entries",
         protocol: awsJson1_0,
         code: 200,
         body: """
             {
                 "values": {
-                    "a": {"stringMember": "foo", "integerMember": 1, "booleanMember": true},
-                    "b": null
+                    "a": {"stringMember": "foo", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"},
+                    "b": null,
+                    "c": {"stringMember": "bar", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"}
                 }
             }""",
         bodyMediaType: "application/json",
@@ -583,8 +586,9 @@ apply SparseMapOfStructs @httpResponseTests([
         },
         params: {
             values: {
-                a: { stringMember: "foo", integerMember: 1, booleanMember: true },
+                a: { stringMember: "foo", integerMember: 1, booleanMember: true, mediaTypeMember: "{\"n\":1}" },
                 b: null,
+                c: { stringMember: "bar", integerMember: 2, booleanMember: false, mediaTypeMember: "{\"n\":2}" },
             }
         }
     },

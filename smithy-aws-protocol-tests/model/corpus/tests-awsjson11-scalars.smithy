@@ -261,6 +261,98 @@ apply ScalarMembers @httpResponseTests([
         }
     },
     {
+        id: "AwsJson11ScalarMembersDeserializeZeroValues",
+        documentation: "Deserializes zero/false/empty scalar values",
+        protocol: awsJson1_1,
+        code: 200,
+        body: """
+            {
+                "booleanMember": false,
+                "byteMember": 0,
+                "shortMember": 0,
+                "integerMember": 0,
+                "longMember": 0,
+                "floatMember": 0,
+                "doubleMember": 0,
+                "stringMember": ""
+            }""",
+        bodyMediaType: "application/json",
+        headers: {
+            "Content-Type": "application/x-amz-json-1.1",
+        },
+        params: {
+            booleanMember: false,
+            byteMember: 0,
+            shortMember: 0,
+            integerMember: 0,
+            longMember: 0,
+            floatMember: 0,
+            doubleMember: 0,
+            stringMember: "",
+        }
+    },
+    {
+        id: "AwsJson11ScalarMembersDeserializeInfinity",
+        tags: ["non-finite-floats"],
+        documentation: "Deserializes Infinity float values",
+        protocol: awsJson1_1,
+        code: 200,
+        body: """
+            {
+                "floatMember": "Infinity",
+                "doubleMember": "Infinity"
+            }""",
+        bodyMediaType: "application/json",
+        headers: {
+            "Content-Type": "application/x-amz-json-1.1",
+        },
+        params: {
+            floatMember: "Infinity",
+            doubleMember: "Infinity",
+        }
+    },
+    {
+        id: "AwsJson11ScalarMembersDeserializeNegativeInfinity",
+        tags: ["non-finite-floats"],
+        documentation: "Deserializes -Infinity float values",
+        protocol: awsJson1_1,
+        code: 200,
+        body: """
+            {
+                "floatMember": "-Infinity",
+                "doubleMember": "-Infinity"
+            }""",
+        bodyMediaType: "application/json",
+        headers: {
+            "Content-Type": "application/x-amz-json-1.1",
+        },
+        params: {
+            floatMember: "-Infinity",
+            doubleMember: "-Infinity",
+        }
+    },
+    {
+        id: "AwsJson11ScalarMembersDeserializeIgnoresNullValues",
+        tags: ["null-on-wire"],
+        documentation: "Client drops a wire null for a dense struct member",
+        protocol: awsJson1_1,
+        code: 200,
+        body: """
+            {
+                "stringMember": "only this",
+                "integerMember": null,
+                "booleanMember": null
+            }""",
+        bodyMediaType: "application/json",
+        headers: {
+            "Content-Type": "application/x-amz-json-1.1",
+        },
+        appliesTo: "client",
+        params: {
+            stringMember: "only this",
+        }
+    },
+    {
         id: "AwsJson11ScalarMembersDeserializeIgnoresUnknownFields",
         tags: ["unknown-fields"],
         documentation: "Client ignores unrecognized fields in the response",
