@@ -68,84 +68,48 @@ service CoreProtocolTestService {
 // =============================================================================
 
 operation ScalarMembers {
-    input := {
-        @jsonName("jsonBooleanMember") @xmlName("xmlBooleanMember") @ec2QueryName("ec2BooleanMember")
-        booleanMember: Boolean
-        @jsonName("jsonByteMember") @xmlName("xmlByteMember") @ec2QueryName("ec2ByteMember")
-        byteMember: Byte
-        @jsonName("jsonShortMember") @xmlName("xmlShortMember") @ec2QueryName("ec2ShortMember")
-        shortMember: Short
-        @jsonName("jsonIntegerMember") @xmlName("xmlIntegerMember") @ec2QueryName("ec2IntegerMember")
-        integerMember: Integer
-        @jsonName("jsonLongMember") @xmlName("xmlLongMember") @ec2QueryName("ec2LongMember")
-        longMember: Long
-        @jsonName("jsonFloatMember") @xmlName("xmlFloatMember") @ec2QueryName("ec2FloatMember")
-        floatMember: Float
-        @jsonName("jsonDoubleMember") @xmlName("xmlDoubleMember") @ec2QueryName("ec2DoubleMember")
-        doubleMember: Double
-        @jsonName("jsonBigIntegerMember") @xmlName("xmlBigIntegerMember") @ec2QueryName("ec2BigIntegerMember")
-        bigIntegerMember: BigInteger
-        @jsonName("jsonBigDecimalMember") @xmlName("xmlBigDecimalMember") @ec2QueryName("ec2BigDecimalMember")
-        bigDecimalMember: BigDecimal
-        @jsonName("jsonStringMember") @xmlName("xmlStringMember") @ec2QueryName("ec2StringMember")
-        stringMember: String
-        @jsonName("jsonMediaTypeMember") @xmlName("xmlMediaTypeMember") @ec2QueryName("ec2MediaTypeMember")
-        mediaTypeMember: MediaTypeJsonString
-        @jsonName("jsonBlobMember") @xmlName("xmlBlobMember") @ec2QueryName("ec2BlobMember")
-        blobMember: Blob
-        @jsonName("jsonDateTimeMember") @xmlName("xmlDateTimeMember") @ec2QueryName("ec2DateTimeMember")
-        @timestampFormat("date-time")
-        dateTimeMember: Timestamp
-        @jsonName("jsonEpochSecondsMember") @xmlName("xmlEpochSecondsMember") @ec2QueryName("ec2EpochSecondsMember")
-        @timestampFormat("epoch-seconds")
-        epochSecondsMember: Timestamp
-        @jsonName("jsonHttpDateMember") @xmlName("xmlHttpDateMember") @ec2QueryName("ec2HttpDateMember")
-        @timestampFormat("http-date")
-        httpDateMember: Timestamp
-        @jsonName("jsonStringEnum") @xmlName("xmlStringEnum") @ec2QueryName("ec2StringEnum")
-        stringEnum: CorpusStringEnum
-        @jsonName("jsonIntEnum") @xmlName("xmlIntEnum") @ec2QueryName("ec2IntEnum")
-        intEnum: CorpusIntEnum
-    }
-    output := {
-        @jsonName("jsonBooleanMember") @xmlName("xmlBooleanMember") @ec2QueryName("ec2BooleanMember")
-        booleanMember: Boolean
-        @jsonName("jsonByteMember") @xmlName("xmlByteMember") @ec2QueryName("ec2ByteMember")
-        byteMember: Byte
-        @jsonName("jsonShortMember") @xmlName("xmlShortMember") @ec2QueryName("ec2ShortMember")
-        shortMember: Short
-        @jsonName("jsonIntegerMember") @xmlName("xmlIntegerMember") @ec2QueryName("ec2IntegerMember")
-        integerMember: Integer
-        @jsonName("jsonLongMember") @xmlName("xmlLongMember") @ec2QueryName("ec2LongMember")
-        longMember: Long
-        @jsonName("jsonFloatMember") @xmlName("xmlFloatMember") @ec2QueryName("ec2FloatMember")
-        floatMember: Float
-        @jsonName("jsonDoubleMember") @xmlName("xmlDoubleMember") @ec2QueryName("ec2DoubleMember")
-        doubleMember: Double
-        @jsonName("jsonBigIntegerMember") @xmlName("xmlBigIntegerMember") @ec2QueryName("ec2BigIntegerMember")
-        bigIntegerMember: BigInteger
-        @jsonName("jsonBigDecimalMember") @xmlName("xmlBigDecimalMember") @ec2QueryName("ec2BigDecimalMember")
-        bigDecimalMember: BigDecimal
-        @jsonName("jsonStringMember") @xmlName("xmlStringMember") @ec2QueryName("ec2StringMember")
-        stringMember: String
-        @jsonName("jsonMediaTypeMember") @xmlName("xmlMediaTypeMember") @ec2QueryName("ec2MediaTypeMember")
-        mediaTypeMember: MediaTypeJsonString
-        @jsonName("jsonBlobMember") @xmlName("xmlBlobMember") @ec2QueryName("ec2BlobMember")
-        blobMember: Blob
-        @jsonName("jsonDateTimeMember") @xmlName("xmlDateTimeMember") @ec2QueryName("ec2DateTimeMember")
-        @timestampFormat("date-time")
-        dateTimeMember: Timestamp
-        @jsonName("jsonEpochSecondsMember") @xmlName("xmlEpochSecondsMember") @ec2QueryName("ec2EpochSecondsMember")
-        @timestampFormat("epoch-seconds")
-        epochSecondsMember: Timestamp
-        @jsonName("jsonHttpDateMember") @xmlName("xmlHttpDateMember") @ec2QueryName("ec2HttpDateMember")
-        @timestampFormat("http-date")
-        httpDateMember: Timestamp
-        @jsonName("jsonStringEnum") @xmlName("xmlStringEnum") @ec2QueryName("ec2StringEnum")
-        stringEnum: CorpusStringEnum
-        @jsonName("jsonIntEnum") @xmlName("xmlIntEnum") @ec2QueryName("ec2IntEnum")
-        intEnum: CorpusIntEnum
-    }
+    input: ScalarMembersInputOutput
+    output: ScalarMembersInputOutput
+}
+
+structure ScalarMembersInputOutput {
+    @jsonName("jsonBooleanMember") @xmlName("xmlBooleanMember") @ec2QueryName("ec2BooleanMember")
+    booleanMember: Boolean
+    @jsonName("jsonByteMember") @xmlName("xmlByteMember") @ec2QueryName("ec2ByteMember")
+    byteMember: Byte
+    @jsonName("jsonShortMember") @xmlName("xmlShortMember") @ec2QueryName("ec2ShortMember")
+    shortMember: Short
+    @jsonName("jsonIntegerMember") @xmlName("xmlIntegerMember") @ec2QueryName("ec2IntegerMember")
+    integerMember: Integer
+    @jsonName("jsonLongMember") @xmlName("xmlLongMember") @ec2QueryName("ec2LongMember")
+    longMember: Long
+    @jsonName("jsonFloatMember") @xmlName("xmlFloatMember") @ec2QueryName("ec2FloatMember")
+    floatMember: Float
+    @jsonName("jsonDoubleMember") @xmlName("xmlDoubleMember") @ec2QueryName("ec2DoubleMember")
+    doubleMember: Double
+    @jsonName("jsonBigIntegerMember") @xmlName("xmlBigIntegerMember") @ec2QueryName("ec2BigIntegerMember")
+    bigIntegerMember: BigInteger
+    @jsonName("jsonBigDecimalMember") @xmlName("xmlBigDecimalMember") @ec2QueryName("ec2BigDecimalMember")
+    bigDecimalMember: BigDecimal
+    @jsonName("jsonStringMember") @xmlName("xmlStringMember") @ec2QueryName("ec2StringMember")
+    stringMember: String
+    @jsonName("jsonMediaTypeMember") @xmlName("xmlMediaTypeMember") @ec2QueryName("ec2MediaTypeMember")
+    mediaTypeMember: MediaTypeJsonString
+    @jsonName("jsonBlobMember") @xmlName("xmlBlobMember") @ec2QueryName("ec2BlobMember")
+    blobMember: Blob
+    @jsonName("jsonDateTimeMember") @xmlName("xmlDateTimeMember") @ec2QueryName("ec2DateTimeMember")
+    @timestampFormat("date-time")
+    dateTimeMember: Timestamp
+    @jsonName("jsonEpochSecondsMember") @xmlName("xmlEpochSecondsMember") @ec2QueryName("ec2EpochSecondsMember")
+    @timestampFormat("epoch-seconds")
+    epochSecondsMember: Timestamp
+    @jsonName("jsonHttpDateMember") @xmlName("xmlHttpDateMember") @ec2QueryName("ec2HttpDateMember")
+    @timestampFormat("http-date")
+    httpDateMember: Timestamp
+    @jsonName("jsonStringEnum") @xmlName("xmlStringEnum") @ec2QueryName("ec2StringEnum")
+    stringEnum: CorpusStringEnum
+    @jsonName("jsonIntEnum") @xmlName("xmlIntEnum") @ec2QueryName("ec2IntEnum")
+    intEnum: CorpusIntEnum
 }
 
 enum CorpusStringEnum {
@@ -165,163 +129,126 @@ intEnum CorpusIntEnum {
 // =============================================================================
 
 operation ListOfScalars {
-    input := {
-        @jsonName("jsonBooleans") @xmlName("xmlBooleans") @ec2QueryName("ec2Booleans")
-        booleans: BooleanList
-        @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
-        integers: IntegerList
-        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
-        strings: StringList
-        @jsonName("jsonBlobs") @xmlName("xmlBlobs") @ec2QueryName("ec2Blobs")
-        blobs: BlobList
-        @jsonName("jsonTimestamps") @xmlName("xmlTimestamps") @ec2QueryName("ec2Timestamps")
-        timestamps: TimestampList
-        @jsonName("jsonEnums") @xmlName("xmlEnums") @ec2QueryName("ec2Enums")
-        enums: CorpusStringEnumList
-        @jsonName("jsonIntEnums") @xmlName("xmlIntEnums") @ec2QueryName("ec2IntEnums")
-        intEnums: CorpusIntEnumList
-    }
-    output := {
-        @jsonName("jsonBooleans") @xmlName("xmlBooleans") @ec2QueryName("ec2Booleans")
-        booleans: BooleanList
-        @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
-        integers: IntegerList
-        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
-        strings: StringList
-        @jsonName("jsonBlobs") @xmlName("xmlBlobs") @ec2QueryName("ec2Blobs")
-        blobs: BlobList
-        @jsonName("jsonTimestamps") @xmlName("xmlTimestamps") @ec2QueryName("ec2Timestamps")
-        timestamps: TimestampList
-        @jsonName("jsonEnums") @xmlName("xmlEnums") @ec2QueryName("ec2Enums")
-        enums: CorpusStringEnumList
-        @jsonName("jsonIntEnums") @xmlName("xmlIntEnums") @ec2QueryName("ec2IntEnums")
-        intEnums: CorpusIntEnumList
-    }
+    input: ListOfScalarsInputOutput
+    output: ListOfScalarsInputOutput
 }
+
+structure ListOfScalarsInputOutput {
+        @jsonName("jsonBooleans") @xmlName("xmlBooleans") @ec2QueryName("ec2Booleans")
+        booleans: BooleanList
+        @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
+        integers: IntegerList
+        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
+        strings: StringList
+        @jsonName("jsonBlobs") @xmlName("xmlBlobs") @ec2QueryName("ec2Blobs")
+        blobs: BlobList
+        @jsonName("jsonTimestamps") @xmlName("xmlTimestamps") @ec2QueryName("ec2Timestamps")
+        timestamps: TimestampList
+        @jsonName("jsonEnums") @xmlName("xmlEnums") @ec2QueryName("ec2Enums")
+        enums: CorpusStringEnumList
+        @jsonName("jsonIntEnums") @xmlName("xmlIntEnums") @ec2QueryName("ec2IntEnums")
+        intEnums: CorpusIntEnumList
+    }
 
 operation SparseListOfScalars {
-    input := {
-        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
-        strings: SparseStringList
-        @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
-        integers: SparseIntegerList
-    }
-    output := {
-        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
-        strings: SparseStringList
-        @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
-        integers: SparseIntegerList
-    }
+    input: SparseListOfScalarsInputOutput
+    output: SparseListOfScalarsInputOutput
 }
+
+structure SparseListOfScalarsInputOutput {
+        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
+        strings: SparseStringList
+        @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
+        integers: SparseIntegerList
+    }
 
 operation MapOfScalars {
-    input := {
-        @jsonName("jsonBooleans") @xmlName("xmlBooleans") @ec2QueryName("ec2Booleans")
-        booleans: BooleanMap
-        @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
-        integers: IntegerMap
-        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
-        strings: StringMap
-        @jsonName("jsonBlobs") @xmlName("xmlBlobs") @ec2QueryName("ec2Blobs")
-        blobs: BlobMap
-        @jsonName("jsonTimestamps") @xmlName("xmlTimestamps") @ec2QueryName("ec2Timestamps")
-        timestamps: TimestampMap
-        @jsonName("jsonEnums") @xmlName("xmlEnums") @ec2QueryName("ec2Enums")
-        enums: CorpusStringEnumMap
-        @jsonName("jsonIntEnums") @xmlName("xmlIntEnums") @ec2QueryName("ec2IntEnums")
-        intEnums: CorpusIntEnumMap
-    }
-    output := {
-        @jsonName("jsonBooleans") @xmlName("xmlBooleans") @ec2QueryName("ec2Booleans")
-        booleans: BooleanMap
-        @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
-        integers: IntegerMap
-        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
-        strings: StringMap
-        @jsonName("jsonBlobs") @xmlName("xmlBlobs") @ec2QueryName("ec2Blobs")
-        blobs: BlobMap
-        @jsonName("jsonTimestamps") @xmlName("xmlTimestamps") @ec2QueryName("ec2Timestamps")
-        timestamps: TimestampMap
-        @jsonName("jsonEnums") @xmlName("xmlEnums") @ec2QueryName("ec2Enums")
-        enums: CorpusStringEnumMap
-        @jsonName("jsonIntEnums") @xmlName("xmlIntEnums") @ec2QueryName("ec2IntEnums")
-        intEnums: CorpusIntEnumMap
-    }
+    input: MapOfScalarsInputOutput
+    output: MapOfScalarsInputOutput
 }
 
+structure MapOfScalarsInputOutput {
+        @jsonName("jsonBooleans") @xmlName("xmlBooleans") @ec2QueryName("ec2Booleans")
+        booleans: BooleanMap
+        @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
+        integers: IntegerMap
+        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
+        strings: StringMap
+        @jsonName("jsonBlobs") @xmlName("xmlBlobs") @ec2QueryName("ec2Blobs")
+        blobs: BlobMap
+        @jsonName("jsonTimestamps") @xmlName("xmlTimestamps") @ec2QueryName("ec2Timestamps")
+        timestamps: TimestampMap
+        @jsonName("jsonEnums") @xmlName("xmlEnums") @ec2QueryName("ec2Enums")
+        enums: CorpusStringEnumMap
+        @jsonName("jsonIntEnums") @xmlName("xmlIntEnums") @ec2QueryName("ec2IntEnums")
+        intEnums: CorpusIntEnumMap
+    }
+
 operation SparseMapOfScalars {
-    input := {
-        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
-        strings: SparseStringMap
-        @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
-        integers: SparseIntegerMap
-    }
-    output := {
-        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
-        strings: SparseStringMap
-        @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
-        integers: SparseIntegerMap
-    }
+    input: SparseMapOfScalarsInputOutput
+    output: SparseMapOfScalarsInputOutput
 }
+
+structure SparseMapOfScalarsInputOutput {
+        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
+        strings: SparseStringMap
+        @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
+        integers: SparseIntegerMap
+    }
 
 // =============================================================================
 // Union transitions
 // =============================================================================
 
 operation UnionOfScalars {
-    input := {
-        @jsonName("jsonValue") @xmlName("xmlValue") @ec2QueryName("ec2Value")
-        value: CorpusUnion
-    }
-    output := {
-        @jsonName("jsonValue") @xmlName("xmlValue") @ec2QueryName("ec2Value")
-        value: CorpusUnion
-    }
+    input: UnionOfScalarsInputOutput
+    output: UnionOfScalarsInputOutput
 }
+
+structure UnionOfScalarsInputOutput {
+        @jsonName("jsonValue") @xmlName("xmlValue") @ec2QueryName("ec2Value")
+        value: CorpusUnion
+    }
 
 operation UnionOfStruct {
-    input := {
-        @jsonName("jsonValue") @xmlName("xmlValue") @ec2QueryName("ec2Value")
-        value: CorpusUnion
-    }
-    output := {
-        @jsonName("jsonValue") @xmlName("xmlValue") @ec2QueryName("ec2Value")
-        value: CorpusUnion
-    }
+    input: UnionOfStructInputOutput
+    output: UnionOfStructInputOutput
 }
+
+structure UnionOfStructInputOutput {
+        @jsonName("jsonValue") @xmlName("xmlValue") @ec2QueryName("ec2Value")
+        value: CorpusUnion
+    }
 
 operation UnionOfList {
-    input := {
-        @jsonName("jsonValue") @xmlName("xmlValue") @ec2QueryName("ec2Value")
-        value: CorpusUnion
-    }
-    output := {
-        @jsonName("jsonValue") @xmlName("xmlValue") @ec2QueryName("ec2Value")
-        value: CorpusUnion
-    }
+    input: UnionOfListInputOutput
+    output: UnionOfListInputOutput
 }
+
+structure UnionOfListInputOutput {
+        @jsonName("jsonValue") @xmlName("xmlValue") @ec2QueryName("ec2Value")
+        value: CorpusUnion
+    }
 
 operation UnionOfMap {
-    input := {
-        @jsonName("jsonValue") @xmlName("xmlValue") @ec2QueryName("ec2Value")
-        value: CorpusUnion
-    }
-    output := {
-        @jsonName("jsonValue") @xmlName("xmlValue") @ec2QueryName("ec2Value")
-        value: CorpusUnion
-    }
+    input: UnionOfMapInputOutput
+    output: UnionOfMapInputOutput
 }
 
+structure UnionOfMapInputOutput {
+        @jsonName("jsonValue") @xmlName("xmlValue") @ec2QueryName("ec2Value")
+        value: CorpusUnion
+    }
+
 operation UnionOfUnion {
-    input := {
-        @jsonName("jsonValue") @xmlName("xmlValue") @ec2QueryName("ec2Value")
-        value: CorpusUnion
-    }
-    output := {
-        @jsonName("jsonValue") @xmlName("xmlValue") @ec2QueryName("ec2Value")
-        value: CorpusUnion
-    }
+    input: UnionOfUnionInputOutput
+    output: UnionOfUnionInputOutput
 }
+
+structure UnionOfUnionInputOutput {
+        @jsonName("jsonValue") @xmlName("xmlValue") @ec2QueryName("ec2Value")
+        value: CorpusUnion
+    }
 
 union CorpusUnion {
     @jsonName("jsonBooleanValue") @xmlName("xmlBooleanValue")
@@ -369,15 +296,14 @@ union CorpusSubUnion {
 // =============================================================================
 
 operation StructOfScalars {
-    input := {
-        @jsonName("jsonValue") @xmlName("xmlValue") @ec2QueryName("ec2Value")
-        value: ScalarStruct
-    }
-    output := {
-        @jsonName("jsonValue") @xmlName("xmlValue") @ec2QueryName("ec2Value")
-        value: ScalarStruct
-    }
+    input: StructOfScalarsInputOutput
+    output: StructOfScalarsInputOutput
 }
+
+structure StructOfScalarsInputOutput {
+        @jsonName("jsonValue") @xmlName("xmlValue") @ec2QueryName("ec2Value")
+        value: ScalarStruct
+    }
 
 structure ScalarStruct {
     @jsonName("jsonBooleanMember") @xmlName("xmlBooleanMember") @ec2QueryName("ec2BooleanMember")
@@ -424,233 +350,174 @@ structure ScalarStruct {
 // =============================================================================
 
 operation ListOfStructs {
-    input := {
-        @jsonName("jsonValues") @xmlName("xmlValues") @ec2QueryName("ec2Values")
-        values: SimpleStructList
-    }
-    output := {
-        @jsonName("jsonValues") @xmlName("xmlValues") @ec2QueryName("ec2Values")
-        values: SimpleStructList
-    }
+    input: ListOfStructsInputOutput
+    output: ListOfStructsInputOutput
 }
+
+structure ListOfStructsInputOutput {
+        @jsonName("jsonValues") @xmlName("xmlValues") @ec2QueryName("ec2Values")
+        values: SimpleStructList
+    }
 
 operation ListOfMaps {
-    input := {
-        @jsonName("jsonBooleans") @xmlName("xmlBooleans") @ec2QueryName("ec2Booleans")
-        booleans: ListOfBooleanMap
-        @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
-        integers: ListOfIntegerMap
-        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
-        strings: ListOfStringMap
-        @jsonName("jsonBlobs") @xmlName("xmlBlobs") @ec2QueryName("ec2Blobs")
-        blobs: ListOfBlobMap
-        @jsonName("jsonTimestamps") @xmlName("xmlTimestamps") @ec2QueryName("ec2Timestamps")
-        timestamps: ListOfTimestampMap
-        @jsonName("jsonEnums") @xmlName("xmlEnums") @ec2QueryName("ec2Enums")
-        enums: ListOfCorpusStringEnumMap
-        @jsonName("jsonIntEnums") @xmlName("xmlIntEnums") @ec2QueryName("ec2IntEnums")
-        intEnums: ListOfCorpusIntEnumMap
-    }
-    output := {
-        @jsonName("jsonBooleans") @xmlName("xmlBooleans") @ec2QueryName("ec2Booleans")
-        booleans: ListOfBooleanMap
-        @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
-        integers: ListOfIntegerMap
-        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
-        strings: ListOfStringMap
-        @jsonName("jsonBlobs") @xmlName("xmlBlobs") @ec2QueryName("ec2Blobs")
-        blobs: ListOfBlobMap
-        @jsonName("jsonTimestamps") @xmlName("xmlTimestamps") @ec2QueryName("ec2Timestamps")
-        timestamps: ListOfTimestampMap
-        @jsonName("jsonEnums") @xmlName("xmlEnums") @ec2QueryName("ec2Enums")
-        enums: ListOfCorpusStringEnumMap
-        @jsonName("jsonIntEnums") @xmlName("xmlIntEnums") @ec2QueryName("ec2IntEnums")
-        intEnums: ListOfCorpusIntEnumMap
-    }
+    input: ListOfMapsInputOutput
+    output: ListOfMapsInputOutput
 }
+
+structure ListOfMapsInputOutput {
+        @jsonName("jsonBooleans") @xmlName("xmlBooleans") @ec2QueryName("ec2Booleans")
+        booleans: ListOfBooleanMap
+        @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
+        integers: ListOfIntegerMap
+        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
+        strings: ListOfStringMap
+        @jsonName("jsonBlobs") @xmlName("xmlBlobs") @ec2QueryName("ec2Blobs")
+        blobs: ListOfBlobMap
+        @jsonName("jsonTimestamps") @xmlName("xmlTimestamps") @ec2QueryName("ec2Timestamps")
+        timestamps: ListOfTimestampMap
+        @jsonName("jsonEnums") @xmlName("xmlEnums") @ec2QueryName("ec2Enums")
+        enums: ListOfCorpusStringEnumMap
+        @jsonName("jsonIntEnums") @xmlName("xmlIntEnums") @ec2QueryName("ec2IntEnums")
+        intEnums: ListOfCorpusIntEnumMap
+    }
 
 operation ListOfLists {
-    input := {
-        @jsonName("jsonBooleans") @xmlName("xmlBooleans") @ec2QueryName("ec2Booleans")
-        booleans: ListOfBooleanList
-        @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
-        integers: ListOfIntegerList
-        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
-        strings: ListOfStringList
-        @jsonName("jsonBlobs") @xmlName("xmlBlobs") @ec2QueryName("ec2Blobs")
-        blobs: ListOfBlobList
-        @jsonName("jsonTimestamps") @xmlName("xmlTimestamps") @ec2QueryName("ec2Timestamps")
-        timestamps: ListOfTimestampList
-        @jsonName("jsonEnums") @xmlName("xmlEnums") @ec2QueryName("ec2Enums")
-        enums: ListOfCorpusStringEnumList
-        @jsonName("jsonIntEnums") @xmlName("xmlIntEnums") @ec2QueryName("ec2IntEnums")
-        intEnums: ListOfCorpusIntEnumList
-    }
-    output := {
-        @jsonName("jsonBooleans") @xmlName("xmlBooleans") @ec2QueryName("ec2Booleans")
-        booleans: ListOfBooleanList
-        @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
-        integers: ListOfIntegerList
-        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
-        strings: ListOfStringList
-        @jsonName("jsonBlobs") @xmlName("xmlBlobs") @ec2QueryName("ec2Blobs")
-        blobs: ListOfBlobList
-        @jsonName("jsonTimestamps") @xmlName("xmlTimestamps") @ec2QueryName("ec2Timestamps")
-        timestamps: ListOfTimestampList
-        @jsonName("jsonEnums") @xmlName("xmlEnums") @ec2QueryName("ec2Enums")
-        enums: ListOfCorpusStringEnumList
-        @jsonName("jsonIntEnums") @xmlName("xmlIntEnums") @ec2QueryName("ec2IntEnums")
-        intEnums: ListOfCorpusIntEnumList
-    }
+    input: ListOfListsInputOutput
+    output: ListOfListsInputOutput
 }
 
+structure ListOfListsInputOutput {
+        @jsonName("jsonBooleans") @xmlName("xmlBooleans") @ec2QueryName("ec2Booleans")
+        booleans: ListOfBooleanList
+        @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
+        integers: ListOfIntegerList
+        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
+        strings: ListOfStringList
+        @jsonName("jsonBlobs") @xmlName("xmlBlobs") @ec2QueryName("ec2Blobs")
+        blobs: ListOfBlobList
+        @jsonName("jsonTimestamps") @xmlName("xmlTimestamps") @ec2QueryName("ec2Timestamps")
+        timestamps: ListOfTimestampList
+        @jsonName("jsonEnums") @xmlName("xmlEnums") @ec2QueryName("ec2Enums")
+        enums: ListOfCorpusStringEnumList
+        @jsonName("jsonIntEnums") @xmlName("xmlIntEnums") @ec2QueryName("ec2IntEnums")
+        intEnums: ListOfCorpusIntEnumList
+    }
+
 operation ListOfUnions {
-    input := {
-        @jsonName("jsonValues") @xmlName("xmlValues") @ec2QueryName("ec2Values")
-        values: CorpusUnionList
-    }
-    output := {
-        @jsonName("jsonValues") @xmlName("xmlValues") @ec2QueryName("ec2Values")
-        values: CorpusUnionList
-    }
+    input: ListOfUnionsInputOutput
+    output: ListOfUnionsInputOutput
 }
+
+structure ListOfUnionsInputOutput {
+        @jsonName("jsonValues") @xmlName("xmlValues") @ec2QueryName("ec2Values")
+        values: CorpusUnionList
+    }
 
 // =============================================================================
 // Depth-2: map containing containers
 // =============================================================================
 
 operation MapOfStructs {
-    input := {
-        @jsonName("jsonValues") @xmlName("xmlValues") @ec2QueryName("ec2Values")
-        values: SimpleStructMap
-    }
-    output := {
-        @jsonName("jsonValues") @xmlName("xmlValues") @ec2QueryName("ec2Values")
-        values: SimpleStructMap
-    }
+    input: MapOfStructsInputOutput
+    output: MapOfStructsInputOutput
 }
+
+structure MapOfStructsInputOutput {
+        @jsonName("jsonValues") @xmlName("xmlValues") @ec2QueryName("ec2Values")
+        values: SimpleStructMap
+    }
 
 operation MapOfMaps {
-    input := {
-        @jsonName("jsonBooleans") @xmlName("xmlBooleans") @ec2QueryName("ec2Booleans")
-        booleans: MapOfBooleanMap
-        @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
-        integers: MapOfIntegerMap
-        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
-        strings: MapOfStringMap
-        @jsonName("jsonBlobs") @xmlName("xmlBlobs") @ec2QueryName("ec2Blobs")
-        blobs: MapOfBlobMap
-        @jsonName("jsonTimestamps") @xmlName("xmlTimestamps") @ec2QueryName("ec2Timestamps")
-        timestamps: MapOfTimestampMap
-        @jsonName("jsonEnums") @xmlName("xmlEnums") @ec2QueryName("ec2Enums")
-        enums: MapOfCorpusStringEnumMap
-        @jsonName("jsonIntEnums") @xmlName("xmlIntEnums") @ec2QueryName("ec2IntEnums")
-        intEnums: MapOfCorpusIntEnumMap
-    }
-    output := {
-        @jsonName("jsonBooleans") @xmlName("xmlBooleans") @ec2QueryName("ec2Booleans")
-        booleans: MapOfBooleanMap
-        @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
-        integers: MapOfIntegerMap
-        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
-        strings: MapOfStringMap
-        @jsonName("jsonBlobs") @xmlName("xmlBlobs") @ec2QueryName("ec2Blobs")
-        blobs: MapOfBlobMap
-        @jsonName("jsonTimestamps") @xmlName("xmlTimestamps") @ec2QueryName("ec2Timestamps")
-        timestamps: MapOfTimestampMap
-        @jsonName("jsonEnums") @xmlName("xmlEnums") @ec2QueryName("ec2Enums")
-        enums: MapOfCorpusStringEnumMap
-        @jsonName("jsonIntEnums") @xmlName("xmlIntEnums") @ec2QueryName("ec2IntEnums")
-        intEnums: MapOfCorpusIntEnumMap
-    }
+    input: MapOfMapsInputOutput
+    output: MapOfMapsInputOutput
 }
+
+structure MapOfMapsInputOutput {
+        @jsonName("jsonBooleans") @xmlName("xmlBooleans") @ec2QueryName("ec2Booleans")
+        booleans: MapOfBooleanMap
+        @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
+        integers: MapOfIntegerMap
+        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
+        strings: MapOfStringMap
+        @jsonName("jsonBlobs") @xmlName("xmlBlobs") @ec2QueryName("ec2Blobs")
+        blobs: MapOfBlobMap
+        @jsonName("jsonTimestamps") @xmlName("xmlTimestamps") @ec2QueryName("ec2Timestamps")
+        timestamps: MapOfTimestampMap
+        @jsonName("jsonEnums") @xmlName("xmlEnums") @ec2QueryName("ec2Enums")
+        enums: MapOfCorpusStringEnumMap
+        @jsonName("jsonIntEnums") @xmlName("xmlIntEnums") @ec2QueryName("ec2IntEnums")
+        intEnums: MapOfCorpusIntEnumMap
+    }
 
 operation MapOfLists {
-    input := {
-        @jsonName("jsonBooleans") @xmlName("xmlBooleans") @ec2QueryName("ec2Booleans")
-        booleans: MapOfBooleanList
-        @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
-        integers: MapOfIntegerList
-        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
-        strings: MapOfStringList
-        @jsonName("jsonBlobs") @xmlName("xmlBlobs") @ec2QueryName("ec2Blobs")
-        blobs: MapOfBlobList
-        @jsonName("jsonTimestamps") @xmlName("xmlTimestamps") @ec2QueryName("ec2Timestamps")
-        timestamps: MapOfTimestampList
-        @jsonName("jsonEnums") @xmlName("xmlEnums") @ec2QueryName("ec2Enums")
-        enums: MapOfCorpusStringEnumList
-        @jsonName("jsonIntEnums") @xmlName("xmlIntEnums") @ec2QueryName("ec2IntEnums")
-        intEnums: MapOfCorpusIntEnumList
-    }
-    output := {
-        @jsonName("jsonBooleans") @xmlName("xmlBooleans") @ec2QueryName("ec2Booleans")
-        booleans: MapOfBooleanList
-        @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
-        integers: MapOfIntegerList
-        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
-        strings: MapOfStringList
-        @jsonName("jsonBlobs") @xmlName("xmlBlobs") @ec2QueryName("ec2Blobs")
-        blobs: MapOfBlobList
-        @jsonName("jsonTimestamps") @xmlName("xmlTimestamps") @ec2QueryName("ec2Timestamps")
-        timestamps: MapOfTimestampList
-        @jsonName("jsonEnums") @xmlName("xmlEnums") @ec2QueryName("ec2Enums")
-        enums: MapOfCorpusStringEnumList
-        @jsonName("jsonIntEnums") @xmlName("xmlIntEnums") @ec2QueryName("ec2IntEnums")
-        intEnums: MapOfCorpusIntEnumList
-    }
+    input: MapOfListsInputOutput
+    output: MapOfListsInputOutput
 }
 
+structure MapOfListsInputOutput {
+        @jsonName("jsonBooleans") @xmlName("xmlBooleans") @ec2QueryName("ec2Booleans")
+        booleans: MapOfBooleanList
+        @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
+        integers: MapOfIntegerList
+        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
+        strings: MapOfStringList
+        @jsonName("jsonBlobs") @xmlName("xmlBlobs") @ec2QueryName("ec2Blobs")
+        blobs: MapOfBlobList
+        @jsonName("jsonTimestamps") @xmlName("xmlTimestamps") @ec2QueryName("ec2Timestamps")
+        timestamps: MapOfTimestampList
+        @jsonName("jsonEnums") @xmlName("xmlEnums") @ec2QueryName("ec2Enums")
+        enums: MapOfCorpusStringEnumList
+        @jsonName("jsonIntEnums") @xmlName("xmlIntEnums") @ec2QueryName("ec2IntEnums")
+        intEnums: MapOfCorpusIntEnumList
+    }
+
 operation MapOfUnions {
-    input := {
-        @jsonName("jsonValues") @xmlName("xmlValues") @ec2QueryName("ec2Values")
-        values: CorpusUnionMap
-    }
-    output := {
-        @jsonName("jsonValues") @xmlName("xmlValues") @ec2QueryName("ec2Values")
-        values: CorpusUnionMap
-    }
+    input: MapOfUnionsInputOutput
+    output: MapOfUnionsInputOutput
 }
+
+structure MapOfUnionsInputOutput {
+        @jsonName("jsonValues") @xmlName("xmlValues") @ec2QueryName("ec2Values")
+        values: CorpusUnionMap
+    }
 
 // =============================================================================
 // Depth-2: sparse containers of containers
 // =============================================================================
 
 operation SparseListOfStructs {
-    input := {
-        @jsonName("jsonValues") @xmlName("xmlValues") @ec2QueryName("ec2Values")
-        values: SparseSimpleStructList
-    }
-    output := {
-        @jsonName("jsonValues") @xmlName("xmlValues") @ec2QueryName("ec2Values")
-        values: SparseSimpleStructList
-    }
+    input: SparseListOfStructsInputOutput
+    output: SparseListOfStructsInputOutput
 }
 
+structure SparseListOfStructsInputOutput {
+        @jsonName("jsonValues") @xmlName("xmlValues") @ec2QueryName("ec2Values")
+        values: SparseSimpleStructList
+    }
+
 operation SparseMapOfStructs {
-    input := {
-        @jsonName("jsonValues") @xmlName("xmlValues") @ec2QueryName("ec2Values")
-        values: SparseSimpleStructMap
-    }
-    output := {
-        @jsonName("jsonValues") @xmlName("xmlValues") @ec2QueryName("ec2Values")
-        values: SparseSimpleStructMap
-    }
+    input: SparseMapOfStructsInputOutput
+    output: SparseMapOfStructsInputOutput
 }
+
+structure SparseMapOfStructsInputOutput {
+        @jsonName("jsonValues") @xmlName("xmlValues") @ec2QueryName("ec2Values")
+        values: SparseSimpleStructMap
+    }
 
 // =============================================================================
 // Depth-3: recursive shapes
 // =============================================================================
 
 operation RecursiveStruct {
-    input := {
-        @jsonName("jsonValue") @xmlName("xmlValue") @ec2QueryName("ec2Value")
-        value: RecursiveStructShape
-    }
-    output := {
-        @jsonName("jsonValue") @xmlName("xmlValue") @ec2QueryName("ec2Value")
-        value: RecursiveStructShape
-    }
+    input: RecursiveStructInputOutput
+    output: RecursiveStructInputOutput
 }
+
+structure RecursiveStructInputOutput {
+        @jsonName("jsonValue") @xmlName("xmlValue") @ec2QueryName("ec2Value")
+        value: RecursiveStructShape
+    }
 
 structure RecursiveStructShape {
     @jsonName("jsonStringMember") @xmlName("xmlStringMember") @ec2QueryName("ec2StringMember")
@@ -673,15 +540,14 @@ map RecursiveStructMap {
 }
 
 operation RecursiveUnion {
-    input := {
-        @jsonName("jsonValue") @xmlName("xmlValue") @ec2QueryName("ec2Value")
-        value: RecursiveUnionShape
-    }
-    output := {
-        @jsonName("jsonValue") @xmlName("xmlValue") @ec2QueryName("ec2Value")
-        value: RecursiveUnionShape
-    }
+    input: RecursiveUnionInputOutput
+    output: RecursiveUnionInputOutput
 }
+
+structure RecursiveUnionInputOutput {
+        @jsonName("jsonValue") @xmlName("xmlValue") @ec2QueryName("ec2Value")
+        value: RecursiveUnionShape
+    }
 
 union RecursiveUnionShape {
     @jsonName("jsonStringValue") @xmlName("xmlStringValue")
