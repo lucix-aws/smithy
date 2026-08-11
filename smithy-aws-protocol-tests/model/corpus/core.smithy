@@ -136,8 +136,22 @@ operation ListOfScalars {
 structure ListOfScalarsInputOutput {
         @jsonName("jsonBooleans") @xmlName("xmlBooleans") @ec2QueryName("ec2Booleans")
         booleans: BooleanList
+        @jsonName("jsonBytes") @xmlName("xmlBytes") @ec2QueryName("ec2Bytes")
+        bytes: ByteList
+        @jsonName("jsonShorts") @xmlName("xmlShorts") @ec2QueryName("ec2Shorts")
+        shorts: ShortList
         @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
         integers: IntegerList
+        @jsonName("jsonLongs") @xmlName("xmlLongs") @ec2QueryName("ec2Longs")
+        longs: LongList
+        @jsonName("jsonFloats") @xmlName("xmlFloats") @ec2QueryName("ec2Floats")
+        floats: FloatList
+        @jsonName("jsonDoubles") @xmlName("xmlDoubles") @ec2QueryName("ec2Doubles")
+        doubles: DoubleList
+        @jsonName("jsonBigIntegers") @xmlName("xmlBigIntegers") @ec2QueryName("ec2BigIntegers")
+        bigIntegers: BigIntegerList
+        @jsonName("jsonBigDecimals") @xmlName("xmlBigDecimals") @ec2QueryName("ec2BigDecimals")
+        bigDecimals: BigDecimalList
         @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
         strings: StringList
         @jsonName("jsonBlobs") @xmlName("xmlBlobs") @ec2QueryName("ec2Blobs")
@@ -156,10 +170,34 @@ operation SparseListOfScalars {
 }
 
 structure SparseListOfScalarsInputOutput {
-        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
-        strings: SparseStringList
+        @jsonName("jsonBooleans") @xmlName("xmlBooleans") @ec2QueryName("ec2Booleans")
+        booleans: SparseBooleanList
+        @jsonName("jsonBytes") @xmlName("xmlBytes") @ec2QueryName("ec2Bytes")
+        bytes: SparseByteList
+        @jsonName("jsonShorts") @xmlName("xmlShorts") @ec2QueryName("ec2Shorts")
+        shorts: SparseShortList
         @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
         integers: SparseIntegerList
+        @jsonName("jsonLongs") @xmlName("xmlLongs") @ec2QueryName("ec2Longs")
+        longs: SparseLongList
+        @jsonName("jsonFloats") @xmlName("xmlFloats") @ec2QueryName("ec2Floats")
+        floats: SparseFloatList
+        @jsonName("jsonDoubles") @xmlName("xmlDoubles") @ec2QueryName("ec2Doubles")
+        doubles: SparseDoubleList
+        @jsonName("jsonBigIntegers") @xmlName("xmlBigIntegers") @ec2QueryName("ec2BigIntegers")
+        bigIntegers: SparseBigIntegerList
+        @jsonName("jsonBigDecimals") @xmlName("xmlBigDecimals") @ec2QueryName("ec2BigDecimals")
+        bigDecimals: SparseBigDecimalList
+        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
+        strings: SparseStringList
+        @jsonName("jsonBlobs") @xmlName("xmlBlobs") @ec2QueryName("ec2Blobs")
+        blobs: SparseBlobList
+        @jsonName("jsonTimestamps") @xmlName("xmlTimestamps") @ec2QueryName("ec2Timestamps")
+        timestamps: SparseTimestampList
+        @jsonName("jsonEnums") @xmlName("xmlEnums") @ec2QueryName("ec2Enums")
+        enums: SparseCorpusStringEnumList
+        @jsonName("jsonIntEnums") @xmlName("xmlIntEnums") @ec2QueryName("ec2IntEnums")
+        intEnums: SparseCorpusIntEnumList
     }
 
 operation MapOfScalars {
@@ -170,8 +208,22 @@ operation MapOfScalars {
 structure MapOfScalarsInputOutput {
         @jsonName("jsonBooleans") @xmlName("xmlBooleans") @ec2QueryName("ec2Booleans")
         booleans: BooleanMap
+        @jsonName("jsonBytes") @xmlName("xmlBytes") @ec2QueryName("ec2Bytes")
+        bytes: ByteMap
+        @jsonName("jsonShorts") @xmlName("xmlShorts") @ec2QueryName("ec2Shorts")
+        shorts: ShortMap
         @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
         integers: IntegerMap
+        @jsonName("jsonLongs") @xmlName("xmlLongs") @ec2QueryName("ec2Longs")
+        longs: LongMap
+        @jsonName("jsonFloats") @xmlName("xmlFloats") @ec2QueryName("ec2Floats")
+        floats: FloatMap
+        @jsonName("jsonDoubles") @xmlName("xmlDoubles") @ec2QueryName("ec2Doubles")
+        doubles: DoubleMap
+        @jsonName("jsonBigIntegers") @xmlName("xmlBigIntegers") @ec2QueryName("ec2BigIntegers")
+        bigIntegers: BigIntegerMap
+        @jsonName("jsonBigDecimals") @xmlName("xmlBigDecimals") @ec2QueryName("ec2BigDecimals")
+        bigDecimals: BigDecimalMap
         @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
         strings: StringMap
         @jsonName("jsonBlobs") @xmlName("xmlBlobs") @ec2QueryName("ec2Blobs")
@@ -190,10 +242,34 @@ operation SparseMapOfScalars {
 }
 
 structure SparseMapOfScalarsInputOutput {
-        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
-        strings: SparseStringMap
+        @jsonName("jsonBooleans") @xmlName("xmlBooleans") @ec2QueryName("ec2Booleans")
+        booleans: SparseBooleanMap
+        @jsonName("jsonBytes") @xmlName("xmlBytes") @ec2QueryName("ec2Bytes")
+        bytes: SparseByteMap
+        @jsonName("jsonShorts") @xmlName("xmlShorts") @ec2QueryName("ec2Shorts")
+        shorts: SparseShortMap
         @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
         integers: SparseIntegerMap
+        @jsonName("jsonLongs") @xmlName("xmlLongs") @ec2QueryName("ec2Longs")
+        longs: SparseLongMap
+        @jsonName("jsonFloats") @xmlName("xmlFloats") @ec2QueryName("ec2Floats")
+        floats: SparseFloatMap
+        @jsonName("jsonDoubles") @xmlName("xmlDoubles") @ec2QueryName("ec2Doubles")
+        doubles: SparseDoubleMap
+        @jsonName("jsonBigIntegers") @xmlName("xmlBigIntegers") @ec2QueryName("ec2BigIntegers")
+        bigIntegers: SparseBigIntegerMap
+        @jsonName("jsonBigDecimals") @xmlName("xmlBigDecimals") @ec2QueryName("ec2BigDecimals")
+        bigDecimals: SparseBigDecimalMap
+        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
+        strings: SparseStringMap
+        @jsonName("jsonBlobs") @xmlName("xmlBlobs") @ec2QueryName("ec2Blobs")
+        blobs: SparseBlobMap
+        @jsonName("jsonTimestamps") @xmlName("xmlTimestamps") @ec2QueryName("ec2Timestamps")
+        timestamps: SparseTimestampMap
+        @jsonName("jsonEnums") @xmlName("xmlEnums") @ec2QueryName("ec2Enums")
+        enums: SparseCorpusStringEnumMap
+        @jsonName("jsonIntEnums") @xmlName("xmlIntEnums") @ec2QueryName("ec2IntEnums")
+        intEnums: SparseCorpusIntEnumMap
     }
 
 // =============================================================================
@@ -625,7 +701,14 @@ structure SimpleStruct {
 // --- Lists ---
 
 list BooleanList { member: Boolean }
+list ByteList { member: Byte }
+list ShortList { member: Short }
 list IntegerList { member: Integer }
+list LongList { member: Long }
+list FloatList { member: Float }
+list DoubleList { member: Double }
+list BigIntegerList { member: BigInteger }
+list BigDecimalList { member: BigDecimal }
 list StringList { member: String }
 list BlobList { member: Blob }
 list TimestampList { member: Timestamp }
@@ -667,16 +750,47 @@ list ListOfCorpusIntEnumMap { member: CorpusIntEnumMap }
 list CorpusUnionList { member: CorpusUnion }
 
 @sparse
-list SparseStringList { member: String }
+list SparseBooleanList { member: Boolean }
+@sparse
+list SparseByteList { member: Byte }
+@sparse
+list SparseShortList { member: Short }
 @sparse
 list SparseIntegerList { member: Integer }
+@sparse
+list SparseLongList { member: Long }
+@sparse
+list SparseFloatList { member: Float }
+@sparse
+list SparseDoubleList { member: Double }
+@sparse
+list SparseBigIntegerList { member: BigInteger }
+@sparse
+list SparseBigDecimalList { member: BigDecimal }
+@sparse
+list SparseStringList { member: String }
+@sparse
+list SparseBlobList { member: Blob }
+@sparse
+list SparseTimestampList { member: Timestamp }
+@sparse
+list SparseCorpusStringEnumList { member: CorpusStringEnum }
+@sparse
+list SparseCorpusIntEnumList { member: CorpusIntEnum }
 @sparse
 list SparseSimpleStructList { member: SimpleStruct }
 
 // --- Maps ---
 
 map BooleanMap { key: String, value: Boolean }
+map ByteMap { key: String, value: Byte }
+map ShortMap { key: String, value: Short }
 map IntegerMap { key: String, value: Integer }
+map LongMap { key: String, value: Long }
+map FloatMap { key: String, value: Float }
+map DoubleMap { key: String, value: Double }
+map BigIntegerMap { key: String, value: BigInteger }
+map BigDecimalMap { key: String, value: BigDecimal }
 map StringMap { key: String, value: String }
 map BlobMap { key: String, value: Blob }
 map TimestampMap { key: String, value: Timestamp }
@@ -700,8 +814,32 @@ map MapOfCorpusIntEnumMap { key: String, value: CorpusIntEnumMap }
 map CorpusUnionMap { key: String, value: CorpusUnion }
 
 @sparse
-map SparseStringMap { key: String, value: String }
+map SparseBooleanMap { key: String, value: Boolean }
+@sparse
+map SparseByteMap { key: String, value: Byte }
+@sparse
+map SparseShortMap { key: String, value: Short }
 @sparse
 map SparseIntegerMap { key: String, value: Integer }
+@sparse
+map SparseLongMap { key: String, value: Long }
+@sparse
+map SparseFloatMap { key: String, value: Float }
+@sparse
+map SparseDoubleMap { key: String, value: Double }
+@sparse
+map SparseBigIntegerMap { key: String, value: BigInteger }
+@sparse
+map SparseBigDecimalMap { key: String, value: BigDecimal }
+@sparse
+map SparseStringMap { key: String, value: String }
+@sparse
+map SparseBlobMap { key: String, value: Blob }
+@sparse
+map SparseTimestampMap { key: String, value: Timestamp }
+@sparse
+map SparseCorpusStringEnumMap { key: String, value: CorpusStringEnum }
+@sparse
+map SparseCorpusIntEnumMap { key: String, value: CorpusIntEnum }
 @sparse
 map SparseSimpleStructMap { key: String, value: SimpleStruct }

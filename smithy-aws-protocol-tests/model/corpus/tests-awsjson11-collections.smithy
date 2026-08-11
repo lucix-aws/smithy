@@ -20,7 +20,12 @@ apply ListOfScalars @httpRequestTests([
         body: """
             {
                 "booleans": [true, false],
+                "bytes": [5, 6],
+                "shorts": [256, 257],
                 "integers": [1, 2, 3],
+                "longs": [999999999999, 999999999998],
+                "floats": [1.5, 2.5],
+                "doubles": [3.5, 4.5],
                 "strings": ["foo", "bar"],
                 "blobs": ["Zm9v", "YmFy"],
                 "timestamps": [1609459200, 1609545600],
@@ -34,7 +39,12 @@ apply ListOfScalars @httpRequestTests([
         },
         params: {
             booleans: [true, false],
+            bytes: [5, 6],
+            shorts: [256, 257],
             integers: [1, 2, 3],
+            longs: [999999999999, 999999999998],
+            floats: [1.5, 2.5],
+            doubles: [3.5, 4.5],
             strings: ["foo", "bar"],
             blobs: ["foo", "bar"],
             timestamps: [1609459200, 1609545600],
@@ -52,7 +62,12 @@ apply ListOfScalars @httpRequestTests([
         body: """
             {
                 "booleans": [],
+                "bytes": [],
+                "shorts": [],
                 "integers": [],
+                "longs": [],
+                "floats": [],
+                "doubles": [],
                 "strings": [],
                 "blobs": [],
                 "timestamps": [],
@@ -66,7 +81,12 @@ apply ListOfScalars @httpRequestTests([
         },
         params: {
             booleans: [],
+            bytes: [],
+            shorts: [],
             integers: [],
+            longs: [],
+            floats: [],
+            doubles: [],
             strings: [],
             blobs: [],
             timestamps: [],
@@ -85,7 +105,12 @@ apply ListOfScalars @httpResponseTests([
         body: """
             {
                 "booleans": [true, false],
+                "bytes": [5, 6],
+                "shorts": [256, 257],
                 "integers": [1, 2, 3],
+                "longs": [999999999999, 999999999998],
+                "floats": [1.5, 2.5],
+                "doubles": [3.5, 4.5],
                 "strings": ["foo", "bar"],
                 "blobs": ["Zm9v", "YmFy"],
                 "timestamps": [1609459200, 1609545600],
@@ -98,7 +123,12 @@ apply ListOfScalars @httpResponseTests([
         },
         params: {
             booleans: [true, false],
+            bytes: [5, 6],
+            shorts: [256, 257],
             integers: [1, 2, 3],
+            longs: [999999999999, 999999999998],
+            floats: [1.5, 2.5],
+            doubles: [3.5, 4.5],
             strings: ["foo", "bar"],
             blobs: ["foo", "bar"],
             timestamps: [1609459200, 1609545600],
@@ -115,7 +145,12 @@ apply ListOfScalars @httpResponseTests([
         body: """
             {
                 "booleans": [],
+                "bytes": [],
+                "shorts": [],
                 "integers": [],
+                "longs": [],
+                "floats": [],
+                "doubles": [],
                 "strings": [],
                 "blobs": [],
                 "timestamps": [],
@@ -128,7 +163,12 @@ apply ListOfScalars @httpResponseTests([
         },
         params: {
             booleans: [],
+            bytes: [],
+            shorts: [],
             integers: [],
+            longs: [],
+            floats: [],
+            doubles: [],
             strings: [],
             blobs: [],
             timestamps: [],
@@ -140,19 +180,35 @@ apply ListOfScalars @httpResponseTests([
 
 // =============================================================================
 // SparseListOfScalars
+//
+// Base case rule: sparse collections carry 3 unique non-null-position elements
+// (2 non-null + 1 null), and null position (beginning/middle/end) is covered
+// across the corpus rather than always defaulting to the middle. This uses 3
+// request + 3 response cases, one per null position, covering all 13 scalar
+// types in each.
 // =============================================================================
 
 apply SparseListOfScalars @httpRequestTests([
     {
-        id: "AwsJson11SparseListOfScalarsWithNulls",
-        documentation: "Serializes sparse lists with null values interspersed",
+        id: "AwsJson11SparseListOfScalarsNullAtStart",
+        documentation: "Serializes sparse lists with a null as the first element",
         protocol: awsJson1_1,
         method: "POST",
         uri: "/",
         body: """
             {
-                "strings": ["foo", null, "bar"],
-                "integers": [1, null, 3]
+                "booleans": [null, true, false],
+                "bytes": [null, 5, 6],
+                "shorts": [null, 256, 257],
+                "integers": [null, 1, 2],
+                "longs": [null, 999999999999, 999999999998],
+                "floats": [null, 1.5, 2.5],
+                "doubles": [null, 3.5, 4.5],
+                "strings": [null, "foo", "bar"],
+                "blobs": [null, "Zm9v", "YmFy"],
+                "timestamps": [1609459200, 1609545600],
+                "enums": [null, "Foo", "Bar"],
+                "intEnums": [null, 1, 2]
             }""",
         bodyMediaType: "application/json",
         headers: {
@@ -160,30 +216,220 @@ apply SparseListOfScalars @httpRequestTests([
             "X-Amz-Target": "AwsJson11CorpusTests.SparseListOfScalars",
         },
         params: {
+            booleans: [null, true, false],
+            bytes: [null, 5, 6],
+            shorts: [null, 256, 257],
+            integers: [null, 1, 2],
+            longs: [null, 999999999999, 999999999998],
+            floats: [null, 1.5, 2.5],
+            doubles: [null, 3.5, 4.5],
+            strings: [null, "foo", "bar"],
+            blobs: [null, "foo", "bar"],
+            timestamps: [1609459200, 1609545600],
+            enums: [null, "Foo", "Bar"],
+            intEnums: [null, 1, 2],
+        }
+    },
+    {
+        id: "AwsJson11SparseListOfScalarsNullInMiddle",
+        documentation: "Serializes sparse lists with a null as the middle element",
+        protocol: awsJson1_1,
+        method: "POST",
+        uri: "/",
+        body: """
+            {
+                "booleans": [true, null, false],
+                "bytes": [5, null, 6],
+                "shorts": [256, null, 257],
+                "integers": [1, null, 2],
+                "longs": [999999999999, null, 999999999998],
+                "floats": [1.5, null, 2.5],
+                "doubles": [3.5, null, 4.5],
+                "strings": ["foo", null, "bar"],
+                "blobs": ["Zm9v", null, "YmFy"],
+                "timestamps": [1609459200, 1609545600],
+                "enums": ["Foo", null, "Bar"],
+                "intEnums": [1, null, 2]
+            }""",
+        bodyMediaType: "application/json",
+        headers: {
+            "Content-Type": "application/x-amz-json-1.1",
+            "X-Amz-Target": "AwsJson11CorpusTests.SparseListOfScalars",
+        },
+        params: {
+            booleans: [true, null, false],
+            bytes: [5, null, 6],
+            shorts: [256, null, 257],
+            integers: [1, null, 2],
+            longs: [999999999999, null, 999999999998],
+            floats: [1.5, null, 2.5],
+            doubles: [3.5, null, 4.5],
             strings: ["foo", null, "bar"],
-            integers: [1, null, 3],
+            blobs: ["foo", null, "bar"],
+            timestamps: [1609459200, 1609545600],
+            enums: ["Foo", null, "Bar"],
+            intEnums: [1, null, 2],
+        }
+    },
+    {
+        id: "AwsJson11SparseListOfScalarsNullAtEnd",
+        documentation: "Serializes sparse lists with a null as the last element",
+        protocol: awsJson1_1,
+        method: "POST",
+        uri: "/",
+        body: """
+            {
+                "booleans": [true, false, null],
+                "bytes": [5, 6, null],
+                "shorts": [256, 257, null],
+                "integers": [1, 2, null],
+                "longs": [999999999999, 999999999998, null],
+                "floats": [1.5, 2.5, null],
+                "doubles": [3.5, 4.5, null],
+                "strings": ["foo", "bar", null],
+                "blobs": ["Zm9v", "YmFy", null],
+                "timestamps": [1609459200, 1609545600],
+                "enums": ["Foo", "Bar", null],
+                "intEnums": [1, 2, null]
+            }""",
+        bodyMediaType: "application/json",
+        headers: {
+            "Content-Type": "application/x-amz-json-1.1",
+            "X-Amz-Target": "AwsJson11CorpusTests.SparseListOfScalars",
+        },
+        params: {
+            booleans: [true, false, null],
+            bytes: [5, 6, null],
+            shorts: [256, 257, null],
+            integers: [1, 2, null],
+            longs: [999999999999, 999999999998, null],
+            floats: [1.5, 2.5, null],
+            doubles: [3.5, 4.5, null],
+            strings: ["foo", "bar", null],
+            blobs: ["foo", "bar", null],
+            timestamps: [1609459200, 1609545600],
+            enums: ["Foo", "Bar", null],
+            intEnums: [1, 2, null],
         }
     },
 ])
 
 apply SparseListOfScalars @httpResponseTests([
     {
-        id: "AwsJson11SparseListOfScalarsWithNullsResponse",
-        documentation: "Deserializes sparse lists with null values interspersed",
+        id: "AwsJson11SparseListOfScalarsNullAtStartResponse",
+        documentation: "Deserializes sparse lists with a null as the first element",
         protocol: awsJson1_1,
         code: 200,
         body: """
             {
-                "strings": ["foo", null, "bar"],
-                "integers": [1, null, 3]
+                "booleans": [null, true, false],
+                "bytes": [null, 5, 6],
+                "shorts": [null, 256, 257],
+                "integers": [null, 1, 2],
+                "longs": [null, 999999999999, 999999999998],
+                "floats": [null, 1.5, 2.5],
+                "doubles": [null, 3.5, 4.5],
+                "strings": [null, "foo", "bar"],
+                "blobs": [null, "Zm9v", "YmFy"],
+                "timestamps": [1609459200, 1609545600],
+                "enums": [null, "Foo", "Bar"],
+                "intEnums": [null, 1, 2]
             }""",
         bodyMediaType: "application/json",
         headers: {
             "Content-Type": "application/x-amz-json-1.1",
         },
         params: {
+            booleans: [null, true, false],
+            bytes: [null, 5, 6],
+            shorts: [null, 256, 257],
+            integers: [null, 1, 2],
+            longs: [null, 999999999999, 999999999998],
+            floats: [null, 1.5, 2.5],
+            doubles: [null, 3.5, 4.5],
+            strings: [null, "foo", "bar"],
+            blobs: [null, "foo", "bar"],
+            timestamps: [1609459200, 1609545600],
+            enums: [null, "Foo", "Bar"],
+            intEnums: [null, 1, 2],
+        }
+    },
+    {
+        id: "AwsJson11SparseListOfScalarsNullInMiddleResponse",
+        documentation: "Deserializes sparse lists with a null as the middle element",
+        protocol: awsJson1_1,
+        code: 200,
+        body: """
+            {
+                "booleans": [true, null, false],
+                "bytes": [5, null, 6],
+                "shorts": [256, null, 257],
+                "integers": [1, null, 2],
+                "longs": [999999999999, null, 999999999998],
+                "floats": [1.5, null, 2.5],
+                "doubles": [3.5, null, 4.5],
+                "strings": ["foo", null, "bar"],
+                "blobs": ["Zm9v", null, "YmFy"],
+                "timestamps": [1609459200, 1609545600],
+                "enums": ["Foo", null, "Bar"],
+                "intEnums": [1, null, 2]
+            }""",
+        bodyMediaType: "application/json",
+        headers: {
+            "Content-Type": "application/x-amz-json-1.1",
+        },
+        params: {
+            booleans: [true, null, false],
+            bytes: [5, null, 6],
+            shorts: [256, null, 257],
+            integers: [1, null, 2],
+            longs: [999999999999, null, 999999999998],
+            floats: [1.5, null, 2.5],
+            doubles: [3.5, null, 4.5],
             strings: ["foo", null, "bar"],
-            integers: [1, null, 3],
+            blobs: ["foo", null, "bar"],
+            timestamps: [1609459200, 1609545600],
+            enums: ["Foo", null, "Bar"],
+            intEnums: [1, null, 2],
+        }
+    },
+    {
+        id: "AwsJson11SparseListOfScalarsNullAtEndResponse",
+        documentation: "Deserializes sparse lists with a null as the last element",
+        protocol: awsJson1_1,
+        code: 200,
+        body: """
+            {
+                "booleans": [true, false, null],
+                "bytes": [5, 6, null],
+                "shorts": [256, 257, null],
+                "integers": [1, 2, null],
+                "longs": [999999999999, 999999999998, null],
+                "floats": [1.5, 2.5, null],
+                "doubles": [3.5, 4.5, null],
+                "strings": ["foo", "bar", null],
+                "blobs": ["Zm9v", "YmFy", null],
+                "timestamps": [1609459200, 1609545600],
+                "enums": ["Foo", "Bar", null],
+                "intEnums": [1, 2, null]
+            }""",
+        bodyMediaType: "application/json",
+        headers: {
+            "Content-Type": "application/x-amz-json-1.1",
+        },
+        params: {
+            booleans: [true, false, null],
+            bytes: [5, 6, null],
+            shorts: [256, 257, null],
+            integers: [1, 2, null],
+            longs: [999999999999, 999999999998, null],
+            floats: [1.5, 2.5, null],
+            doubles: [3.5, 4.5, null],
+            strings: ["foo", "bar", null],
+            blobs: ["foo", "bar", null],
+            timestamps: [1609459200, 1609545600],
+            enums: ["Foo", "Bar", null],
+            intEnums: [1, 2, null],
         }
     },
 ])
@@ -202,7 +448,12 @@ apply MapOfScalars @httpRequestTests([
         body: """
             {
                 "booleans": {"a": true, "b": false},
+                "bytes": {"a": 5, "b": 6},
+                "shorts": {"a": 256, "b": 257},
                 "integers": {"a": 1, "b": 2},
+                "longs": {"a": 999999999999, "b": 999999999998},
+                "floats": {"a": 1.5, "b": 2.5},
+                "doubles": {"a": 3.5, "b": 4.5},
                 "strings": {"a": "foo", "b": "bar"},
                 "blobs": {"a": "Zm9v", "b": "YmFy"},
                 "timestamps": {"a": 1609459200, "b": 1609545600},
@@ -216,7 +467,12 @@ apply MapOfScalars @httpRequestTests([
         },
         params: {
             booleans: { a: true, b: false },
+            bytes: { a: 5, b: 6 },
+            shorts: { a: 256, b: 257 },
             integers: { a: 1, b: 2 },
+            longs: { a: 999999999999, b: 999999999998 },
+            floats: { a: 1.5, b: 2.5 },
+            doubles: { a: 3.5, b: 4.5 },
             strings: { a: "foo", b: "bar" },
             blobs: { a: "foo", b: "bar" },
             timestamps: { a: 1609459200, b: 1609545600 },
@@ -234,7 +490,12 @@ apply MapOfScalars @httpRequestTests([
         body: """
             {
                 "booleans": {},
+                "bytes": {},
+                "shorts": {},
                 "integers": {},
+                "longs": {},
+                "floats": {},
+                "doubles": {},
                 "strings": {},
                 "blobs": {},
                 "timestamps": {},
@@ -248,7 +509,12 @@ apply MapOfScalars @httpRequestTests([
         },
         params: {
             booleans: {},
+            bytes: {},
+            shorts: {},
             integers: {},
+            longs: {},
+            floats: {},
+            doubles: {},
             strings: {},
             blobs: {},
             timestamps: {},
@@ -267,7 +533,12 @@ apply MapOfScalars @httpResponseTests([
         body: """
             {
                 "booleans": {"a": true, "b": false},
+                "bytes": {"a": 5, "b": 6},
+                "shorts": {"a": 256, "b": 257},
                 "integers": {"a": 1, "b": 2},
+                "longs": {"a": 999999999999, "b": 999999999998},
+                "floats": {"a": 1.5, "b": 2.5},
+                "doubles": {"a": 3.5, "b": 4.5},
                 "strings": {"a": "foo", "b": "bar"},
                 "blobs": {"a": "Zm9v", "b": "YmFy"},
                 "timestamps": {"a": 1609459200, "b": 1609545600},
@@ -280,7 +551,12 @@ apply MapOfScalars @httpResponseTests([
         },
         params: {
             booleans: { a: true, b: false },
+            bytes: { a: 5, b: 6 },
+            shorts: { a: 256, b: 257 },
             integers: { a: 1, b: 2 },
+            longs: { a: 999999999999, b: 999999999998 },
+            floats: { a: 1.5, b: 2.5 },
+            doubles: { a: 3.5, b: 4.5 },
             strings: { a: "foo", b: "bar" },
             blobs: { a: "foo", b: "bar" },
             timestamps: { a: 1609459200, b: 1609545600 },
@@ -297,7 +573,12 @@ apply MapOfScalars @httpResponseTests([
         body: """
             {
                 "booleans": {},
+                "bytes": {},
+                "shorts": {},
                 "integers": {},
+                "longs": {},
+                "floats": {},
+                "doubles": {},
                 "strings": {},
                 "blobs": {},
                 "timestamps": {},
@@ -310,7 +591,12 @@ apply MapOfScalars @httpResponseTests([
         },
         params: {
             booleans: {},
+            bytes: {},
+            shorts: {},
             integers: {},
+            longs: {},
+            floats: {},
+            doubles: {},
             strings: {},
             blobs: {},
             timestamps: {},
@@ -322,19 +608,33 @@ apply MapOfScalars @httpResponseTests([
 
 // =============================================================================
 // SparseMapOfScalars
+//
+// Same null-position coverage as SparseListOfScalars: 3 request + 3 response
+// cases (start/middle/end), all 13 scalar types, 2 non-null keys + 1 null key
+// per case.
 // =============================================================================
 
 apply SparseMapOfScalars @httpRequestTests([
     {
-        id: "AwsJson11SparseMapOfScalarsWithNulls",
-        documentation: "Serializes sparse maps with null values",
+        id: "AwsJson11SparseMapOfScalarsNullAtStart",
+        documentation: "Serializes sparse maps with a null as the first entry",
         protocol: awsJson1_1,
         method: "POST",
         uri: "/",
         body: """
             {
-                "strings": {"a": "foo", "b": null, "c": "bar"},
-                "integers": {"a": 1, "b": null, "c": 3}
+                "booleans": {"a": null, "b": true, "c": false},
+                "bytes": {"a": null, "b": 5, "c": 6},
+                "shorts": {"a": null, "b": 256, "c": 257},
+                "integers": {"a": null, "b": 1, "c": 2},
+                "longs": {"a": null, "b": 999999999999, "c": 999999999998},
+                "floats": {"a": null, "b": 1.5, "c": 2.5},
+                "doubles": {"a": null, "b": 3.5, "c": 4.5},
+                "strings": {"a": null, "b": "foo", "c": "bar"},
+                "blobs": {"a": null, "b": "Zm9v", "c": "YmFy"},
+                "timestamps": {"a": 1609459200, "b": 1609545600},
+                "enums": {"a": null, "b": "Foo", "c": "Bar"},
+                "intEnums": {"a": null, "b": 1, "c": 2}
             }""",
         bodyMediaType: "application/json",
         headers: {
@@ -342,30 +642,220 @@ apply SparseMapOfScalars @httpRequestTests([
             "X-Amz-Target": "AwsJson11CorpusTests.SparseMapOfScalars",
         },
         params: {
+            booleans: { a: null, b: true, c: false },
+            bytes: { a: null, b: 5, c: 6 },
+            shorts: { a: null, b: 256, c: 257 },
+            integers: { a: null, b: 1, c: 2 },
+            longs: { a: null, b: 999999999999, c: 999999999998 },
+            floats: { a: null, b: 1.5, c: 2.5 },
+            doubles: { a: null, b: 3.5, c: 4.5 },
+            strings: { a: null, b: "foo", c: "bar" },
+            blobs: { a: null, b: "foo", c: "bar" },
+            timestamps: { a: 1609459200, b: 1609545600 },
+            enums: { a: null, b: "Foo", c: "Bar" },
+            intEnums: { a: null, b: 1, c: 2 },
+        }
+    },
+    {
+        id: "AwsJson11SparseMapOfScalarsNullInMiddle",
+        documentation: "Serializes sparse maps with a null as the middle entry",
+        protocol: awsJson1_1,
+        method: "POST",
+        uri: "/",
+        body: """
+            {
+                "booleans": {"a": true, "b": null, "c": false},
+                "bytes": {"a": 5, "b": null, "c": 6},
+                "shorts": {"a": 256, "b": null, "c": 257},
+                "integers": {"a": 1, "b": null, "c": 2},
+                "longs": {"a": 999999999999, "b": null, "c": 999999999998},
+                "floats": {"a": 1.5, "b": null, "c": 2.5},
+                "doubles": {"a": 3.5, "b": null, "c": 4.5},
+                "strings": {"a": "foo", "b": null, "c": "bar"},
+                "blobs": {"a": "Zm9v", "b": null, "c": "YmFy"},
+                "timestamps": {"a": 1609459200, "b": 1609545600},
+                "enums": {"a": "Foo", "b": null, "c": "Bar"},
+                "intEnums": {"a": 1, "b": null, "c": 2}
+            }""",
+        bodyMediaType: "application/json",
+        headers: {
+            "Content-Type": "application/x-amz-json-1.1",
+            "X-Amz-Target": "AwsJson11CorpusTests.SparseMapOfScalars",
+        },
+        params: {
+            booleans: { a: true, b: null, c: false },
+            bytes: { a: 5, b: null, c: 6 },
+            shorts: { a: 256, b: null, c: 257 },
+            integers: { a: 1, b: null, c: 2 },
+            longs: { a: 999999999999, b: null, c: 999999999998 },
+            floats: { a: 1.5, b: null, c: 2.5 },
+            doubles: { a: 3.5, b: null, c: 4.5 },
             strings: { a: "foo", b: null, c: "bar" },
-            integers: { a: 1, b: null, c: 3 },
+            blobs: { a: "foo", b: null, c: "bar" },
+            timestamps: { a: 1609459200, b: 1609545600 },
+            enums: { a: "Foo", b: null, c: "Bar" },
+            intEnums: { a: 1, b: null, c: 2 },
+        }
+    },
+    {
+        id: "AwsJson11SparseMapOfScalarsNullAtEnd",
+        documentation: "Serializes sparse maps with a null as the last entry",
+        protocol: awsJson1_1,
+        method: "POST",
+        uri: "/",
+        body: """
+            {
+                "booleans": {"a": true, "b": false, "c": null},
+                "bytes": {"a": 5, "b": 6, "c": null},
+                "shorts": {"a": 256, "b": 257, "c": null},
+                "integers": {"a": 1, "b": 2, "c": null},
+                "longs": {"a": 999999999999, "b": 999999999998, "c": null},
+                "floats": {"a": 1.5, "b": 2.5, "c": null},
+                "doubles": {"a": 3.5, "b": 4.5, "c": null},
+                "strings": {"a": "foo", "b": "bar", "c": null},
+                "blobs": {"a": "Zm9v", "b": "YmFy", "c": null},
+                "timestamps": {"a": 1609459200, "b": 1609545600},
+                "enums": {"a": "Foo", "b": "Bar", "c": null},
+                "intEnums": {"a": 1, "b": 2, "c": null}
+            }""",
+        bodyMediaType: "application/json",
+        headers: {
+            "Content-Type": "application/x-amz-json-1.1",
+            "X-Amz-Target": "AwsJson11CorpusTests.SparseMapOfScalars",
+        },
+        params: {
+            booleans: { a: true, b: false, c: null },
+            bytes: { a: 5, b: 6, c: null },
+            shorts: { a: 256, b: 257, c: null },
+            integers: { a: 1, b: 2, c: null },
+            longs: { a: 999999999999, b: 999999999998, c: null },
+            floats: { a: 1.5, b: 2.5, c: null },
+            doubles: { a: 3.5, b: 4.5, c: null },
+            strings: { a: "foo", b: "bar", c: null },
+            blobs: { a: "foo", b: "bar", c: null },
+            timestamps: { a: 1609459200, b: 1609545600 },
+            enums: { a: "Foo", b: "Bar", c: null },
+            intEnums: { a: 1, b: 2, c: null },
         }
     },
 ])
 
 apply SparseMapOfScalars @httpResponseTests([
     {
-        id: "AwsJson11SparseMapOfScalarsWithNullsResponse",
-        documentation: "Deserializes sparse maps with null values",
+        id: "AwsJson11SparseMapOfScalarsNullAtStartResponse",
+        documentation: "Deserializes sparse maps with a null as the first entry",
         protocol: awsJson1_1,
         code: 200,
         body: """
             {
-                "strings": {"a": "foo", "b": null, "c": "bar"},
-                "integers": {"a": 1, "b": null, "c": 3}
+                "booleans": {"a": null, "b": true, "c": false},
+                "bytes": {"a": null, "b": 5, "c": 6},
+                "shorts": {"a": null, "b": 256, "c": 257},
+                "integers": {"a": null, "b": 1, "c": 2},
+                "longs": {"a": null, "b": 999999999999, "c": 999999999998},
+                "floats": {"a": null, "b": 1.5, "c": 2.5},
+                "doubles": {"a": null, "b": 3.5, "c": 4.5},
+                "strings": {"a": null, "b": "foo", "c": "bar"},
+                "blobs": {"a": null, "b": "Zm9v", "c": "YmFy"},
+                "timestamps": {"a": 1609459200, "b": 1609545600},
+                "enums": {"a": null, "b": "Foo", "c": "Bar"},
+                "intEnums": {"a": null, "b": 1, "c": 2}
             }""",
         bodyMediaType: "application/json",
         headers: {
             "Content-Type": "application/x-amz-json-1.1",
         },
         params: {
+            booleans: { a: null, b: true, c: false },
+            bytes: { a: null, b: 5, c: 6 },
+            shorts: { a: null, b: 256, c: 257 },
+            integers: { a: null, b: 1, c: 2 },
+            longs: { a: null, b: 999999999999, c: 999999999998 },
+            floats: { a: null, b: 1.5, c: 2.5 },
+            doubles: { a: null, b: 3.5, c: 4.5 },
+            strings: { a: null, b: "foo", c: "bar" },
+            blobs: { a: null, b: "foo", c: "bar" },
+            timestamps: { a: 1609459200, b: 1609545600 },
+            enums: { a: null, b: "Foo", c: "Bar" },
+            intEnums: { a: null, b: 1, c: 2 },
+        }
+    },
+    {
+        id: "AwsJson11SparseMapOfScalarsNullInMiddleResponse",
+        documentation: "Deserializes sparse maps with a null as the middle entry",
+        protocol: awsJson1_1,
+        code: 200,
+        body: """
+            {
+                "booleans": {"a": true, "b": null, "c": false},
+                "bytes": {"a": 5, "b": null, "c": 6},
+                "shorts": {"a": 256, "b": null, "c": 257},
+                "integers": {"a": 1, "b": null, "c": 2},
+                "longs": {"a": 999999999999, "b": null, "c": 999999999998},
+                "floats": {"a": 1.5, "b": null, "c": 2.5},
+                "doubles": {"a": 3.5, "b": null, "c": 4.5},
+                "strings": {"a": "foo", "b": null, "c": "bar"},
+                "blobs": {"a": "Zm9v", "b": null, "c": "YmFy"},
+                "timestamps": {"a": 1609459200, "b": 1609545600},
+                "enums": {"a": "Foo", "b": null, "c": "Bar"},
+                "intEnums": {"a": 1, "b": null, "c": 2}
+            }""",
+        bodyMediaType: "application/json",
+        headers: {
+            "Content-Type": "application/x-amz-json-1.1",
+        },
+        params: {
+            booleans: { a: true, b: null, c: false },
+            bytes: { a: 5, b: null, c: 6 },
+            shorts: { a: 256, b: null, c: 257 },
+            integers: { a: 1, b: null, c: 2 },
+            longs: { a: 999999999999, b: null, c: 999999999998 },
+            floats: { a: 1.5, b: null, c: 2.5 },
+            doubles: { a: 3.5, b: null, c: 4.5 },
             strings: { a: "foo", b: null, c: "bar" },
-            integers: { a: 1, b: null, c: 3 },
+            blobs: { a: "foo", b: null, c: "bar" },
+            timestamps: { a: 1609459200, b: 1609545600 },
+            enums: { a: "Foo", b: null, c: "Bar" },
+            intEnums: { a: 1, b: null, c: 2 },
+        }
+    },
+    {
+        id: "AwsJson11SparseMapOfScalarsNullAtEndResponse",
+        documentation: "Deserializes sparse maps with a null as the last entry",
+        protocol: awsJson1_1,
+        code: 200,
+        body: """
+            {
+                "booleans": {"a": true, "b": false, "c": null},
+                "bytes": {"a": 5, "b": 6, "c": null},
+                "shorts": {"a": 256, "b": 257, "c": null},
+                "integers": {"a": 1, "b": 2, "c": null},
+                "longs": {"a": 999999999999, "b": 999999999998, "c": null},
+                "floats": {"a": 1.5, "b": 2.5, "c": null},
+                "doubles": {"a": 3.5, "b": 4.5, "c": null},
+                "strings": {"a": "foo", "b": "bar", "c": null},
+                "blobs": {"a": "Zm9v", "b": "YmFy", "c": null},
+                "timestamps": {"a": 1609459200, "b": 1609545600},
+                "enums": {"a": "Foo", "b": "Bar", "c": null},
+                "intEnums": {"a": 1, "b": 2, "c": null}
+            }""",
+        bodyMediaType: "application/json",
+        headers: {
+            "Content-Type": "application/x-amz-json-1.1",
+        },
+        params: {
+            booleans: { a: true, b: false, c: null },
+            bytes: { a: 5, b: 6, c: null },
+            shorts: { a: 256, b: 257, c: null },
+            integers: { a: 1, b: 2, c: null },
+            longs: { a: 999999999999, b: 999999999998, c: null },
+            floats: { a: 1.5, b: 2.5, c: null },
+            doubles: { a: 3.5, b: 4.5, c: null },
+            strings: { a: "foo", b: "bar", c: null },
+            blobs: { a: "foo", b: "bar", c: null },
+            timestamps: { a: 1609459200, b: 1609545600 },
+            enums: { a: "Foo", b: "Bar", c: null },
+            intEnums: { a: 1, b: 2, c: null },
         }
     },
 ])
