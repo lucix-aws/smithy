@@ -71,16 +71,19 @@ apply ListOfStructs @httpResponseTests([
 apply ListOfMaps @httpRequestTests([
     {
         id: "AwsJson10ListOfMapsSerialize",
-        documentation: "Serializes a list of maps",
+        documentation: "Serializes lists of maps for all scalar leaf types",
         protocol: awsJson1_0,
         method: "POST",
         uri: "/",
         body: """
             {
-                "values": [
-                    {"key1": "a", "key2": "b"},
-                    {"key3": "c"}
-                ]
+                "booleans": [{"k1": true, "k2": false}, {"k3": false, "k4": true, "k5": true}],
+                "integers": [{"k1": 1, "k2": 2}, {"k3": 3, "k4": 4, "k5": 5}],
+                "strings": [{"k1": "a", "k2": "b"}, {"k3": "c", "k4": "d", "k5": "e"}],
+                "blobs": [{"k1": "Zm9v", "k2": "YmFy"}, {"k3": "YmF6", "k4": "cXV4", "k5": "cXV1eA=="}],
+                "timestamps": [{"k1": 1609502096, "k2": 1609588496}, {"k3": 1609674896, "k4": 1609761296, "k5": 1609847696}],
+                "enums": [{"k1": "Foo", "k2": "Bar"}, {"k3": "Baz", "k4": "Foo", "k5": "Bar"}],
+                "intEnums": [{"k1": 1, "k2": 2}, {"k3": 3, "k4": 1, "k5": 2}]
             }""",
         bodyMediaType: "application/json",
         headers: {
@@ -88,10 +91,13 @@ apply ListOfMaps @httpRequestTests([
             "X-Amz-Target": "AwsJson10CorpusTests.ListOfMaps",
         },
         params: {
-            values: [
-                { key1: "a", key2: "b" },
-                { key3: "c" },
-            ]
+            booleans: [{k1: true, k2: false}, {k3: false, k4: true, k5: true}],
+            integers: [{k1: 1, k2: 2}, {k3: 3, k4: 4, k5: 5}],
+            strings: [{k1: "a", k2: "b"}, {k3: "c", k4: "d", k5: "e"}],
+            blobs: [{k1: "foo", k2: "bar"}, {k3: "baz", k4: "qux", k5: "quux"}],
+            timestamps: [{k1: 1609502096, k2: 1609588496}, {k3: 1609674896, k4: 1609761296, k5: 1609847696}],
+            enums: [{k1: "Foo", k2: "Bar"}, {k3: "Baz", k4: "Foo", k5: "Bar"}],
+            intEnums: [{k1: 1, k2: 2}, {k3: 3, k4: 1, k5: 2}],
         }
     },
 ])
@@ -99,25 +105,31 @@ apply ListOfMaps @httpRequestTests([
 apply ListOfMaps @httpResponseTests([
     {
         id: "AwsJson10ListOfMapsDeserialize",
-        documentation: "Deserializes a list of maps",
+        documentation: "Deserializes lists of maps for all scalar leaf types",
         protocol: awsJson1_0,
         code: 200,
         body: """
             {
-                "values": [
-                    {"key1": "a", "key2": "b"},
-                    {"key3": "c"}
-                ]
+                "booleans": [{"k1": true, "k2": false}, {"k3": false, "k4": true, "k5": true}],
+                "integers": [{"k1": 1, "k2": 2}, {"k3": 3, "k4": 4, "k5": 5}],
+                "strings": [{"k1": "a", "k2": "b"}, {"k3": "c", "k4": "d", "k5": "e"}],
+                "blobs": [{"k1": "Zm9v", "k2": "YmFy"}, {"k3": "YmF6", "k4": "cXV4", "k5": "cXV1eA=="}],
+                "timestamps": [{"k1": 1609502096, "k2": 1609588496}, {"k3": 1609674896, "k4": 1609761296, "k5": 1609847696}],
+                "enums": [{"k1": "Foo", "k2": "Bar"}, {"k3": "Baz", "k4": "Foo", "k5": "Bar"}],
+                "intEnums": [{"k1": 1, "k2": 2}, {"k3": 3, "k4": 1, "k5": 2}]
             }""",
         bodyMediaType: "application/json",
         headers: {
             "Content-Type": "application/x-amz-json-1.0",
         },
         params: {
-            values: [
-                { key1: "a", key2: "b" },
-                { key3: "c" },
-            ]
+            booleans: [{k1: true, k2: false}, {k3: false, k4: true, k5: true}],
+            integers: [{k1: 1, k2: 2}, {k3: 3, k4: 4, k5: 5}],
+            strings: [{k1: "a", k2: "b"}, {k3: "c", k4: "d", k5: "e"}],
+            blobs: [{k1: "foo", k2: "bar"}, {k3: "baz", k4: "qux", k5: "quux"}],
+            timestamps: [{k1: 1609502096, k2: 1609588496}, {k3: 1609674896, k4: 1609761296, k5: 1609847696}],
+            enums: [{k1: "Foo", k2: "Bar"}, {k3: "Baz", k4: "Foo", k5: "Bar"}],
+            intEnums: [{k1: 1, k2: 2}, {k3: 3, k4: 1, k5: 2}],
         }
     },
 ])
@@ -129,16 +141,19 @@ apply ListOfMaps @httpResponseTests([
 apply ListOfLists @httpRequestTests([
     {
         id: "AwsJson10ListOfListsSerialize",
-        documentation: "Serializes a list of lists",
+        documentation: "Serializes lists of lists for all scalar leaf types",
         protocol: awsJson1_0,
         method: "POST",
         uri: "/",
         body: """
             {
-                "values": [
-                    ["a", "b"],
-                    ["c", "d", "e"]
-                ]
+                "booleans": [[true, false], [false, true, true]],
+                "integers": [[1, 2], [3, 4, 5]],
+                "strings": [["a", "b"], ["c", "d", "e"]],
+                "blobs": [["Zm9v", "YmFy"], ["YmF6", "cXV4", "cXV1eA=="]],
+                "timestamps": [[1609502096, 1609588496], [1609674896, 1609761296, 1609847696]],
+                "enums": [["Foo", "Bar"], ["Baz", "Foo", "Bar"]],
+                "intEnums": [[1, 2], [3, 1, 2]]
             }""",
         bodyMediaType: "application/json",
         headers: {
@@ -146,10 +161,13 @@ apply ListOfLists @httpRequestTests([
             "X-Amz-Target": "AwsJson10CorpusTests.ListOfLists",
         },
         params: {
-            values: [
-                ["a", "b"],
-                ["c", "d", "e"],
-            ]
+            booleans: [[true, false], [false, true, true]],
+            integers: [[1, 2], [3, 4, 5]],
+            strings: [["a", "b"], ["c", "d", "e"]],
+            blobs: [["foo", "bar"], ["baz", "qux", "quux"]],
+            timestamps: [[1609502096, 1609588496], [1609674896, 1609761296, 1609847696]],
+            enums: [["Foo", "Bar"], ["Baz", "Foo", "Bar"]],
+            intEnums: [[1, 2], [3, 1, 2]],
         }
     },
 ])
@@ -157,25 +175,31 @@ apply ListOfLists @httpRequestTests([
 apply ListOfLists @httpResponseTests([
     {
         id: "AwsJson10ListOfListsDeserialize",
-        documentation: "Deserializes a list of lists",
+        documentation: "Deserializes lists of lists for all scalar leaf types",
         protocol: awsJson1_0,
         code: 200,
         body: """
             {
-                "values": [
-                    ["a", "b"],
-                    ["c", "d", "e"]
-                ]
+                "booleans": [[true, false], [false, true, true]],
+                "integers": [[1, 2], [3, 4, 5]],
+                "strings": [["a", "b"], ["c", "d", "e"]],
+                "blobs": [["Zm9v", "YmFy"], ["YmF6", "cXV4", "cXV1eA=="]],
+                "timestamps": [[1609502096, 1609588496], [1609674896, 1609761296, 1609847696]],
+                "enums": [["Foo", "Bar"], ["Baz", "Foo", "Bar"]],
+                "intEnums": [[1, 2], [3, 1, 2]]
             }""",
         bodyMediaType: "application/json",
         headers: {
             "Content-Type": "application/x-amz-json-1.0",
         },
         params: {
-            values: [
-                ["a", "b"],
-                ["c", "d", "e"],
-            ]
+            booleans: [[true, false], [false, true, true]],
+            integers: [[1, 2], [3, 4, 5]],
+            strings: [["a", "b"], ["c", "d", "e"]],
+            blobs: [["foo", "bar"], ["baz", "qux", "quux"]],
+            timestamps: [[1609502096, 1609588496], [1609674896, 1609761296, 1609847696]],
+            enums: [["Foo", "Bar"], ["Baz", "Foo", "Bar"]],
+            intEnums: [[1, 2], [3, 1, 2]],
         }
     },
 ])
@@ -303,16 +327,19 @@ apply MapOfStructs @httpResponseTests([
 apply MapOfMaps @httpRequestTests([
     {
         id: "AwsJson10MapOfMapsSerialize",
-        documentation: "Serializes a map of maps",
+        documentation: "Serializes maps of maps for all scalar leaf types",
         protocol: awsJson1_0,
         method: "POST",
         uri: "/",
         body: """
             {
-                "values": {
-                    "first": {"key1": "a", "key2": "b"},
-                    "second": {"key3": "c"}
-                }
+                "booleans": {"first": {"k1": true, "k2": false}, "second": {"k3": false, "k4": true, "k5": true}},
+                "integers": {"first": {"k1": 1, "k2": 2}, "second": {"k3": 3, "k4": 4, "k5": 5}},
+                "strings": {"first": {"k1": "a", "k2": "b"}, "second": {"k3": "c", "k4": "d", "k5": "e"}},
+                "blobs": {"first": {"k1": "Zm9v", "k2": "YmFy"}, "second": {"k3": "YmF6", "k4": "cXV4", "k5": "cXV1eA=="}},
+                "timestamps": {"first": {"k1": 1609502096, "k2": 1609588496}, "second": {"k3": 1609674896, "k4": 1609761296, "k5": 1609847696}},
+                "enums": {"first": {"k1": "Foo", "k2": "Bar"}, "second": {"k3": "Baz", "k4": "Foo", "k5": "Bar"}},
+                "intEnums": {"first": {"k1": 1, "k2": 2}, "second": {"k3": 3, "k4": 1, "k5": 2}}
             }""",
         bodyMediaType: "application/json",
         headers: {
@@ -320,10 +347,13 @@ apply MapOfMaps @httpRequestTests([
             "X-Amz-Target": "AwsJson10CorpusTests.MapOfMaps",
         },
         params: {
-            values: {
-                first: { key1: "a", key2: "b" },
-                second: { key3: "c" },
-            }
+            booleans: {first: {k1: true, k2: false}, second: {k3: false, k4: true, k5: true}},
+            integers: {first: {k1: 1, k2: 2}, second: {k3: 3, k4: 4, k5: 5}},
+            strings: {first: {k1: "a", k2: "b"}, second: {k3: "c", k4: "d", k5: "e"}},
+            blobs: {first: {k1: "foo", k2: "bar"}, second: {k3: "baz", k4: "qux", k5: "quux"}},
+            timestamps: {first: {k1: 1609502096, k2: 1609588496}, second: {k3: 1609674896, k4: 1609761296, k5: 1609847696}},
+            enums: {first: {k1: "Foo", k2: "Bar"}, second: {k3: "Baz", k4: "Foo", k5: "Bar"}},
+            intEnums: {first: {k1: 1, k2: 2}, second: {k3: 3, k4: 1, k5: 2}},
         }
     },
 ])
@@ -331,25 +361,31 @@ apply MapOfMaps @httpRequestTests([
 apply MapOfMaps @httpResponseTests([
     {
         id: "AwsJson10MapOfMapsDeserialize",
-        documentation: "Deserializes a map of maps",
+        documentation: "Deserializes maps of maps for all scalar leaf types",
         protocol: awsJson1_0,
         code: 200,
         body: """
             {
-                "values": {
-                    "first": {"key1": "a", "key2": "b"},
-                    "second": {"key3": "c"}
-                }
+                "booleans": {"first": {"k1": true, "k2": false}, "second": {"k3": false, "k4": true, "k5": true}},
+                "integers": {"first": {"k1": 1, "k2": 2}, "second": {"k3": 3, "k4": 4, "k5": 5}},
+                "strings": {"first": {"k1": "a", "k2": "b"}, "second": {"k3": "c", "k4": "d", "k5": "e"}},
+                "blobs": {"first": {"k1": "Zm9v", "k2": "YmFy"}, "second": {"k3": "YmF6", "k4": "cXV4", "k5": "cXV1eA=="}},
+                "timestamps": {"first": {"k1": 1609502096, "k2": 1609588496}, "second": {"k3": 1609674896, "k4": 1609761296, "k5": 1609847696}},
+                "enums": {"first": {"k1": "Foo", "k2": "Bar"}, "second": {"k3": "Baz", "k4": "Foo", "k5": "Bar"}},
+                "intEnums": {"first": {"k1": 1, "k2": 2}, "second": {"k3": 3, "k4": 1, "k5": 2}}
             }""",
         bodyMediaType: "application/json",
         headers: {
             "Content-Type": "application/x-amz-json-1.0",
         },
         params: {
-            values: {
-                first: { key1: "a", key2: "b" },
-                second: { key3: "c" },
-            }
+            booleans: {first: {k1: true, k2: false}, second: {k3: false, k4: true, k5: true}},
+            integers: {first: {k1: 1, k2: 2}, second: {k3: 3, k4: 4, k5: 5}},
+            strings: {first: {k1: "a", k2: "b"}, second: {k3: "c", k4: "d", k5: "e"}},
+            blobs: {first: {k1: "foo", k2: "bar"}, second: {k3: "baz", k4: "qux", k5: "quux"}},
+            timestamps: {first: {k1: 1609502096, k2: 1609588496}, second: {k3: 1609674896, k4: 1609761296, k5: 1609847696}},
+            enums: {first: {k1: "Foo", k2: "Bar"}, second: {k3: "Baz", k4: "Foo", k5: "Bar"}},
+            intEnums: {first: {k1: 1, k2: 2}, second: {k3: 3, k4: 1, k5: 2}},
         }
     },
 ])
@@ -361,16 +397,19 @@ apply MapOfMaps @httpResponseTests([
 apply MapOfLists @httpRequestTests([
     {
         id: "AwsJson10MapOfListsSerialize",
-        documentation: "Serializes a map of lists",
+        documentation: "Serializes maps of lists for all scalar leaf types",
         protocol: awsJson1_0,
         method: "POST",
         uri: "/",
         body: """
             {
-                "values": {
-                    "first": ["a", "b"],
-                    "second": ["c", "d", "e"]
-                }
+                "booleans": {"first": [true, false], "second": [false, true, true]},
+                "integers": {"first": [1, 2], "second": [3, 4, 5]},
+                "strings": {"first": ["a", "b"], "second": ["c", "d", "e"]},
+                "blobs": {"first": ["Zm9v", "YmFy"], "second": ["YmF6", "cXV4", "cXV1eA=="]},
+                "timestamps": {"first": [1609502096, 1609588496], "second": [1609674896, 1609761296, 1609847696]},
+                "enums": {"first": ["Foo", "Bar"], "second": ["Baz", "Foo", "Bar"]},
+                "intEnums": {"first": [1, 2], "second": [3, 1, 2]}
             }""",
         bodyMediaType: "application/json",
         headers: {
@@ -378,10 +417,13 @@ apply MapOfLists @httpRequestTests([
             "X-Amz-Target": "AwsJson10CorpusTests.MapOfLists",
         },
         params: {
-            values: {
-                first: ["a", "b"],
-                second: ["c", "d", "e"],
-            }
+            booleans: {first: [true, false], second: [false, true, true]},
+            integers: {first: [1, 2], second: [3, 4, 5]},
+            strings: {first: ["a", "b"], second: ["c", "d", "e"]},
+            blobs: {first: ["foo", "bar"], second: ["baz", "qux", "quux"]},
+            timestamps: {first: [1609502096, 1609588496], second: [1609674896, 1609761296, 1609847696]},
+            enums: {first: ["Foo", "Bar"], second: ["Baz", "Foo", "Bar"]},
+            intEnums: {first: [1, 2], second: [3, 1, 2]},
         }
     },
 ])
@@ -389,25 +431,31 @@ apply MapOfLists @httpRequestTests([
 apply MapOfLists @httpResponseTests([
     {
         id: "AwsJson10MapOfListsDeserialize",
-        documentation: "Deserializes a map of lists",
+        documentation: "Deserializes maps of lists for all scalar leaf types",
         protocol: awsJson1_0,
         code: 200,
         body: """
             {
-                "values": {
-                    "first": ["a", "b"],
-                    "second": ["c", "d", "e"]
-                }
+                "booleans": {"first": [true, false], "second": [false, true, true]},
+                "integers": {"first": [1, 2], "second": [3, 4, 5]},
+                "strings": {"first": ["a", "b"], "second": ["c", "d", "e"]},
+                "blobs": {"first": ["Zm9v", "YmFy"], "second": ["YmF6", "cXV4", "cXV1eA=="]},
+                "timestamps": {"first": [1609502096, 1609588496], "second": [1609674896, 1609761296, 1609847696]},
+                "enums": {"first": ["Foo", "Bar"], "second": ["Baz", "Foo", "Bar"]},
+                "intEnums": {"first": [1, 2], "second": [3, 1, 2]}
             }""",
         bodyMediaType: "application/json",
         headers: {
             "Content-Type": "application/x-amz-json-1.0",
         },
         params: {
-            values: {
-                first: ["a", "b"],
-                second: ["c", "d", "e"],
-            }
+            booleans: {first: [true, false], second: [false, true, true]},
+            integers: {first: [1, 2], second: [3, 4, 5]},
+            strings: {first: ["a", "b"], second: ["c", "d", "e"]},
+            blobs: {first: ["foo", "bar"], second: ["baz", "qux", "quux"]},
+            timestamps: {first: [1609502096, 1609588496], second: [1609674896, 1609761296, 1609847696]},
+            enums: {first: ["Foo", "Bar"], second: ["Baz", "Foo", "Bar"]},
+            intEnums: {first: [1, 2], second: [3, 1, 2]},
         }
     },
 ])

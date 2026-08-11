@@ -436,23 +436,71 @@ operation ListOfStructs {
 
 operation ListOfMaps {
     input := {
-        @jsonName("jsonValues") @xmlName("xmlValues") @ec2QueryName("ec2Values")
-        values: ListOfStringMap
+        @jsonName("jsonBooleans") @xmlName("xmlBooleans") @ec2QueryName("ec2Booleans")
+        booleans: ListOfBooleanMap
+        @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
+        integers: ListOfIntegerMap
+        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
+        strings: ListOfStringMap
+        @jsonName("jsonBlobs") @xmlName("xmlBlobs") @ec2QueryName("ec2Blobs")
+        blobs: ListOfBlobMap
+        @jsonName("jsonTimestamps") @xmlName("xmlTimestamps") @ec2QueryName("ec2Timestamps")
+        timestamps: ListOfTimestampMap
+        @jsonName("jsonEnums") @xmlName("xmlEnums") @ec2QueryName("ec2Enums")
+        enums: ListOfCorpusStringEnumMap
+        @jsonName("jsonIntEnums") @xmlName("xmlIntEnums") @ec2QueryName("ec2IntEnums")
+        intEnums: ListOfCorpusIntEnumMap
     }
     output := {
-        @jsonName("jsonValues") @xmlName("xmlValues") @ec2QueryName("ec2Values")
-        values: ListOfStringMap
+        @jsonName("jsonBooleans") @xmlName("xmlBooleans") @ec2QueryName("ec2Booleans")
+        booleans: ListOfBooleanMap
+        @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
+        integers: ListOfIntegerMap
+        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
+        strings: ListOfStringMap
+        @jsonName("jsonBlobs") @xmlName("xmlBlobs") @ec2QueryName("ec2Blobs")
+        blobs: ListOfBlobMap
+        @jsonName("jsonTimestamps") @xmlName("xmlTimestamps") @ec2QueryName("ec2Timestamps")
+        timestamps: ListOfTimestampMap
+        @jsonName("jsonEnums") @xmlName("xmlEnums") @ec2QueryName("ec2Enums")
+        enums: ListOfCorpusStringEnumMap
+        @jsonName("jsonIntEnums") @xmlName("xmlIntEnums") @ec2QueryName("ec2IntEnums")
+        intEnums: ListOfCorpusIntEnumMap
     }
 }
 
 operation ListOfLists {
     input := {
-        @jsonName("jsonValues") @xmlName("xmlValues") @ec2QueryName("ec2Values")
-        values: ListOfStringList
+        @jsonName("jsonBooleans") @xmlName("xmlBooleans") @ec2QueryName("ec2Booleans")
+        booleans: ListOfBooleanList
+        @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
+        integers: ListOfIntegerList
+        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
+        strings: ListOfStringList
+        @jsonName("jsonBlobs") @xmlName("xmlBlobs") @ec2QueryName("ec2Blobs")
+        blobs: ListOfBlobList
+        @jsonName("jsonTimestamps") @xmlName("xmlTimestamps") @ec2QueryName("ec2Timestamps")
+        timestamps: ListOfTimestampList
+        @jsonName("jsonEnums") @xmlName("xmlEnums") @ec2QueryName("ec2Enums")
+        enums: ListOfCorpusStringEnumList
+        @jsonName("jsonIntEnums") @xmlName("xmlIntEnums") @ec2QueryName("ec2IntEnums")
+        intEnums: ListOfCorpusIntEnumList
     }
     output := {
-        @jsonName("jsonValues") @xmlName("xmlValues") @ec2QueryName("ec2Values")
-        values: ListOfStringList
+        @jsonName("jsonBooleans") @xmlName("xmlBooleans") @ec2QueryName("ec2Booleans")
+        booleans: ListOfBooleanList
+        @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
+        integers: ListOfIntegerList
+        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
+        strings: ListOfStringList
+        @jsonName("jsonBlobs") @xmlName("xmlBlobs") @ec2QueryName("ec2Blobs")
+        blobs: ListOfBlobList
+        @jsonName("jsonTimestamps") @xmlName("xmlTimestamps") @ec2QueryName("ec2Timestamps")
+        timestamps: ListOfTimestampList
+        @jsonName("jsonEnums") @xmlName("xmlEnums") @ec2QueryName("ec2Enums")
+        enums: ListOfCorpusStringEnumList
+        @jsonName("jsonIntEnums") @xmlName("xmlIntEnums") @ec2QueryName("ec2IntEnums")
+        intEnums: ListOfCorpusIntEnumList
     }
 }
 
@@ -484,23 +532,71 @@ operation MapOfStructs {
 
 operation MapOfMaps {
     input := {
-        @jsonName("jsonValues") @xmlName("xmlValues") @ec2QueryName("ec2Values")
-        values: MapOfStringMap
+        @jsonName("jsonBooleans") @xmlName("xmlBooleans") @ec2QueryName("ec2Booleans")
+        booleans: MapOfBooleanMap
+        @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
+        integers: MapOfIntegerMap
+        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
+        strings: MapOfStringMap
+        @jsonName("jsonBlobs") @xmlName("xmlBlobs") @ec2QueryName("ec2Blobs")
+        blobs: MapOfBlobMap
+        @jsonName("jsonTimestamps") @xmlName("xmlTimestamps") @ec2QueryName("ec2Timestamps")
+        timestamps: MapOfTimestampMap
+        @jsonName("jsonEnums") @xmlName("xmlEnums") @ec2QueryName("ec2Enums")
+        enums: MapOfCorpusStringEnumMap
+        @jsonName("jsonIntEnums") @xmlName("xmlIntEnums") @ec2QueryName("ec2IntEnums")
+        intEnums: MapOfCorpusIntEnumMap
     }
     output := {
-        @jsonName("jsonValues") @xmlName("xmlValues") @ec2QueryName("ec2Values")
-        values: MapOfStringMap
+        @jsonName("jsonBooleans") @xmlName("xmlBooleans") @ec2QueryName("ec2Booleans")
+        booleans: MapOfBooleanMap
+        @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
+        integers: MapOfIntegerMap
+        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
+        strings: MapOfStringMap
+        @jsonName("jsonBlobs") @xmlName("xmlBlobs") @ec2QueryName("ec2Blobs")
+        blobs: MapOfBlobMap
+        @jsonName("jsonTimestamps") @xmlName("xmlTimestamps") @ec2QueryName("ec2Timestamps")
+        timestamps: MapOfTimestampMap
+        @jsonName("jsonEnums") @xmlName("xmlEnums") @ec2QueryName("ec2Enums")
+        enums: MapOfCorpusStringEnumMap
+        @jsonName("jsonIntEnums") @xmlName("xmlIntEnums") @ec2QueryName("ec2IntEnums")
+        intEnums: MapOfCorpusIntEnumMap
     }
 }
 
 operation MapOfLists {
     input := {
-        @jsonName("jsonValues") @xmlName("xmlValues") @ec2QueryName("ec2Values")
-        values: MapOfStringList
+        @jsonName("jsonBooleans") @xmlName("xmlBooleans") @ec2QueryName("ec2Booleans")
+        booleans: MapOfBooleanList
+        @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
+        integers: MapOfIntegerList
+        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
+        strings: MapOfStringList
+        @jsonName("jsonBlobs") @xmlName("xmlBlobs") @ec2QueryName("ec2Blobs")
+        blobs: MapOfBlobList
+        @jsonName("jsonTimestamps") @xmlName("xmlTimestamps") @ec2QueryName("ec2Timestamps")
+        timestamps: MapOfTimestampList
+        @jsonName("jsonEnums") @xmlName("xmlEnums") @ec2QueryName("ec2Enums")
+        enums: MapOfCorpusStringEnumList
+        @jsonName("jsonIntEnums") @xmlName("xmlIntEnums") @ec2QueryName("ec2IntEnums")
+        intEnums: MapOfCorpusIntEnumList
     }
     output := {
-        @jsonName("jsonValues") @xmlName("xmlValues") @ec2QueryName("ec2Values")
-        values: MapOfStringList
+        @jsonName("jsonBooleans") @xmlName("xmlBooleans") @ec2QueryName("ec2Booleans")
+        booleans: MapOfBooleanList
+        @jsonName("jsonIntegers") @xmlName("xmlIntegers") @ec2QueryName("ec2Integers")
+        integers: MapOfIntegerList
+        @jsonName("jsonStrings") @xmlName("xmlStrings") @ec2QueryName("ec2Strings")
+        strings: MapOfStringList
+        @jsonName("jsonBlobs") @xmlName("xmlBlobs") @ec2QueryName("ec2Blobs")
+        blobs: MapOfBlobList
+        @jsonName("jsonTimestamps") @xmlName("xmlTimestamps") @ec2QueryName("ec2Timestamps")
+        timestamps: MapOfTimestampList
+        @jsonName("jsonEnums") @xmlName("xmlEnums") @ec2QueryName("ec2Enums")
+        enums: MapOfCorpusStringEnumList
+        @jsonName("jsonIntEnums") @xmlName("xmlIntEnums") @ec2QueryName("ec2IntEnums")
+        intEnums: MapOfCorpusIntEnumList
     }
 }
 
@@ -688,8 +784,20 @@ string MediaTypeJsonString
 list CorpusStringEnumList { member: CorpusStringEnum }
 list CorpusIntEnumList { member: CorpusIntEnum }
 list SimpleStructList { member: SimpleStruct }
-list ListOfStringMap { member: StringMap }
+list ListOfBooleanList { member: BooleanList }
+list ListOfIntegerList { member: IntegerList }
 list ListOfStringList { member: StringList }
+list ListOfBlobList { member: BlobList }
+list ListOfTimestampList { member: TimestampList }
+list ListOfCorpusStringEnumList { member: CorpusStringEnumList }
+list ListOfCorpusIntEnumList { member: CorpusIntEnumList }
+list ListOfBooleanMap { member: BooleanMap }
+list ListOfIntegerMap { member: IntegerMap }
+list ListOfStringMap { member: StringMap }
+list ListOfBlobMap { member: BlobMap }
+list ListOfTimestampMap { member: TimestampMap }
+list ListOfCorpusStringEnumMap { member: CorpusStringEnumMap }
+list ListOfCorpusIntEnumMap { member: CorpusIntEnumMap }
 list CorpusUnionList { member: CorpusUnion }
 
 @sparse
@@ -709,8 +817,20 @@ map TimestampMap { key: String, value: Timestamp }
 map CorpusStringEnumMap { key: String, value: CorpusStringEnum }
 map CorpusIntEnumMap { key: String, value: CorpusIntEnum }
 map SimpleStructMap { key: String, value: SimpleStruct }
-map MapOfStringMap { key: String, value: StringMap }
+map MapOfBooleanList { key: String, value: BooleanList }
+map MapOfIntegerList { key: String, value: IntegerList }
 map MapOfStringList { key: String, value: StringList }
+map MapOfBlobList { key: String, value: BlobList }
+map MapOfTimestampList { key: String, value: TimestampList }
+map MapOfCorpusStringEnumList { key: String, value: CorpusStringEnumList }
+map MapOfCorpusIntEnumList { key: String, value: CorpusIntEnumList }
+map MapOfBooleanMap { key: String, value: BooleanMap }
+map MapOfIntegerMap { key: String, value: IntegerMap }
+map MapOfStringMap { key: String, value: StringMap }
+map MapOfBlobMap { key: String, value: BlobMap }
+map MapOfTimestampMap { key: String, value: TimestampMap }
+map MapOfCorpusStringEnumMap { key: String, value: CorpusStringEnumMap }
+map MapOfCorpusIntEnumMap { key: String, value: CorpusIntEnumMap }
 map CorpusUnionMap { key: String, value: CorpusUnion }
 
 @sparse
