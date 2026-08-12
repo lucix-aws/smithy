@@ -43,18 +43,31 @@ operation NoTraitScalarMembers {
 /// Timestamp members have no @timestampFormat — protocol uses its default.
 structure NoTraitScalarStruct {
     booleanMember: Boolean
+
     byteMember: Byte
+
     shortMember: Short
+
     integerMember: Integer
+
     longMember: Long
+
     floatMember: Float
+
     doubleMember: Double
+
     bigIntegerMember: BigInteger
+
     bigDecimalMember: BigDecimal
+
     stringMember: String
+
     blobMember: Blob
+
     timestampMember: Timestamp
+
     enumMember: CorpusStringEnum
+
     intEnumMember: CorpusIntEnum
 }
 
@@ -73,8 +86,11 @@ operation NoTraitStructOfScalars {
 
 structure NoTraitSimpleStruct {
     stringMember: String
+
     integerMember: Integer
+
     booleanMember: Boolean
+
     timestampMember: Timestamp
 }
 
@@ -127,9 +143,14 @@ operation NoTraitUnionMembers {
 
 union NoTraitUnion {
     stringMember: String
+
     integerMember: Integer
+
     booleanMember: Boolean
+
     listMember: StringList
+
     mapMember: StringMap
+
     structMember: NoTraitSimpleStruct
 }

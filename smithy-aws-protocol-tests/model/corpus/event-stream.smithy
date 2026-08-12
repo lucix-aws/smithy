@@ -33,12 +33,14 @@ operation EventStreamResponse {
 @streaming
 union ResponseEventStream {
     messageEvent: MessageEvent
+
     heartbeatEvent: HeartbeatEvent
 }
 
 structure MessageEvent {
     @jsonName("jsonContent") @xmlName("xmlContent")
     content: String
+
     @jsonName("jsonSequence") @xmlName("xmlSequence")
     sequence: Integer
 }
@@ -65,6 +67,7 @@ union BlobPayloadEventStream {
 structure BlobPayloadEvent {
     @eventHeader
     contentType: String
+
     @eventPayload
     data: Blob
 }
@@ -89,16 +92,22 @@ union HeaderEventStream {
 structure HeaderEvent {
     @eventHeader
     stringHeader: String
+
     @eventHeader
     integerHeader: Integer
+
     @eventHeader
     booleanHeader: Boolean
+
     @eventHeader
     longHeader: Long
+
     @eventHeader
     timestampHeader: Timestamp
+
     @eventHeader
     blobHeader: Blob
+
     @eventPayload
     body: String
 }
@@ -124,7 +133,9 @@ structure ImplicitPayloadEvent {
     requestId: String
     // These become the protocol-specific document body (implicit payload):
     content: String
+
     count: Integer
+
     nested: SimpleStruct
 }
 
@@ -143,6 +154,7 @@ operation EventStreamError {
 @streaming
 union ErrorEventStream {
     messageEvent: MessageEvent
+
     streamError: StreamError
 }
 
@@ -150,6 +162,7 @@ union ErrorEventStream {
 structure StreamError {
     @jsonName("jsonMessage") @xmlName("xmlMessage")
     message: String
+
     @jsonName("jsonCode") @xmlName("xmlCode")
     code: Integer
 }
@@ -169,6 +182,7 @@ operation EventStreamRequest {
 @streaming
 union RequestEventStream {
     sendMessage: SendMessageEvent
+
     endStream: EndStreamEvent
 }
 

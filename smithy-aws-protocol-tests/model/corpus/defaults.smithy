@@ -30,44 +30,62 @@ operation DefaultScalars {
 structure DefaultScalarsMixin {
     @default(false)
     defaultBoolean: Boolean
+
     @default(0)
     defaultByte: Byte
+
     @default(0)
     defaultShort: Short
+
     @default(0)
     defaultInteger: Integer
+
     @default(0)
     defaultLong: Long
+
     @default(0)
     defaultFloat: Float
+
     @default(0)
     defaultDouble: Double
+
     @default("")
     defaultString: String
+
     @default("")
     defaultBlob: Blob
+
     @default("Foo")
     defaultEnum: CorpusStringEnum
+
     @default(1)
     defaultIntEnum: CorpusIntEnum
 
     // Zero-value members (explicitly set to the zero/default value)
     @default(false)
     zeroBoolean: Boolean
+
     @default(0)
     zeroByte: Byte
+
     @default(0)
     zeroShort: Short
+
     @default(0)
     zeroInteger: Integer
+
     @default(0)
     zeroLong: Long
+
     @default(0)
     zeroFloat: Float
+
     @default(0)
     zeroDouble: Double
+
     @default("")
     emptyString: String
+
     @default("")
     emptyBlob: Blob
 }
@@ -85,6 +103,7 @@ operation DefaultCollections {
 structure DefaultCollectionsMixin {
     @default([])
     defaultList: StringList
+
     @default({})
     defaultMap: StringMap
 }
@@ -105,15 +124,19 @@ operation NestedDefaults {
 structure TopLevelWithDefaults {
     @required
     nested: NestedWithDefaults
+
     nestedList: NestedWithDefaultsList
+
     nestedMap: NestedWithDefaultsMap
 }
 
 structure NestedWithDefaults {
     @default("hello")
     greeting: String
+
     @default(0)
     count: Integer
+
     inner: InnerWithDefaults
 }
 
@@ -144,24 +167,32 @@ operation RequiredMembers {
 structure RequiredMembersMixin {
     @required
     requiredString: String
+
     @required
     requiredInteger: Integer
+
     @required
     requiredBoolean: Boolean
+
     @required
     requiredList: StringList
+
     @required
     requiredMap: StringMap
 
     // Required with defaults — client fills default when server omits
     @required @default("default")
     requiredStringWithDefault: String
+
     @required @default(0)
     requiredIntegerWithDefault: Integer
+
     @required @default(false)
     requiredBooleanWithDefault: Boolean
+
     @required @default([])
     requiredListWithDefault: StringList
+
     @required @default({})
     requiredMapWithDefault: StringMap
 }
@@ -198,8 +229,10 @@ operation ClientOptionalDefaults {
 structure ClientOptionalMixin {
     @clientOptional @default(0)
     optionalInteger: Integer
+
     @clientOptional @default("")
     optionalString: String
+
     @clientOptional @default(false)
     optionalBoolean: Boolean
 }

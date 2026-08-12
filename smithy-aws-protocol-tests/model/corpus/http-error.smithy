@@ -33,6 +33,7 @@ structure HttpErrorConflict {
 structure HttpErrorGone {
     @jsonName("jsonMessage") @xmlName("xmlMessage") @ec2QueryName("ec2Message")
     message: String
+
     @jsonName("jsonDetails") @xmlName("xmlDetails") @ec2QueryName("ec2Details")
     details: String
 }
@@ -42,6 +43,7 @@ structure HttpErrorGone {
 structure HttpErrorServiceUnavailable {
     @jsonName("jsonMessage") @xmlName("xmlMessage") @ec2QueryName("ec2Message")
     message: String
+
     @jsonName("jsonRetryAfter") @xmlName("xmlRetryAfter") @ec2QueryName("ec2RetryAfter")
     retryAfterSeconds: Integer
 }

@@ -75,39 +75,55 @@ operation ScalarMembers {
 structure ScalarMembersInputOutput {
     @jsonName("jsonBooleanMember") @xmlName("xmlBooleanMember") @ec2QueryName("ec2BooleanMember")
     booleanMember: Boolean
+
     @jsonName("jsonByteMember") @xmlName("xmlByteMember") @ec2QueryName("ec2ByteMember")
     byteMember: Byte
+
     @jsonName("jsonShortMember") @xmlName("xmlShortMember") @ec2QueryName("ec2ShortMember")
     shortMember: Short
+
     @jsonName("jsonIntegerMember") @xmlName("xmlIntegerMember") @ec2QueryName("ec2IntegerMember")
     integerMember: Integer
+
     @jsonName("jsonLongMember") @xmlName("xmlLongMember") @ec2QueryName("ec2LongMember")
     longMember: Long
+
     @jsonName("jsonFloatMember") @xmlName("xmlFloatMember") @ec2QueryName("ec2FloatMember")
     floatMember: Float
+
     @jsonName("jsonDoubleMember") @xmlName("xmlDoubleMember") @ec2QueryName("ec2DoubleMember")
     doubleMember: Double
+
     @jsonName("jsonBigIntegerMember") @xmlName("xmlBigIntegerMember") @ec2QueryName("ec2BigIntegerMember")
     bigIntegerMember: BigInteger
+
     @jsonName("jsonBigDecimalMember") @xmlName("xmlBigDecimalMember") @ec2QueryName("ec2BigDecimalMember")
     bigDecimalMember: BigDecimal
+
     @jsonName("jsonStringMember") @xmlName("xmlStringMember") @ec2QueryName("ec2StringMember")
     stringMember: String
+
     @jsonName("jsonMediaTypeMember") @xmlName("xmlMediaTypeMember") @ec2QueryName("ec2MediaTypeMember")
     mediaTypeMember: MediaTypeJsonString
+
     @jsonName("jsonBlobMember") @xmlName("xmlBlobMember") @ec2QueryName("ec2BlobMember")
     blobMember: Blob
+
     @jsonName("jsonDateTimeMember") @xmlName("xmlDateTimeMember") @ec2QueryName("ec2DateTimeMember")
     @timestampFormat("date-time")
     dateTimeMember: Timestamp
+
     @jsonName("jsonEpochSecondsMember") @xmlName("xmlEpochSecondsMember") @ec2QueryName("ec2EpochSecondsMember")
     @timestampFormat("epoch-seconds")
     epochSecondsMember: Timestamp
+
     @jsonName("jsonHttpDateMember") @xmlName("xmlHttpDateMember") @ec2QueryName("ec2HttpDateMember")
     @timestampFormat("http-date")
     httpDateMember: Timestamp
+
     @jsonName("jsonStringEnum") @xmlName("xmlStringEnum") @ec2QueryName("ec2StringEnum")
     stringEnum: CorpusStringEnum
+
     @jsonName("jsonIntEnum") @xmlName("xmlIntEnum") @ec2QueryName("ec2IntEnum")
     intEnum: CorpusIntEnum
 }
@@ -166,6 +182,7 @@ structure ListOfScalarsInputOutput {
 
 operation SparseListOfScalars {
     input: SparseListOfScalarsInputOutput
+
     output: SparseListOfScalarsInputOutput
 }
 
@@ -202,6 +219,7 @@ structure SparseListOfScalarsInputOutput {
 
 operation MapOfScalars {
     input: MapOfScalarsInputOutput
+
     output: MapOfScalarsInputOutput
 }
 
@@ -238,6 +256,7 @@ structure MapOfScalarsInputOutput {
 
 operation SparseMapOfScalars {
     input: SparseMapOfScalarsInputOutput
+
     output: SparseMapOfScalarsInputOutput
 }
 
@@ -278,6 +297,7 @@ structure SparseMapOfScalarsInputOutput {
 
 operation UnionOfScalars {
     input: UnionOfScalarsInputOutput
+
     output: UnionOfScalarsInputOutput
 }
 
@@ -288,6 +308,7 @@ structure UnionOfScalarsInputOutput {
 
 operation UnionOfStruct {
     input: UnionOfStructInputOutput
+
     output: UnionOfStructInputOutput
 }
 
@@ -298,6 +319,7 @@ structure UnionOfStructInputOutput {
 
 operation UnionOfList {
     input: UnionOfListInputOutput
+
     output: UnionOfListInputOutput
 }
 
@@ -308,6 +330,7 @@ structure UnionOfListInputOutput {
 
 operation UnionOfMap {
     input: UnionOfMapInputOutput
+
     output: UnionOfMapInputOutput
 }
 
@@ -318,6 +341,7 @@ structure UnionOfMapInputOutput {
 
 operation UnionOfUnion {
     input: UnionOfUnionInputOutput
+
     output: UnionOfUnionInputOutput
 }
 
@@ -329,40 +353,58 @@ structure UnionOfUnionInputOutput {
 union CorpusUnion {
     @jsonName("jsonBooleanValue") @xmlName("xmlBooleanValue")
     booleanValue: Boolean
+
     @jsonName("jsonByteValue") @xmlName("xmlByteValue")
     byteValue: Byte
+
     @jsonName("jsonShortValue") @xmlName("xmlShortValue")
     shortValue: Short
+
     @jsonName("jsonIntegerValue") @xmlName("xmlIntegerValue")
     integerValue: Integer
+
     @jsonName("jsonLongValue") @xmlName("xmlLongValue")
     longValue: Long
+
     @jsonName("jsonFloatValue") @xmlName("xmlFloatValue")
     floatValue: Float
+
     @jsonName("jsonDoubleValue") @xmlName("xmlDoubleValue")
     doubleValue: Double
+
     @jsonName("jsonBigIntegerValue") @xmlName("xmlBigIntegerValue")
     bigIntegerValue: BigInteger
+
     @jsonName("jsonBigDecimalValue") @xmlName("xmlBigDecimalValue")
     bigDecimalValue: BigDecimal
+
     @jsonName("jsonStringValue") @xmlName("xmlStringValue")
     stringValue: String
+
     @jsonName("jsonMediaTypeValue") @xmlName("xmlMediaTypeValue")
     mediaTypeValue: MediaTypeJsonString
+
     @jsonName("jsonBlobValue") @xmlName("xmlBlobValue")
     blobValue: Blob
+
     @jsonName("jsonTimestampValue") @xmlName("xmlTimestampValue")
     timestampValue: Timestamp
+
     @jsonName("jsonEnumValue") @xmlName("xmlEnumValue")
     enumValue: CorpusStringEnum
+
     @jsonName("jsonIntEnumValue") @xmlName("xmlIntEnumValue")
     intEnumValue: CorpusIntEnum
+
     @jsonName("jsonListValue") @xmlName("xmlListValue")
     listValue: StringList
+
     @jsonName("jsonMapValue") @xmlName("xmlMapValue")
     mapValue: StringMap
+
     @jsonName("jsonStructValue") @xmlName("xmlStructValue")
     structValue: SimpleStruct
+
     @jsonName("jsonUnionValue") @xmlName("xmlUnionValue")
     unionValue: CorpusSubUnion
 }
@@ -371,6 +413,7 @@ union CorpusUnion {
 union CorpusSubUnion {
     @jsonName("jsonStringValue") @xmlName("xmlStringValue")
     stringValue: String
+
     @jsonName("jsonIntegerValue") @xmlName("xmlIntegerValue")
     integerValue: Integer
 }
@@ -392,39 +435,55 @@ structure StructOfScalarsInputOutput {
 structure ScalarStruct {
     @jsonName("jsonBooleanMember") @xmlName("xmlBooleanMember") @ec2QueryName("ec2BooleanMember")
     booleanMember: Boolean
+
     @jsonName("jsonByteMember") @xmlName("xmlByteMember") @ec2QueryName("ec2ByteMember")
     byteMember: Byte
+
     @jsonName("jsonShortMember") @xmlName("xmlShortMember") @ec2QueryName("ec2ShortMember")
     shortMember: Short
+
     @jsonName("jsonIntegerMember") @xmlName("xmlIntegerMember") @ec2QueryName("ec2IntegerMember")
     integerMember: Integer
+
     @jsonName("jsonLongMember") @xmlName("xmlLongMember") @ec2QueryName("ec2LongMember")
     longMember: Long
+
     @jsonName("jsonFloatMember") @xmlName("xmlFloatMember") @ec2QueryName("ec2FloatMember")
     floatMember: Float
+
     @jsonName("jsonDoubleMember") @xmlName("xmlDoubleMember") @ec2QueryName("ec2DoubleMember")
     doubleMember: Double
+
     @jsonName("jsonBigIntegerMember") @xmlName("xmlBigIntegerMember") @ec2QueryName("ec2BigIntegerMember")
     bigIntegerMember: BigInteger
+
     @jsonName("jsonBigDecimalMember") @xmlName("xmlBigDecimalMember") @ec2QueryName("ec2BigDecimalMember")
     bigDecimalMember: BigDecimal
+
     @jsonName("jsonStringMember") @xmlName("xmlStringMember") @ec2QueryName("ec2StringMember")
     stringMember: String
+
     @jsonName("jsonMediaTypeMember") @xmlName("xmlMediaTypeMember") @ec2QueryName("ec2MediaTypeMember")
     mediaTypeMember: MediaTypeJsonString
+
     @jsonName("jsonBlobMember") @xmlName("xmlBlobMember") @ec2QueryName("ec2BlobMember")
     blobMember: Blob
+
     @jsonName("jsonDateTimeMember") @xmlName("xmlDateTimeMember") @ec2QueryName("ec2DateTimeMember")
     @timestampFormat("date-time")
     dateTimeMember: Timestamp
+
     @jsonName("jsonEpochSecondsMember") @xmlName("xmlEpochSecondsMember") @ec2QueryName("ec2EpochSecondsMember")
     @timestampFormat("epoch-seconds")
     epochSecondsMember: Timestamp
+
     @jsonName("jsonHttpDateMember") @xmlName("xmlHttpDateMember") @ec2QueryName("ec2HttpDateMember")
     @timestampFormat("http-date")
     httpDateMember: Timestamp
+
     @jsonName("jsonStringEnum") @xmlName("xmlStringEnum") @ec2QueryName("ec2StringEnum")
     stringEnum: CorpusStringEnum
+
     @jsonName("jsonIntEnum") @xmlName("xmlIntEnum") @ec2QueryName("ec2IntEnum")
     intEnum: CorpusIntEnum
 }
@@ -445,6 +504,7 @@ structure ListOfStructsInputOutput {
 
 operation ListOfMaps {
     input: ListOfMapsInputOutput
+
     output: ListOfMapsInputOutput
 }
 
@@ -467,6 +527,7 @@ structure ListOfMapsInputOutput {
 
 operation ListOfLists {
     input: ListOfListsInputOutput
+
     output: ListOfListsInputOutput
 }
 
@@ -489,6 +550,7 @@ structure ListOfListsInputOutput {
 
 operation ListOfUnions {
     input: ListOfUnionsInputOutput
+
     output: ListOfUnionsInputOutput
 }
 
@@ -503,6 +565,7 @@ structure ListOfUnionsInputOutput {
 
 operation MapOfStructs {
     input: MapOfStructsInputOutput
+
     output: MapOfStructsInputOutput
 }
 
@@ -513,6 +576,7 @@ structure MapOfStructsInputOutput {
 
 operation MapOfMaps {
     input: MapOfMapsInputOutput
+
     output: MapOfMapsInputOutput
 }
 
@@ -535,6 +599,7 @@ structure MapOfMapsInputOutput {
 
 operation MapOfLists {
     input: MapOfListsInputOutput
+
     output: MapOfListsInputOutput
 }
 
@@ -557,6 +622,7 @@ structure MapOfListsInputOutput {
 
 operation MapOfUnions {
     input: MapOfUnionsInputOutput
+
     output: MapOfUnionsInputOutput
 }
 
@@ -571,6 +637,7 @@ structure MapOfUnionsInputOutput {
 
 operation SparseListOfStructs {
     input: SparseListOfStructsInputOutput
+
     output: SparseListOfStructsInputOutput
 }
 
@@ -581,6 +648,7 @@ structure SparseListOfStructsInputOutput {
 
 operation SparseMapOfStructs {
     input: SparseMapOfStructsInputOutput
+
     output: SparseMapOfStructsInputOutput
 }
 
@@ -595,6 +663,7 @@ structure SparseMapOfStructsInputOutput {
 
 operation RecursiveStruct {
     input: RecursiveStructInputOutput
+
     output: RecursiveStructInputOutput
 }
 
@@ -606,10 +675,13 @@ structure RecursiveStructInputOutput {
 structure RecursiveStructShape {
     @jsonName("jsonStringMember") @xmlName("xmlStringMember") @ec2QueryName("ec2StringMember")
     stringMember: String
+
     @jsonName("jsonRecursiveMember") @xmlName("xmlRecursiveMember") @ec2QueryName("ec2RecursiveMember")
     recursiveMember: RecursiveStructShape
+
     @jsonName("jsonRecursiveList") @xmlName("xmlRecursiveList") @ec2QueryName("ec2RecursiveList")
     recursiveList: RecursiveStructList
+
     @jsonName("jsonRecursiveMap") @xmlName("xmlRecursiveMap") @ec2QueryName("ec2RecursiveMap")
     recursiveMap: RecursiveStructMap
 }
@@ -636,8 +708,10 @@ structure RecursiveUnionInputOutput {
 union RecursiveUnionShape {
     @jsonName("jsonStringValue") @xmlName("xmlStringValue")
     stringValue: String
+
     @jsonName("jsonRecursiveValue") @xmlName("xmlRecursiveValue")
     recursiveValue: RecursiveUnionShape
+
     @jsonName("jsonStructValue") @xmlName("xmlStructValue")
     structValue: RecursiveUnionStruct
 }
@@ -678,8 +752,10 @@ structure SimpleError {
 structure ComplexError {
     @jsonName("jsonMessage") @xmlName("xmlMessage") @ec2QueryName("ec2Message")
     message: String
+
     @jsonName("jsonCode") @xmlName("xmlCode") @ec2QueryName("ec2Code")
     code: Integer
+
     @jsonName("jsonNested") @xmlName("xmlNested") @ec2QueryName("ec2Nested")
     nested: ComplexNestedError
 }
@@ -687,6 +763,7 @@ structure ComplexError {
 structure ComplexNestedError {
     @jsonName("jsonStringMember") @xmlName("xmlStringMember") @ec2QueryName("ec2StringMember")
     stringMember: String
+
     @jsonName("jsonIntegerMember") @xmlName("xmlIntegerMember") @ec2QueryName("ec2IntegerMember")
     integerMember: Integer
 }
@@ -698,10 +775,13 @@ structure ComplexNestedError {
 structure SimpleStruct {
     @jsonName("jsonStringMember") @xmlName("xmlStringMember") @ec2QueryName("ec2StringMember")
     stringMember: String
+
     @jsonName("jsonIntegerMember") @xmlName("xmlIntegerMember") @ec2QueryName("ec2IntegerMember")
     integerMember: Integer
+
     @jsonName("jsonBooleanMember") @xmlName("xmlBooleanMember") @ec2QueryName("ec2BooleanMember")
     booleanMember: Boolean
+
     @jsonName("jsonMediaTypeMember") @xmlName("xmlMediaTypeMember") @ec2QueryName("ec2MediaTypeMember")
     mediaTypeMember: MediaTypeJsonString
 }

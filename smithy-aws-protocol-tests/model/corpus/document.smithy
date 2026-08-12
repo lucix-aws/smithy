@@ -37,6 +37,7 @@ operation DocumentMembers {
 structure DocumentStruct {
     @jsonName("jsonDocumentMember")
     documentMember: Document
+
     @jsonName("jsonStringMember")
     stringMember: String
 }
@@ -98,8 +99,10 @@ operation DocumentUnion {
 union DocumentUnionShape {
     @jsonName("jsonDocumentValue")
     documentValue: Document
+
     @jsonName("jsonStringValue")
     stringValue: String
+
     @jsonName("jsonIntegerValue")
     integerValue: Integer
 }

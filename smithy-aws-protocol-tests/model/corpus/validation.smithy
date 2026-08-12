@@ -54,10 +54,15 @@ operation MalformedRange {
 
 structure MalformedRangeInput {
     rangeByte: RangeByte
+
     rangeShort: RangeShort
+
     rangeInteger: RangeInteger
+
     rangeLong: RangeLong
+
     rangeFloat: RangeFloat
+
     rangeDouble: RangeDouble
 }
 
@@ -92,8 +97,11 @@ operation MalformedLength {
 
 structure MalformedLengthInput {
     lengthString: LengthString
+
     lengthBlob: LengthBlob
+
     lengthList: LengthList
+
     lengthMap: LengthMap
 }
 
@@ -187,6 +195,7 @@ operation MalformedRequired {
 structure MalformedRequiredInput {
     @required
     requiredString: String
+
     @required
     requiredInteger: Integer
 }

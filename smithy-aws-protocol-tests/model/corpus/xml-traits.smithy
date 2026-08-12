@@ -430,6 +430,7 @@ structure XmlNameStruct {
 union XmlNameUnion {
     @xmlName("xmlStringValue")
     stringValue: String
+
     @xmlName("xmlIntegerValue")
     integerValue: Integer
 }
@@ -483,8 +484,10 @@ operation XmlNamespaceOnUnion {
 union XmlNamespacedUnion {
     @xmlName("xmlStringValue")
     stringValue: String
+
     @xmlName("xmlIntegerValue")
     integerValue: Integer
+
     @xmlName("xmlStructValue")
     structValue: SimpleStruct
 }
