@@ -206,7 +206,7 @@ apply SparseListOfScalars @httpRequestTests([
                 "doubles": [null, 3.5, 4.5],
                 "strings": [null, "foo", "bar"],
                 "blobs": [null, "Zm9v", "YmFy"],
-                "timestamps": [1609459200, 1609545600],
+                "timestamps": [null, 1609459200, 1609545600],
                 "enums": [null, "Foo", "Bar"],
                 "intEnums": [null, 1, 2]
             }""",
@@ -225,7 +225,7 @@ apply SparseListOfScalars @httpRequestTests([
             doubles: [null, 3.5, 4.5],
             strings: [null, "foo", "bar"],
             blobs: [null, "foo", "bar"],
-            timestamps: [1609459200, 1609545600],
+            timestamps: [null, 1609459200, 1609545600],
             enums: [null, "Foo", "Bar"],
             intEnums: [null, 1, 2],
         }
@@ -247,7 +247,7 @@ apply SparseListOfScalars @httpRequestTests([
                 "doubles": [3.5, null, 4.5],
                 "strings": ["foo", null, "bar"],
                 "blobs": ["Zm9v", null, "YmFy"],
-                "timestamps": [1609459200, 1609545600],
+                "timestamps": [null, 1609459200, 1609545600],
                 "enums": ["Foo", null, "Bar"],
                 "intEnums": [1, null, 2]
             }""",
@@ -266,7 +266,7 @@ apply SparseListOfScalars @httpRequestTests([
             doubles: [3.5, null, 4.5],
             strings: ["foo", null, "bar"],
             blobs: ["foo", null, "bar"],
-            timestamps: [1609459200, 1609545600],
+            timestamps: [null, 1609459200, 1609545600],
             enums: ["Foo", null, "Bar"],
             intEnums: [1, null, 2],
         }
@@ -288,7 +288,7 @@ apply SparseListOfScalars @httpRequestTests([
                 "doubles": [3.5, 4.5, null],
                 "strings": ["foo", "bar", null],
                 "blobs": ["Zm9v", "YmFy", null],
-                "timestamps": [1609459200, 1609545600],
+                "timestamps": [null, 1609459200, 1609545600],
                 "enums": ["Foo", "Bar", null],
                 "intEnums": [1, 2, null]
             }""",
@@ -307,7 +307,7 @@ apply SparseListOfScalars @httpRequestTests([
             doubles: [3.5, 4.5, null],
             strings: ["foo", "bar", null],
             blobs: ["foo", "bar", null],
-            timestamps: [1609459200, 1609545600],
+            timestamps: [null, 1609459200, 1609545600],
             enums: ["Foo", "Bar", null],
             intEnums: [1, 2, null],
         }
@@ -331,7 +331,7 @@ apply SparseListOfScalars @httpResponseTests([
                 "doubles": [null, 3.5, 4.5],
                 "strings": [null, "foo", "bar"],
                 "blobs": [null, "Zm9v", "YmFy"],
-                "timestamps": [1609459200, 1609545600],
+                "timestamps": [null, 1609459200, 1609545600],
                 "enums": [null, "Foo", "Bar"],
                 "intEnums": [null, 1, 2]
             }""",
@@ -349,7 +349,7 @@ apply SparseListOfScalars @httpResponseTests([
             doubles: [null, 3.5, 4.5],
             strings: [null, "foo", "bar"],
             blobs: [null, "foo", "bar"],
-            timestamps: [1609459200, 1609545600],
+            timestamps: [null, 1609459200, 1609545600],
             enums: [null, "Foo", "Bar"],
             intEnums: [null, 1, 2],
         }
@@ -370,7 +370,7 @@ apply SparseListOfScalars @httpResponseTests([
                 "doubles": [3.5, null, 4.5],
                 "strings": ["foo", null, "bar"],
                 "blobs": ["Zm9v", null, "YmFy"],
-                "timestamps": [1609459200, 1609545600],
+                "timestamps": [null, 1609459200, 1609545600],
                 "enums": ["Foo", null, "Bar"],
                 "intEnums": [1, null, 2]
             }""",
@@ -388,7 +388,7 @@ apply SparseListOfScalars @httpResponseTests([
             doubles: [3.5, null, 4.5],
             strings: ["foo", null, "bar"],
             blobs: ["foo", null, "bar"],
-            timestamps: [1609459200, 1609545600],
+            timestamps: [null, 1609459200, 1609545600],
             enums: ["Foo", null, "Bar"],
             intEnums: [1, null, 2],
         }
@@ -409,7 +409,7 @@ apply SparseListOfScalars @httpResponseTests([
                 "doubles": [3.5, 4.5, null],
                 "strings": ["foo", "bar", null],
                 "blobs": ["Zm9v", "YmFy", null],
-                "timestamps": [1609459200, 1609545600],
+                "timestamps": [null, 1609459200, 1609545600],
                 "enums": ["Foo", "Bar", null],
                 "intEnums": [1, 2, null]
             }""",
@@ -427,7 +427,7 @@ apply SparseListOfScalars @httpResponseTests([
             doubles: [3.5, 4.5, null],
             strings: ["foo", "bar", null],
             blobs: ["foo", "bar", null],
-            timestamps: [1609459200, 1609545600],
+            timestamps: [null, 1609459200, 1609545600],
             enums: ["Foo", "Bar", null],
             intEnums: [1, 2, null],
         }
@@ -632,7 +632,7 @@ apply SparseMapOfScalars @httpRequestTests([
                 "doubles": {"a": null, "b": 3.5, "c": 4.5},
                 "strings": {"a": null, "b": "foo", "c": "bar"},
                 "blobs": {"a": null, "b": "Zm9v", "c": "YmFy"},
-                "timestamps": {"a": 1609459200, "b": 1609545600},
+                "timestamps": {"a": null, "b": 1609459200, "c": 1609545600},
                 "enums": {"a": null, "b": "Foo", "c": "Bar"},
                 "intEnums": {"a": null, "b": 1, "c": 2}
             }""",
@@ -651,7 +651,7 @@ apply SparseMapOfScalars @httpRequestTests([
             doubles: { a: null, b: 3.5, c: 4.5 },
             strings: { a: null, b: "foo", c: "bar" },
             blobs: { a: null, b: "foo", c: "bar" },
-            timestamps: { a: 1609459200, b: 1609545600 },
+            timestamps: { a: null, b: 1609459200, c: 1609545600 },
             enums: { a: null, b: "Foo", c: "Bar" },
             intEnums: { a: null, b: 1, c: 2 },
         }
@@ -673,7 +673,7 @@ apply SparseMapOfScalars @httpRequestTests([
                 "doubles": {"a": 3.5, "b": null, "c": 4.5},
                 "strings": {"a": "foo", "b": null, "c": "bar"},
                 "blobs": {"a": "Zm9v", "b": null, "c": "YmFy"},
-                "timestamps": {"a": 1609459200, "b": 1609545600},
+                "timestamps": {"a": 1609459200, "b": null, "c": 1609545600},
                 "enums": {"a": "Foo", "b": null, "c": "Bar"},
                 "intEnums": {"a": 1, "b": null, "c": 2}
             }""",
@@ -692,7 +692,7 @@ apply SparseMapOfScalars @httpRequestTests([
             doubles: { a: 3.5, b: null, c: 4.5 },
             strings: { a: "foo", b: null, c: "bar" },
             blobs: { a: "foo", b: null, c: "bar" },
-            timestamps: { a: 1609459200, b: 1609545600 },
+            timestamps: { a: 1609459200, b: null, c: 1609545600 },
             enums: { a: "Foo", b: null, c: "Bar" },
             intEnums: { a: 1, b: null, c: 2 },
         }
@@ -714,7 +714,7 @@ apply SparseMapOfScalars @httpRequestTests([
                 "doubles": {"a": 3.5, "b": 4.5, "c": null},
                 "strings": {"a": "foo", "b": "bar", "c": null},
                 "blobs": {"a": "Zm9v", "b": "YmFy", "c": null},
-                "timestamps": {"a": 1609459200, "b": 1609545600},
+                "timestamps": {"a": 1609459200, "b": 1609545600, "c": null},
                 "enums": {"a": "Foo", "b": "Bar", "c": null},
                 "intEnums": {"a": 1, "b": 2, "c": null}
             }""",
@@ -733,7 +733,7 @@ apply SparseMapOfScalars @httpRequestTests([
             doubles: { a: 3.5, b: 4.5, c: null },
             strings: { a: "foo", b: "bar", c: null },
             blobs: { a: "foo", b: "bar", c: null },
-            timestamps: { a: 1609459200, b: 1609545600 },
+            timestamps: { a: 1609459200, b: 1609545600, c: null },
             enums: { a: "Foo", b: "Bar", c: null },
             intEnums: { a: 1, b: 2, c: null },
         }
@@ -757,7 +757,7 @@ apply SparseMapOfScalars @httpResponseTests([
                 "doubles": {"a": null, "b": 3.5, "c": 4.5},
                 "strings": {"a": null, "b": "foo", "c": "bar"},
                 "blobs": {"a": null, "b": "Zm9v", "c": "YmFy"},
-                "timestamps": {"a": 1609459200, "b": 1609545600},
+                "timestamps": {"a": null, "b": 1609459200, "c": 1609545600},
                 "enums": {"a": null, "b": "Foo", "c": "Bar"},
                 "intEnums": {"a": null, "b": 1, "c": 2}
             }""",
@@ -775,7 +775,7 @@ apply SparseMapOfScalars @httpResponseTests([
             doubles: { a: null, b: 3.5, c: 4.5 },
             strings: { a: null, b: "foo", c: "bar" },
             blobs: { a: null, b: "foo", c: "bar" },
-            timestamps: { a: 1609459200, b: 1609545600 },
+            timestamps: { a: null, b: 1609459200, c: 1609545600 },
             enums: { a: null, b: "Foo", c: "Bar" },
             intEnums: { a: null, b: 1, c: 2 },
         }
@@ -796,7 +796,7 @@ apply SparseMapOfScalars @httpResponseTests([
                 "doubles": {"a": 3.5, "b": null, "c": 4.5},
                 "strings": {"a": "foo", "b": null, "c": "bar"},
                 "blobs": {"a": "Zm9v", "b": null, "c": "YmFy"},
-                "timestamps": {"a": 1609459200, "b": 1609545600},
+                "timestamps": {"a": 1609459200, "b": null, "c": 1609545600},
                 "enums": {"a": "Foo", "b": null, "c": "Bar"},
                 "intEnums": {"a": 1, "b": null, "c": 2}
             }""",
@@ -814,7 +814,7 @@ apply SparseMapOfScalars @httpResponseTests([
             doubles: { a: 3.5, b: null, c: 4.5 },
             strings: { a: "foo", b: null, c: "bar" },
             blobs: { a: "foo", b: null, c: "bar" },
-            timestamps: { a: 1609459200, b: 1609545600 },
+            timestamps: { a: 1609459200, b: null, c: 1609545600 },
             enums: { a: "Foo", b: null, c: "Bar" },
             intEnums: { a: 1, b: null, c: 2 },
         }
@@ -835,7 +835,7 @@ apply SparseMapOfScalars @httpResponseTests([
                 "doubles": {"a": 3.5, "b": 4.5, "c": null},
                 "strings": {"a": "foo", "b": "bar", "c": null},
                 "blobs": {"a": "Zm9v", "b": "YmFy", "c": null},
-                "timestamps": {"a": 1609459200, "b": 1609545600},
+                "timestamps": {"a": 1609459200, "b": 1609545600, "c": null},
                 "enums": {"a": "Foo", "b": "Bar", "c": null},
                 "intEnums": {"a": 1, "b": 2, "c": null}
             }""",
@@ -853,7 +853,7 @@ apply SparseMapOfScalars @httpResponseTests([
             doubles: { a: 3.5, b: 4.5, c: null },
             strings: { a: "foo", b: "bar", c: null },
             blobs: { a: "foo", b: "bar", c: null },
-            timestamps: { a: 1609459200, b: 1609545600 },
+            timestamps: { a: 1609459200, b: 1609545600, c: null },
             enums: { a: "Foo", b: "Bar", c: null },
             intEnums: { a: 1, b: 2, c: null },
         }

@@ -329,6 +329,10 @@ structure UnionOfUnionInputOutput {
 union CorpusUnion {
     @jsonName("jsonBooleanValue") @xmlName("xmlBooleanValue")
     booleanValue: Boolean
+    @jsonName("jsonByteValue") @xmlName("xmlByteValue")
+    byteValue: Byte
+    @jsonName("jsonShortValue") @xmlName("xmlShortValue")
+    shortValue: Short
     @jsonName("jsonIntegerValue") @xmlName("xmlIntegerValue")
     integerValue: Integer
     @jsonName("jsonLongValue") @xmlName("xmlLongValue")
@@ -337,6 +341,10 @@ union CorpusUnion {
     floatValue: Float
     @jsonName("jsonDoubleValue") @xmlName("xmlDoubleValue")
     doubleValue: Double
+    @jsonName("jsonBigIntegerValue") @xmlName("xmlBigIntegerValue")
+    bigIntegerValue: BigInteger
+    @jsonName("jsonBigDecimalValue") @xmlName("xmlBigDecimalValue")
+    bigDecimalValue: BigDecimal
     @jsonName("jsonStringValue") @xmlName("xmlStringValue")
     stringValue: String
     @jsonName("jsonMediaTypeValue") @xmlName("xmlMediaTypeValue")

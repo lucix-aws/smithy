@@ -524,8 +524,35 @@ apply MapOfUnions @httpResponseTests([
 
 apply SparseListOfStructs @httpRequestTests([
     {
-        id: "AwsJson11SparseListOfStructsSerialize",
-        documentation: "Serializes a sparse list with null interspersed",
+        id: "AwsJson11SparseListOfStructsNullAtStart",
+        documentation: "Serializes a sparse list with a null as the first element",
+        protocol: awsJson1_1,
+        method: "POST",
+        uri: "/",
+        body: """
+            {
+                "values": [
+                    null,
+                    {"stringMember": "foo", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"},
+                    {"stringMember": "bar", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"}
+                ]
+            }""",
+        bodyMediaType: "application/json",
+        headers: {
+            "Content-Type": "application/x-amz-json-1.1",
+            "X-Amz-Target": "AwsJson11CorpusTests.SparseListOfStructs",
+        },
+        params: {
+            values: [
+                null,
+                { stringMember: "foo", integerMember: 1, booleanMember: true, mediaTypeMember: "{\"n\":1}" },
+                { stringMember: "bar", integerMember: 2, booleanMember: false, mediaTypeMember: "{\"n\":2}" },
+            ]
+        }
+    },
+    {
+        id: "AwsJson11SparseListOfStructsNullInMiddle",
+        documentation: "Serializes a sparse list with a null as the middle element",
         protocol: awsJson1_1,
         method: "POST",
         uri: "/",
@@ -550,12 +577,64 @@ apply SparseListOfStructs @httpRequestTests([
             ]
         }
     },
+    {
+        id: "AwsJson11SparseListOfStructsNullAtEnd",
+        documentation: "Serializes a sparse list with a null as the last element",
+        protocol: awsJson1_1,
+        method: "POST",
+        uri: "/",
+        body: """
+            {
+                "values": [
+                    {"stringMember": "foo", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"},
+                    {"stringMember": "bar", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"},
+                    null
+                ]
+            }""",
+        bodyMediaType: "application/json",
+        headers: {
+            "Content-Type": "application/x-amz-json-1.1",
+            "X-Amz-Target": "AwsJson11CorpusTests.SparseListOfStructs",
+        },
+        params: {
+            values: [
+                { stringMember: "foo", integerMember: 1, booleanMember: true, mediaTypeMember: "{\"n\":1}" },
+                { stringMember: "bar", integerMember: 2, booleanMember: false, mediaTypeMember: "{\"n\":2}" },
+                null,
+            ]
+        }
+    },
 ])
 
 apply SparseListOfStructs @httpResponseTests([
     {
-        id: "AwsJson11SparseListOfStructsDeserialize",
-        documentation: "Deserializes a sparse list with null interspersed",
+        id: "AwsJson11SparseListOfStructsNullAtStartResponse",
+        documentation: "Deserializes a sparse list with a null as the first element",
+        protocol: awsJson1_1,
+        code: 200,
+        body: """
+            {
+                "values": [
+                    null,
+                    {"stringMember": "foo", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"},
+                    {"stringMember": "bar", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"}
+                ]
+            }""",
+        bodyMediaType: "application/json",
+        headers: {
+            "Content-Type": "application/x-amz-json-1.1",
+        },
+        params: {
+            values: [
+                null,
+                { stringMember: "foo", integerMember: 1, booleanMember: true, mediaTypeMember: "{\"n\":1}" },
+                { stringMember: "bar", integerMember: 2, booleanMember: false, mediaTypeMember: "{\"n\":2}" },
+            ]
+        }
+    },
+    {
+        id: "AwsJson11SparseListOfStructsNullInMiddleResponse",
+        documentation: "Deserializes a sparse list with a null as the middle element",
         protocol: awsJson1_1,
         code: 200,
         body: """
@@ -578,6 +657,31 @@ apply SparseListOfStructs @httpResponseTests([
             ]
         }
     },
+    {
+        id: "AwsJson11SparseListOfStructsNullAtEndResponse",
+        documentation: "Deserializes a sparse list with a null as the last element",
+        protocol: awsJson1_1,
+        code: 200,
+        body: """
+            {
+                "values": [
+                    {"stringMember": "foo", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"},
+                    {"stringMember": "bar", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"},
+                    null
+                ]
+            }""",
+        bodyMediaType: "application/json",
+        headers: {
+            "Content-Type": "application/x-amz-json-1.1",
+        },
+        params: {
+            values: [
+                { stringMember: "foo", integerMember: 1, booleanMember: true, mediaTypeMember: "{\"n\":1}" },
+                { stringMember: "bar", integerMember: 2, booleanMember: false, mediaTypeMember: "{\"n\":2}" },
+                null,
+            ]
+        }
+    },
 ])
 
 // =============================================================================
@@ -586,8 +690,35 @@ apply SparseListOfStructs @httpResponseTests([
 
 apply SparseMapOfStructs @httpRequestTests([
     {
-        id: "AwsJson11SparseMapOfStructsSerialize",
-        documentation: "Serializes a sparse map with a null interspersed between populated entries",
+        id: "AwsJson11SparseMapOfStructsNullAtStart",
+        documentation: "Serializes a sparse map with a null as the first entry",
+        protocol: awsJson1_1,
+        method: "POST",
+        uri: "/",
+        body: """
+            {
+                "values": {
+                    "a": null,
+                    "b": {"stringMember": "foo", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"},
+                    "c": {"stringMember": "bar", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"}
+                }
+            }""",
+        bodyMediaType: "application/json",
+        headers: {
+            "Content-Type": "application/x-amz-json-1.1",
+            "X-Amz-Target": "AwsJson11CorpusTests.SparseMapOfStructs",
+        },
+        params: {
+            values: {
+                a: null,
+                b: { stringMember: "foo", integerMember: 1, booleanMember: true, mediaTypeMember: "{\"n\":1}" },
+                c: { stringMember: "bar", integerMember: 2, booleanMember: false, mediaTypeMember: "{\"n\":2}" },
+            }
+        }
+    },
+    {
+        id: "AwsJson11SparseMapOfStructsNullInMiddle",
+        documentation: "Serializes a sparse map with a null as the middle entry",
         protocol: awsJson1_1,
         method: "POST",
         uri: "/",
@@ -612,12 +743,64 @@ apply SparseMapOfStructs @httpRequestTests([
             }
         }
     },
+    {
+        id: "AwsJson11SparseMapOfStructsNullAtEnd",
+        documentation: "Serializes a sparse map with a null as the last entry",
+        protocol: awsJson1_1,
+        method: "POST",
+        uri: "/",
+        body: """
+            {
+                "values": {
+                    "a": {"stringMember": "foo", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"},
+                    "b": {"stringMember": "bar", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"},
+                    "c": null
+                }
+            }""",
+        bodyMediaType: "application/json",
+        headers: {
+            "Content-Type": "application/x-amz-json-1.1",
+            "X-Amz-Target": "AwsJson11CorpusTests.SparseMapOfStructs",
+        },
+        params: {
+            values: {
+                a: { stringMember: "foo", integerMember: 1, booleanMember: true, mediaTypeMember: "{\"n\":1}" },
+                b: { stringMember: "bar", integerMember: 2, booleanMember: false, mediaTypeMember: "{\"n\":2}" },
+                c: null,
+            }
+        }
+    },
 ])
 
 apply SparseMapOfStructs @httpResponseTests([
     {
-        id: "AwsJson11SparseMapOfStructsDeserialize",
-        documentation: "Deserializes a sparse map with a null interspersed between populated entries",
+        id: "AwsJson11SparseMapOfStructsNullAtStartResponse",
+        documentation: "Deserializes a sparse map with a null as the first entry",
+        protocol: awsJson1_1,
+        code: 200,
+        body: """
+            {
+                "values": {
+                    "a": null,
+                    "b": {"stringMember": "foo", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"},
+                    "c": {"stringMember": "bar", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"}
+                }
+            }""",
+        bodyMediaType: "application/json",
+        headers: {
+            "Content-Type": "application/x-amz-json-1.1",
+        },
+        params: {
+            values: {
+                a: null,
+                b: { stringMember: "foo", integerMember: 1, booleanMember: true, mediaTypeMember: "{\"n\":1}" },
+                c: { stringMember: "bar", integerMember: 2, booleanMember: false, mediaTypeMember: "{\"n\":2}" },
+            }
+        }
+    },
+    {
+        id: "AwsJson11SparseMapOfStructsNullInMiddleResponse",
+        documentation: "Deserializes a sparse map with a null as the middle entry",
         protocol: awsJson1_1,
         code: 200,
         body: """
@@ -637,6 +820,31 @@ apply SparseMapOfStructs @httpResponseTests([
                 a: { stringMember: "foo", integerMember: 1, booleanMember: true, mediaTypeMember: "{\"n\":1}" },
                 b: null,
                 c: { stringMember: "bar", integerMember: 2, booleanMember: false, mediaTypeMember: "{\"n\":2}" },
+            }
+        }
+    },
+    {
+        id: "AwsJson11SparseMapOfStructsNullAtEndResponse",
+        documentation: "Deserializes a sparse map with a null as the last entry",
+        protocol: awsJson1_1,
+        code: 200,
+        body: """
+            {
+                "values": {
+                    "a": {"stringMember": "foo", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"},
+                    "b": {"stringMember": "bar", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"},
+                    "c": null
+                }
+            }""",
+        bodyMediaType: "application/json",
+        headers: {
+            "Content-Type": "application/x-amz-json-1.1",
+        },
+        params: {
+            values: {
+                a: { stringMember: "foo", integerMember: 1, booleanMember: true, mediaTypeMember: "{\"n\":1}" },
+                b: { stringMember: "bar", integerMember: 2, booleanMember: false, mediaTypeMember: "{\"n\":2}" },
+                c: null,
             }
         }
     },
