@@ -40,7 +40,7 @@ service RpcV2JsonCorpusTests with [CoreProtocolTestService, DefaultsProtocolTest
 // =============================================================================
 
 @restJson1
-service RestJson1CorpusTests with [HttpBindingProtocolTestService, DefaultsProtocolTestService, DocumentProtocolTestService, EventStreamProtocolTestService, HttpErrorProtocolTestService, NoProtocolTraitsBehaviorService, MiscSerdeTraitProtocolTestService] {}
+service RestJson1CorpusTests with [HttpBindingProtocolTestService, DefaultsProtocolTestService, DocumentProtocolTestService, EventStreamProtocolTestService, HttpErrorProtocolTestService, NoProtocolTraitsBehaviorService, MiscSerdeTraitProtocolTestService, ValidationProtocolTestService] {}
 
 @restXml
 service RestXmlCorpusTests with [HttpBindingProtocolTestService, DefaultsProtocolTestService, XmlTraitsProtocolTestService, EventStreamProtocolTestService, HttpErrorProtocolTestService, NoProtocolTraitsBehaviorService, MiscSerdeTraitProtocolTestService] {}
