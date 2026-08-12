@@ -35,8 +35,8 @@ service NoProtocolTraitsBehaviorService with [CoreProtocolTestService] {
 // =============================================================================
 
 operation NoTraitScalarMembers {
-    input := for NoTraitScalarStruct {}
-    output := for NoTraitScalarStruct {}
+    input: NoTraitScalarStruct
+    output: NoTraitScalarStruct
 }
 
 /// All members use plain member names, no @jsonName/@xmlName/@ec2QueryName.

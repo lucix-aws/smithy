@@ -33,6 +33,8 @@ service AwsJson11CorpusTests with [CoreProtocolTestService, DefaultsProtocolTest
 service RpcV2CborCorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, EventStreamProtocolTestService, HttpErrorProtocolTestService, NoProtocolTraitsBehaviorService, MiscSerdeTraitProtocolTestService] {}
 
 @rpcv2Json
+@aws.api#service(sdkId: "RpcV2JsonCorpus", arnNamespace: "rpcv2jsoncorpus")
+@aws.auth#sigv4(name: "rpcv2jsoncorpus")
 service RpcV2JsonCorpusTests with [CoreProtocolTestService, DefaultsProtocolTestService, DocumentProtocolTestService, EventStreamProtocolTestService, HttpErrorProtocolTestService, NoProtocolTraitsBehaviorService, MiscSerdeTraitProtocolTestService] {}
 
 // =============================================================================
