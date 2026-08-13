@@ -11,13 +11,11 @@ use smithy.test#httpResponseTests
 // =============================================================================
 // rpcv2Json edge cases — the tagged (non-baseline) topics.
 //
-// HAND-WRITTEN. Unlike the other tests-rpcv2json-* files, this one is NOT
-// produced by .gen-rpcv2json.py, because these cases are either
-// protocol-specific (rpcv2Json resolves errors from `__type` alone, and its
-// request envelope differs) or carry values whose wire form has no awsJson
-// counterpart. The generator must not overwrite it. `apply` merges protocol
-// test traits, so these cases coexist with the generated ones on the same
-// operations.
+// These cases are either protocol-specific (rpcv2Json resolves errors from
+// `__type` alone, and its request envelope differs) or carry values whose wire
+// form has no awsJson counterpart, so unlike the other files in this directory
+// they have no awsJson1_0 counterpart to mirror. `apply` merges protocol
+// test traits, so these cases coexist with the rest on the same operations.
 //
 // Tagged cases are deliberately exempt from the base case rules: each one
 // isolates a single edge rather than exhaustively populating its shape.

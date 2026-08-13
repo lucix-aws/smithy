@@ -23,8 +23,8 @@ use smithy.test#httpResponseTests
 // trait, so QueryCompatCustomCodeError is 400 despite declaring 402. Upstream's
 // rpcv2Cbor query-compatible suite asserts the same thing.
 //
-// HAND-WRITTEN: not produced by .gen-rpcv2json.py. These cases target a
-// standalone service that the awsJson corpus files know nothing about.
+// These cases target a standalone service that the awsJson corpus files know
+// nothing about, so they have no awsJson1_0 counterpart to mirror.
 // =============================================================================
 apply QueryCompatErrorOp @httpRequestTests([
     {

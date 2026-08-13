@@ -4,59 +4,38 @@ namespace aws.protocoltests.corpus
 
 use aws.protocols#ec2QueryName
 
-/// Core body serde shapes. These operations exercise the structural nesting
-/// combinations that a protocol serializer/deserializer must handle. The shapes
-/// are protocol-agnostic — any protocol that serializes a document body must
-/// pass tests against all of these.
-///
-/// All members carry @jsonName and @xmlName to verify that protocols which
-/// respect those traits use the wire name, and protocols that ignore them
-/// (e.g. awsJson ignores @jsonName) use the member name.
 @mixin
 service CoreProtocolTestService {
     operations: [
-        // Scalar baselines
         ScalarMembers
-        // Collection of scalars (all scalar types within each container)
         ListOfScalars
-        SparseListOfScalars
         MapOfScalars
-        SparseMapOfScalars
-        // Union transitions (each maps to one transition)
         UnionOfScalars
         UnionOfStruct
         UnionOfList
         UnionOfMap
         UnionOfUnion
-        // Depth-1: struct containing all scalars (tests explicit struct read/write)
         StructOfScalars
-        // Depth-2: list containing containers
         ListOfStructs
         ListOfMaps
         ListOfLists
         ListOfUnions
-        // Depth-2: map containing containers
         MapOfStructs
         MapOfMaps
         MapOfLists
         MapOfUnions
-        // Depth-2: sparse variants
+        SparseListOfScalars
+        SparseMapOfScalars
         SparseListOfStructs
         SparseMapOfStructs
-        // Depth-3: recursive shapes
         RecursiveStruct
         RecursiveUnion
-        // Empty/absent body
         EmptyInputOutput
         NoInputOutput
-        // Errors
         ErrorOperation
     ]
 }
 
-// =============================================================================
-// Scalar baselines
-// =============================================================================
 operation ScalarMembers {
     input: ScalarMembersInputOutput
     output: ScalarMembersInputOutput
@@ -152,21 +131,6 @@ structure ScalarMembersInputOutput {
     intEnum: CorpusIntEnum
 }
 
-enum CorpusStringEnum {
-    FOO = "Foo"
-    BAR = "Bar"
-    BAZ = "Baz"
-}
-
-intEnum CorpusIntEnum {
-    ONE = 1
-    TWO = 2
-    THREE = 3
-}
-
-// =============================================================================
-// Collections of scalars
-// =============================================================================
 operation ListOfScalars {
     input: ListOfScalarsInputOutput
     output: ListOfScalarsInputOutput
@@ -475,9 +439,6 @@ structure SparseMapOfScalarsInputOutput {
     intEnums: SparseCorpusIntEnumMap
 }
 
-// =============================================================================
-// Union transitions
-// =============================================================================
 operation UnionOfScalars {
     input: UnionOfScalarsInputOutput
     output: UnionOfScalarsInputOutput
@@ -616,7 +577,6 @@ union CorpusUnion {
     unionValue: CorpusSubUnion
 }
 
-/// A second union type used as a variant inside CorpusUnion to test union -> union.
 union CorpusSubUnion {
     @jsonName("jsonStringValue")
     @xmlName("xmlStringValue")
@@ -627,9 +587,6 @@ union CorpusSubUnion {
     integerValue: Integer
 }
 
-// =============================================================================
-// Depth-1: struct containing all scalars
-// =============================================================================
 operation StructOfScalars {
     input: StructOfScalarsInputOutput
     output: StructOfScalarsInputOutput
@@ -732,9 +689,6 @@ structure ScalarStruct {
     intEnum: CorpusIntEnum
 }
 
-// =============================================================================
-// Depth-2: list containing containers
-// =============================================================================
 operation ListOfStructs {
     input: ListOfStructsInputOutput
     output: ListOfStructsInputOutput
@@ -843,9 +797,6 @@ structure ListOfUnionsInputOutput {
     values: CorpusUnionList
 }
 
-// =============================================================================
-// Depth-2: map containing containers
-// =============================================================================
 operation MapOfStructs {
     input: MapOfStructsInputOutput
     output: MapOfStructsInputOutput
@@ -954,9 +905,6 @@ structure MapOfUnionsInputOutput {
     values: CorpusUnionMap
 }
 
-// =============================================================================
-// Depth-2: sparse containers of containers
-// =============================================================================
 operation SparseListOfStructs {
     input: SparseListOfStructsInputOutput
     output: SparseListOfStructsInputOutput
@@ -981,9 +929,6 @@ structure SparseMapOfStructsInputOutput {
     values: SparseSimpleStructMap
 }
 
-// =============================================================================
-// Depth-3: recursive shapes
-// =============================================================================
 operation RecursiveStruct {
     input: RecursiveStructInputOutput
     output: RecursiveStructInputOutput
@@ -1060,9 +1005,6 @@ structure RecursiveUnionStruct {
     value: RecursiveUnionShape
 }
 
-// =============================================================================
-// Empty/absent body
-// =============================================================================
 operation EmptyInputOutput {
     input := {}
     output := {}
@@ -1070,9 +1012,6 @@ operation EmptyInputOutput {
 
 operation NoInputOutput {}
 
-// =============================================================================
-// Errors
-// =============================================================================
 operation ErrorOperation {
     input := {}
     output := {}
@@ -1120,9 +1059,6 @@ structure ComplexNestedError {
     integerMember: Integer
 }
 
-// =============================================================================
-// Shared shape definitions
-// =============================================================================
 structure SimpleStruct {
     @jsonName("jsonStringMember")
     @xmlName("xmlStringMember")
@@ -1145,7 +1081,6 @@ structure SimpleStruct {
     mediaTypeMember: MediaTypeJsonString
 }
 
-// --- Lists ---
 list BooleanList {
     member: Boolean
 }
@@ -1358,7 +1293,6 @@ list SparseSimpleStructList {
     member: SimpleStruct
 }
 
-// --- Maps ---
 map BooleanMap {
     key: String
     value: Boolean
@@ -1597,4 +1531,16 @@ map SparseCorpusIntEnumMap {
 map SparseSimpleStructMap {
     key: String
     value: SimpleStruct
+}
+
+enum CorpusStringEnum {
+    FOO = "Foo"
+    BAR = "Bar"
+    BAZ = "Baz"
+}
+
+intEnum CorpusIntEnum {
+    ONE = 1
+    TWO = 2
+    THREE = 3
 }
