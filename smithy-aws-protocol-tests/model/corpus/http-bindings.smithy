@@ -29,56 +29,75 @@ service HttpBindingProtocolTestService with [CoreProtocolTestService] {
 // =============================================================================
 // URI labels
 // =============================================================================
-
 @http(method: "GET", uri: "/HttpLabelScalars/{string}/{integer}/{boolean}/{timestamp}/{enumValue}")
 operation HttpLabelScalars {
     input := {
-        @required @httpLabel
+        @required
+        @httpLabel
         string: String
-        @required @httpLabel
+
+        @required
+        @httpLabel
         integer: Integer
-        @required @httpLabel
+
+        @required
+        @httpLabel
         boolean: Boolean
-        @required @httpLabel @timestampFormat("date-time")
+
+        @required
+        @httpLabel
+        @timestampFormat("date-time")
         timestamp: Timestamp
-        @required @httpLabel
+
+        @required
+        @httpLabel
         enumValue: CorpusStringEnum
     }
+
     output := {}
 }
 
 @http(method: "GET", uri: "/HttpLabelGreedy/{prefix}/{greedy+}")
 operation HttpLabelGreedy {
     input := {
-        @required @httpLabel
+        @required
+        @httpLabel
         prefix: String
-        @required @httpLabel
+
+        @required
+        @httpLabel
         greedy: String
     }
+
     output := {}
 }
 
 // =============================================================================
 // Query string
 // =============================================================================
-
 @http(method: "GET", uri: "/HttpQueryScalars")
 operation HttpQueryScalars {
     input := {
         @httpQuery("str")
         string: String
+
         @httpQuery("int")
         integer: Integer
+
         @httpQuery("bool")
         boolean: Boolean
+
         @httpQuery("ts")
         @timestampFormat("date-time")
         timestamp: Timestamp
+
         @httpQuery("enum")
         enumValue: CorpusStringEnum
+
         @httpQuery("intEnum")
         intEnumValue: CorpusIntEnum
     }
+
     output := {}
 }
 
@@ -87,13 +106,17 @@ operation HttpQueryList {
     input := {
         @httpQuery("strings")
         strings: StringList
+
         @httpQuery("integers")
         integers: IntegerList
+
         @httpQuery("timestamps")
         timestamps: DateTimeTimestampList
+
         @httpQuery("enums")
         enums: CorpusStringEnumList
     }
+
     output := {}
 }
 
@@ -103,42 +126,53 @@ operation HttpQueryMap {
         @httpQueryParams
         params: StringMap
     }
+
     output := {}
 }
 
 // =============================================================================
 // Headers
 // =============================================================================
-
 @http(method: "GET", uri: "/HttpHeaderScalars")
 operation HttpHeaderScalars {
     input := {
         @httpHeader("X-String")
         string: String
+
         @httpHeader("X-Integer")
         integer: Integer
+
         @httpHeader("X-Boolean")
         boolean: Boolean
+
         @httpHeader("X-Timestamp")
         @timestampFormat("http-date")
         timestamp: Timestamp
+
         @httpHeader("X-Enum")
         enumValue: CorpusStringEnum
+
         @httpHeader("X-IntEnum")
         intEnumValue: CorpusIntEnum
     }
+
     output := {
         @httpHeader("X-String")
         string: String
+
         @httpHeader("X-Integer")
         integer: Integer
+
         @httpHeader("X-Boolean")
         boolean: Boolean
+
         @httpHeader("X-Timestamp")
         @timestampFormat("http-date")
         timestamp: Timestamp
+
         @httpHeader("X-Enum")
         enumValue: CorpusStringEnum
+
         @httpHeader("X-IntEnum")
         intEnumValue: CorpusIntEnum
     }
@@ -149,24 +183,33 @@ operation HttpHeaderList {
     input := {
         @httpHeader("X-Strings")
         strings: StringList
+
         @httpHeader("X-Integers")
         integers: IntegerList
+
         @httpHeader("X-Booleans")
         booleans: BooleanList
+
         @httpHeader("X-Timestamps")
         timestamps: HttpDateTimestampList
+
         @httpHeader("X-Enums")
         enums: CorpusStringEnumList
     }
+
     output := {
         @httpHeader("X-Strings")
         strings: StringList
+
         @httpHeader("X-Integers")
         integers: IntegerList
+
         @httpHeader("X-Booleans")
         booleans: BooleanList
+
         @httpHeader("X-Timestamps")
         timestamps: HttpDateTimestampList
+
         @httpHeader("X-Enums")
         enums: CorpusStringEnumList
     }
@@ -178,20 +221,25 @@ operation HttpHeaderTimestamps {
         @httpHeader("X-DateTime")
         @timestampFormat("date-time")
         dateTime: Timestamp
+
         @httpHeader("X-EpochSeconds")
         @timestampFormat("epoch-seconds")
         epochSeconds: Timestamp
+
         @httpHeader("X-HttpDate")
         @timestampFormat("http-date")
         httpDate: Timestamp
     }
+
     output := {
         @httpHeader("X-DateTime")
         @timestampFormat("date-time")
         dateTime: Timestamp
+
         @httpHeader("X-EpochSeconds")
         @timestampFormat("epoch-seconds")
         epochSeconds: Timestamp
+
         @httpHeader("X-HttpDate")
         @timestampFormat("http-date")
         httpDate: Timestamp
@@ -204,6 +252,7 @@ operation HttpPrefixHeaders {
         @httpPrefixHeaders("X-Prefix-")
         prefixHeaders: StringMap
     }
+
     output := {
         @httpPrefixHeaders("X-Prefix-")
         prefixHeaders: StringMap
@@ -213,25 +262,32 @@ operation HttpPrefixHeaders {
 // =============================================================================
 // Implicit payload — members without HTTP binding traits become the body
 // =============================================================================
-
 @http(method: "POST", uri: "/HttpImplicitPayload")
 operation HttpImplicitPayload {
     input := {
         @httpHeader("X-Token")
         token: String
+
         @httpQuery("query")
         queryParam: String
+
         // These are the implicit payload (serialized as JSON/XML body):
         name: String
+
         age: Integer
+
         nested: SimpleStruct
     }
+
     output := {
         @httpHeader("X-Token")
         token: String
+
         // These are the implicit payload:
         name: String
+
         age: Integer
+
         nested: SimpleStruct
     }
 }
@@ -239,13 +295,13 @@ operation HttpImplicitPayload {
 // =============================================================================
 // Explicit payload
 // =============================================================================
-
 @http(method: "POST", uri: "/HttpPayloadStruct")
 operation HttpPayloadStruct {
     input := {
         @httpPayload
         payload: SimpleStruct
     }
+
     output := {
         @httpPayload
         payload: SimpleStruct
@@ -257,12 +313,15 @@ operation HttpPayloadBlob {
     input := {
         @httpHeader("Content-Type")
         contentType: String
+
         @httpPayload
         payload: Blob
     }
+
     output := {
         @httpHeader("Content-Type")
         contentType: String
+
         @httpPayload
         payload: Blob
     }
@@ -274,6 +333,7 @@ operation HttpPayloadString {
         @httpPayload
         payload: String
     }
+
     output := {
         @httpPayload
         payload: String
@@ -285,12 +345,15 @@ operation HttpPayloadStreamingBlob {
     input := {
         @httpHeader("Content-Type")
         contentType: String
+
         @httpPayload
         payload: StreamingBlob = ""
     }
+
     output := {
         @httpHeader("Content-Type")
         contentType: String
+
         @httpPayload
         payload: StreamingBlob = ""
     }
@@ -302,10 +365,10 @@ blob StreamingBlob
 // =============================================================================
 // Response code
 // =============================================================================
-
 @http(method: "POST", uri: "/HttpResponseCode")
 operation HttpResponseCode {
     input := {}
+
     output := {
         @httpResponseCode
         statusCode: Integer

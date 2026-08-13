@@ -33,7 +33,6 @@ service NoProtocolTraitsBehaviorService with [CoreProtocolTestService] {
 // Scalar members with no naming/format traits — wire names = member names,
 // timestamps use protocol default format
 // =============================================================================
-
 operation NoTraitScalarMembers {
     input: NoTraitScalarStruct
     output: NoTraitScalarStruct
@@ -43,38 +42,24 @@ operation NoTraitScalarMembers {
 /// Timestamp members have no @timestampFormat — protocol uses its default.
 structure NoTraitScalarStruct {
     booleanMember: Boolean
-
     byteMember: Byte
-
     shortMember: Short
-
     integerMember: Integer
-
     longMember: Long
-
     floatMember: Float
-
     doubleMember: Double
-
     bigIntegerMember: BigInteger
-
     bigDecimalMember: BigDecimal
-
     stringMember: String
-
     blobMember: Blob
-
     timestampMember: Timestamp
-
     enumMember: CorpusStringEnum
-
     intEnumMember: CorpusIntEnum
 }
 
 // =============================================================================
 // Struct nesting with no traits
 // =============================================================================
-
 operation NoTraitStructOfScalars {
     input := {
         nested: NoTraitSimpleStruct
@@ -86,18 +71,14 @@ operation NoTraitStructOfScalars {
 
 structure NoTraitSimpleStruct {
     stringMember: String
-
     integerMember: Integer
-
     booleanMember: Boolean
-
     timestampMember: Timestamp
 }
 
 // =============================================================================
 // List with no traits
 // =============================================================================
-
 operation NoTraitListOfScalars {
     input := {
         strings: StringList
@@ -114,7 +95,6 @@ operation NoTraitListOfScalars {
 // =============================================================================
 // Map with no traits
 // =============================================================================
-
 operation NoTraitMapOfScalars {
     input := {
         strings: StringMap
@@ -131,7 +111,6 @@ operation NoTraitMapOfScalars {
 // =============================================================================
 // Union with no traits — verifies union member name resolution defaults
 // =============================================================================
-
 operation NoTraitUnionMembers {
     input := {
         value: NoTraitUnion
@@ -143,14 +122,9 @@ operation NoTraitUnionMembers {
 
 union NoTraitUnion {
     stringMember: String
-
     integerMember: Integer
-
     booleanMember: Boolean
-
     listMember: StringList
-
     mapMember: StringMap
-
     structMember: NoTraitSimpleStruct
 }

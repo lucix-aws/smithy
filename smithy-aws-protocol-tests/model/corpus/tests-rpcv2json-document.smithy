@@ -9,398 +9,307 @@ use smithy.test#httpResponseTests
 // =============================================================================
 // DocumentMembers
 // =============================================================================
-
 apply DocumentMembers @httpRequestTests([
     {
-        id: "RpcV2JsonDocumentMembersJsonObject",
-        documentation: "Serializes document as a JSON object",
-        protocol: rpcv2Json,
-        method: "POST",
-        uri: "/service/RpcV2JsonCorpusTests/operation/DocumentMembers",
+        id: "RpcV2JsonDocumentMembersJsonObject"
+        documentation: "Serializes document as a JSON object"
+        protocol: rpcv2Json
+        method: "POST"
+        uri: "/service/RpcV2JsonCorpusTests/operation/DocumentMembers"
         body: """
             {
                 "documentValue": {"key": "value"}
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        },
-        requireHeaders: [
-            "Content-Length",
-        ],
-        forbidHeaders: [
-            "X-Amz-Target",
-        ],
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json", Accept: "application/json" }
+        requireHeaders: ["Content-Length"]
+        forbidHeaders: ["X-Amz-Target"]
         params: {
-            documentValue: { key: "value" },
+            documentValue: { key: "value" }
         }
-    },
+    }
     {
-        id: "RpcV2JsonDocumentMembersString",
-        documentation: "Serializes document as a string",
-        protocol: rpcv2Json,
-        method: "POST",
-        uri: "/service/RpcV2JsonCorpusTests/operation/DocumentMembers",
+        id: "RpcV2JsonDocumentMembersString"
+        documentation: "Serializes document as a string"
+        protocol: rpcv2Json
+        method: "POST"
+        uri: "/service/RpcV2JsonCorpusTests/operation/DocumentMembers"
         body: """
             {
                 "documentValue": "hello"
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        },
-        requireHeaders: [
-            "Content-Length",
-        ],
-        forbidHeaders: [
-            "X-Amz-Target",
-        ],
-        params: {
-            documentValue: "hello",
-        }
-    },
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json", Accept: "application/json" }
+        requireHeaders: ["Content-Length"]
+        forbidHeaders: ["X-Amz-Target"]
+        params: { documentValue: "hello" }
+    }
     {
-        id: "RpcV2JsonDocumentMembersNumber",
-        documentation: "Serializes document as a number",
-        protocol: rpcv2Json,
-        method: "POST",
-        uri: "/service/RpcV2JsonCorpusTests/operation/DocumentMembers",
+        id: "RpcV2JsonDocumentMembersNumber"
+        documentation: "Serializes document as a number"
+        protocol: rpcv2Json
+        method: "POST"
+        uri: "/service/RpcV2JsonCorpusTests/operation/DocumentMembers"
         body: """
             {
                 "documentValue": 42
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        },
-        requireHeaders: [
-            "Content-Length",
-        ],
-        forbidHeaders: [
-            "X-Amz-Target",
-        ],
-        params: {
-            documentValue: 42,
-        }
-    },
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json", Accept: "application/json" }
+        requireHeaders: ["Content-Length"]
+        forbidHeaders: ["X-Amz-Target"]
+        params: { documentValue: 42 }
+    }
     {
-        id: "RpcV2JsonDocumentMembersBoolean",
-        documentation: "Serializes document as a boolean",
-        protocol: rpcv2Json,
-        method: "POST",
-        uri: "/service/RpcV2JsonCorpusTests/operation/DocumentMembers",
+        id: "RpcV2JsonDocumentMembersBoolean"
+        documentation: "Serializes document as a boolean"
+        protocol: rpcv2Json
+        method: "POST"
+        uri: "/service/RpcV2JsonCorpusTests/operation/DocumentMembers"
         body: """
             {
                 "documentValue": true
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        },
-        requireHeaders: [
-            "Content-Length",
-        ],
-        forbidHeaders: [
-            "X-Amz-Target",
-        ],
-        params: {
-            documentValue: true,
-        }
-    },
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json", Accept: "application/json" }
+        requireHeaders: ["Content-Length"]
+        forbidHeaders: ["X-Amz-Target"]
+        params: { documentValue: true }
+    }
     {
-        id: "RpcV2JsonDocumentMembersArray",
-        documentation: "Serializes document as an array",
-        protocol: rpcv2Json,
-        method: "POST",
-        uri: "/service/RpcV2JsonCorpusTests/operation/DocumentMembers",
+        id: "RpcV2JsonDocumentMembersArray"
+        documentation: "Serializes document as an array"
+        protocol: rpcv2Json
+        method: "POST"
+        uri: "/service/RpcV2JsonCorpusTests/operation/DocumentMembers"
         body: """
             {
                 "documentValue": [1, 2, 3]
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        },
-        requireHeaders: [
-            "Content-Length",
-        ],
-        forbidHeaders: [
-            "X-Amz-Target",
-        ],
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json", Accept: "application/json" }
+        requireHeaders: ["Content-Length"]
+        forbidHeaders: ["X-Amz-Target"]
         params: {
-            documentValue: [1, 2, 3],
+            documentValue: [1, 2, 3]
         }
-    },
+    }
     {
-        id: "RpcV2JsonDocumentMembersNull",
-        documentation: "Serializes document as null",
-        protocol: rpcv2Json,
-        method: "POST",
-        uri: "/service/RpcV2JsonCorpusTests/operation/DocumentMembers",
+        id: "RpcV2JsonDocumentMembersNull"
+        documentation: "Serializes document as null"
+        protocol: rpcv2Json
+        method: "POST"
+        uri: "/service/RpcV2JsonCorpusTests/operation/DocumentMembers"
         body: """
             {
                 "documentValue": null
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        },
-        requireHeaders: [
-            "Content-Length",
-        ],
-        forbidHeaders: [
-            "X-Amz-Target",
-        ],
-        params: {
-            documentValue: null,
-        }
-    },
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json", Accept: "application/json" }
+        requireHeaders: ["Content-Length"]
+        forbidHeaders: ["X-Amz-Target"]
+        params: { documentValue: null }
+    }
     {
-        id: "RpcV2JsonDocumentMembersNestedStruct",
-        documentation: "Serializes nested struct containing a document",
-        protocol: rpcv2Json,
-        method: "POST",
-        uri: "/service/RpcV2JsonCorpusTests/operation/DocumentMembers",
+        id: "RpcV2JsonDocumentMembersNestedStruct"
+        documentation: "Serializes nested struct containing a document"
+        protocol: rpcv2Json
+        method: "POST"
+        uri: "/service/RpcV2JsonCorpusTests/operation/DocumentMembers"
         body: """
             {
                 "nestedStruct": {
                     "documentMember": {"nested": true},
                     "stringMember": "hello"
                 }
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        },
-        requireHeaders: [
-            "Content-Length",
-        ],
-        forbidHeaders: [
-            "X-Amz-Target",
-        ],
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json", Accept: "application/json" }
+        requireHeaders: ["Content-Length"]
+        forbidHeaders: ["X-Amz-Target"]
         params: {
             nestedStruct: {
-                documentMember: { nested: true },
-                stringMember: "hello",
-            },
+                documentMember: { nested: true }
+                stringMember: "hello"
+            }
         }
-    },
+    }
 ])
 
 apply DocumentMembers @httpResponseTests([
     {
-        id: "RpcV2JsonDocumentMembersDeserializeJsonObject",
-        documentation: "Deserializes document as a JSON object",
-        protocol: rpcv2Json,
-        code: 200,
+        id: "RpcV2JsonDocumentMembersDeserializeJsonObject"
+        documentation: "Deserializes document as a JSON object"
+        protocol: rpcv2Json
+        code: 200
         body: """
             {
                 "documentValue": {"key": "value"}
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-        },
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json" }
         params: {
-            documentValue: { key: "value" },
+            documentValue: { key: "value" }
         }
-    },
+    }
     {
-        id: "RpcV2JsonDocumentMembersDeserializeString",
-        documentation: "Deserializes document as a string",
-        protocol: rpcv2Json,
-        code: 200,
+        id: "RpcV2JsonDocumentMembersDeserializeString"
+        documentation: "Deserializes document as a string"
+        protocol: rpcv2Json
+        code: 200
         body: """
             {
                 "documentValue": "hello"
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-        },
-        params: {
-            documentValue: "hello",
-        }
-    },
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json" }
+        params: { documentValue: "hello" }
+    }
     {
-        id: "RpcV2JsonDocumentMembersDeserializeNumber",
-        documentation: "Deserializes document as a number",
-        protocol: rpcv2Json,
-        code: 200,
+        id: "RpcV2JsonDocumentMembersDeserializeNumber"
+        documentation: "Deserializes document as a number"
+        protocol: rpcv2Json
+        code: 200
         body: """
             {
                 "documentValue": 42
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-        },
-        params: {
-            documentValue: 42,
-        }
-    },
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json" }
+        params: { documentValue: 42 }
+    }
     {
-        id: "RpcV2JsonDocumentMembersDeserializeBoolean",
-        documentation: "Deserializes document as a boolean",
-        protocol: rpcv2Json,
-        code: 200,
+        id: "RpcV2JsonDocumentMembersDeserializeBoolean"
+        documentation: "Deserializes document as a boolean"
+        protocol: rpcv2Json
+        code: 200
         body: """
             {
                 "documentValue": true
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-        },
-        params: {
-            documentValue: true,
-        }
-    },
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json" }
+        params: { documentValue: true }
+    }
     {
-        id: "RpcV2JsonDocumentMembersDeserializeArray",
-        documentation: "Deserializes document as an array",
-        protocol: rpcv2Json,
-        code: 200,
+        id: "RpcV2JsonDocumentMembersDeserializeArray"
+        documentation: "Deserializes document as an array"
+        protocol: rpcv2Json
+        code: 200
         body: """
             {
                 "documentValue": [1, 2, 3]
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-        },
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json" }
         params: {
-            documentValue: [1, 2, 3],
+            documentValue: [1, 2, 3]
         }
-    },
+    }
     {
-        id: "RpcV2JsonDocumentMembersDeserializeNestedStruct",
-        documentation: "Deserializes nested struct containing a document",
-        protocol: rpcv2Json,
-        code: 200,
+        id: "RpcV2JsonDocumentMembersDeserializeNestedStruct"
+        documentation: "Deserializes nested struct containing a document"
+        protocol: rpcv2Json
+        code: 200
         body: """
             {
                 "nestedStruct": {
                     "documentMember": {"nested": true},
                     "stringMember": "hello"
                 }
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-        },
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json" }
         params: {
             nestedStruct: {
-                documentMember: { nested: true },
-                stringMember: "hello",
-            },
+                documentMember: { nested: true }
+                stringMember: "hello"
+            }
         }
-    },
+    }
     {
-        id: "RpcV2JsonDocumentMembersDeserializeNull",
-        documentation: "Deserializes document as null",
-        protocol: rpcv2Json,
-        code: 200,
+        id: "RpcV2JsonDocumentMembersDeserializeNull"
+        documentation: "Deserializes document as null"
+        protocol: rpcv2Json
+        code: 200
         body: """
             {
                 "documentValue": null
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-        },
-        params: {
-            documentValue: null,
-        }
-    },
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json" }
+        params: { documentValue: null }
+    }
 ])
 
 // =============================================================================
 // ListOfDocuments
 // =============================================================================
-
 apply ListOfDocuments @httpRequestTests([
     {
-        id: "RpcV2JsonListOfDocumentsMixedTypes",
-        documentation: "Serializes a list of mixed document types",
-        protocol: rpcv2Json,
-        method: "POST",
-        uri: "/service/RpcV2JsonCorpusTests/operation/ListOfDocuments",
+        id: "RpcV2JsonListOfDocumentsMixedTypes"
+        documentation: "Serializes a list of mixed document types"
+        protocol: rpcv2Json
+        method: "POST"
+        uri: "/service/RpcV2JsonCorpusTests/operation/ListOfDocuments"
         body: """
             {
                 "values": [42, "hello", true, [1, 2], {"key": "value"}]
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        },
-        requireHeaders: [
-            "Content-Length",
-        ],
-        forbidHeaders: [
-            "X-Amz-Target",
-        ],
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json", Accept: "application/json" }
+        requireHeaders: ["Content-Length"]
+        forbidHeaders: ["X-Amz-Target"]
         params: {
-            values: [42, "hello", true, [1, 2], { key: "value" }],
+            values: [
+                42
+                "hello"
+                true
+                [1, 2]
+                {
+                    key: "value"
+                }
+            ]
         }
-    },
+    }
 ])
 
 apply ListOfDocuments @httpResponseTests([
     {
-        id: "RpcV2JsonListOfDocumentsDeserialize",
-        documentation: "Deserializes a list of mixed document types",
-        protocol: rpcv2Json,
-        code: 200,
+        id: "RpcV2JsonListOfDocumentsDeserialize"
+        documentation: "Deserializes a list of mixed document types"
+        protocol: rpcv2Json
+        code: 200
         body: """
             {
                 "values": [42, "hello", true, [1, 2], {"key": "value"}]
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-        },
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json" }
         params: {
-            values: [42, "hello", true, [1, 2], { key: "value" }],
+            values: [
+                42
+                "hello"
+                true
+                [1, 2]
+                {
+                    key: "value"
+                }
+            ]
         }
-    },
+    }
 ])
 
 // =============================================================================
 // MapOfDocuments
 // =============================================================================
-
 apply MapOfDocuments @httpRequestTests([
     {
-        id: "RpcV2JsonMapOfDocumentsMixedTypes",
-        documentation: "Serializes a map of mixed document types",
-        protocol: rpcv2Json,
-        method: "POST",
-        uri: "/service/RpcV2JsonCorpusTests/operation/MapOfDocuments",
+        id: "RpcV2JsonMapOfDocumentsMixedTypes"
+        documentation: "Serializes a map of mixed document types"
+        protocol: rpcv2Json
+        method: "POST"
+        uri: "/service/RpcV2JsonCorpusTests/operation/MapOfDocuments"
         body: """
             {
                 "values": {
@@ -410,37 +319,29 @@ apply MapOfDocuments @httpRequestTests([
                     "list": [1, 2],
                     "obj": {"key": "value"}
                 }
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        },
-        requireHeaders: [
-            "Content-Length",
-        ],
-        forbidHeaders: [
-            "X-Amz-Target",
-        ],
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json", Accept: "application/json" }
+        requireHeaders: ["Content-Length"]
+        forbidHeaders: ["X-Amz-Target"]
         params: {
             values: {
-                num: 42,
-                str: "hello",
-                bool: true,
-                list: [1, 2],
-                obj: { key: "value" },
-            },
+                num: 42
+                str: "hello"
+                bool: true
+                list: [1, 2]
+                obj: { key: "value" }
+            }
         }
-    },
+    }
 ])
 
 apply MapOfDocuments @httpResponseTests([
     {
-        id: "RpcV2JsonMapOfDocumentsDeserialize",
-        documentation: "Deserializes a map of mixed document types",
-        protocol: rpcv2Json,
-        code: 200,
+        id: "RpcV2JsonMapOfDocumentsDeserialize"
+        documentation: "Deserializes a map of mixed document types"
+        protocol: rpcv2Json
+        code: 200
         body: """
             {
                 "values": {
@@ -450,82 +351,67 @@ apply MapOfDocuments @httpResponseTests([
                     "list": [1, 2],
                     "obj": {"key": "value"}
                 }
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-        },
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json" }
         params: {
             values: {
-                num: 42,
-                str: "hello",
-                bool: true,
-                list: [1, 2],
-                obj: { key: "value" },
-            },
+                num: 42
+                str: "hello"
+                bool: true
+                list: [1, 2]
+                obj: { key: "value" }
+            }
         }
-    },
+    }
 ])
 
 // =============================================================================
 // DocumentUnion
 // =============================================================================
-
 apply DocumentUnion @httpRequestTests([
     {
-        id: "RpcV2JsonDocumentUnionDocumentValue",
-        documentation: "Serializes union with document value variant",
-        protocol: rpcv2Json,
-        method: "POST",
-        uri: "/service/RpcV2JsonCorpusTests/operation/DocumentUnion",
+        id: "RpcV2JsonDocumentUnionDocumentValue"
+        documentation: "Serializes union with document value variant"
+        protocol: rpcv2Json
+        method: "POST"
+        uri: "/service/RpcV2JsonCorpusTests/operation/DocumentUnion"
         body: """
             {
                 "value": {
                     "documentValue": {"nested": "object", "count": 5}
                 }
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        },
-        requireHeaders: [
-            "Content-Length",
-        ],
-        forbidHeaders: [
-            "X-Amz-Target",
-        ],
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json", Accept: "application/json" }
+        requireHeaders: ["Content-Length"]
+        forbidHeaders: ["X-Amz-Target"]
         params: {
             value: {
-                documentValue: { nested: "object", count: 5 },
-            },
+                documentValue: { nested: "object", count: 5 }
+            }
         }
-    },
+    }
 ])
 
 apply DocumentUnion @httpResponseTests([
     {
-        id: "RpcV2JsonDocumentUnionDeserializeDocumentValue",
-        documentation: "Deserializes union with document value variant",
-        protocol: rpcv2Json,
-        code: 200,
+        id: "RpcV2JsonDocumentUnionDeserializeDocumentValue"
+        documentation: "Deserializes union with document value variant"
+        protocol: rpcv2Json
+        code: 200
         body: """
             {
                 "value": {
                     "documentValue": {"nested": "object", "count": 5}
                 }
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-        },
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json" }
         params: {
             value: {
-                documentValue: { nested: "object", count: 5 },
-            },
+                documentValue: { nested: "object", count: 5 }
+            }
         }
-    },
+    }
 ])

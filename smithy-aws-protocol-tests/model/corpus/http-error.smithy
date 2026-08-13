@@ -18,32 +18,46 @@ service HttpErrorProtocolTestService with [CoreProtocolTestService] {
 operation HttpErrorOperation {
     input := {}
     output := {}
-    errors: [HttpErrorConflict, HttpErrorGone, HttpErrorServiceUnavailable]
+    errors: [
+        HttpErrorConflict
+        HttpErrorGone
+        HttpErrorServiceUnavailable
+    ]
 }
 
 @error("client")
 @httpError(409)
 structure HttpErrorConflict {
-    @jsonName("jsonMessage") @xmlName("xmlMessage") @ec2QueryName("ec2Message")
+    @jsonName("jsonMessage")
+    @xmlName("xmlMessage")
+    @ec2QueryName("ec2Message")
     message: String
 }
 
 @error("client")
 @httpError(410)
 structure HttpErrorGone {
-    @jsonName("jsonMessage") @xmlName("xmlMessage") @ec2QueryName("ec2Message")
+    @jsonName("jsonMessage")
+    @xmlName("xmlMessage")
+    @ec2QueryName("ec2Message")
     message: String
 
-    @jsonName("jsonDetails") @xmlName("xmlDetails") @ec2QueryName("ec2Details")
+    @jsonName("jsonDetails")
+    @xmlName("xmlDetails")
+    @ec2QueryName("ec2Details")
     details: String
 }
 
 @error("server")
 @httpError(503)
 structure HttpErrorServiceUnavailable {
-    @jsonName("jsonMessage") @xmlName("xmlMessage") @ec2QueryName("ec2Message")
+    @jsonName("jsonMessage")
+    @xmlName("xmlMessage")
+    @ec2QueryName("ec2Message")
     message: String
 
-    @jsonName("jsonRetryAfter") @xmlName("xmlRetryAfter") @ec2QueryName("ec2RetryAfter")
+    @jsonName("jsonRetryAfter")
+    @xmlName("xmlRetryAfter")
+    @ec2QueryName("ec2RetryAfter")
     retryAfterSeconds: Integer
 }

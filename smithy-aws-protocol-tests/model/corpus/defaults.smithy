@@ -20,7 +20,6 @@ service DefaultsProtocolTestService with [CoreProtocolTestService] {
 // =============================================================================
 // Default scalars — all scalar types with @default
 // =============================================================================
-
 operation DefaultScalars {
     input := with [DefaultScalarsMixin] {}
     output := with [DefaultScalarsMixin] {}
@@ -93,7 +92,6 @@ structure DefaultScalarsMixin {
 // =============================================================================
 // Default collections
 // =============================================================================
-
 operation DefaultCollections {
     input := with [DefaultCollectionsMixin] {}
     output := with [DefaultCollectionsMixin] {}
@@ -111,7 +109,6 @@ structure DefaultCollectionsMixin {
 // =============================================================================
 // Nested defaults — defaults inside structs within collections
 // =============================================================================
-
 operation NestedDefaults {
     input := {
         topLevel: TopLevelWithDefaults
@@ -157,7 +154,6 @@ map NestedWithDefaultsMap {
 // =============================================================================
 // Required members — server omits required fields, client must error-correct
 // =============================================================================
-
 operation RequiredMembers {
     input := with [RequiredMembersMixin] {}
     output := with [RequiredMembersMixin] {}
@@ -181,26 +177,30 @@ structure RequiredMembersMixin {
     requiredMap: StringMap
 
     // Required with defaults — client fills default when server omits
-    @required @default("default")
+    @required
+    @default("default")
     requiredStringWithDefault: String
 
-    @required @default(0)
+    @required
+    @default(0)
     requiredIntegerWithDefault: Integer
 
-    @required @default(false)
+    @required
+    @default(false)
     requiredBooleanWithDefault: Boolean
 
-    @required @default([])
+    @required
+    @default([])
     requiredListWithDefault: StringList
 
-    @required @default({})
+    @required
+    @default({})
     requiredMapWithDefault: StringMap
 }
 
 // =============================================================================
 // Null handling in sparse collections
 // =============================================================================
-
 operation NullSparseMembers {
     input := {
         sparseStringList: SparseStringList
@@ -219,7 +219,6 @@ operation NullSparseMembers {
 // =============================================================================
 // clientOptional — suppresses default population on client
 // =============================================================================
-
 operation ClientOptionalDefaults {
     input := with [ClientOptionalMixin] {}
     output := with [ClientOptionalMixin] {}
@@ -227,12 +226,15 @@ operation ClientOptionalDefaults {
 
 @mixin
 structure ClientOptionalMixin {
-    @clientOptional @default(0)
+    @clientOptional
+    @default(0)
     optionalInteger: Integer
 
-    @clientOptional @default("")
+    @clientOptional
+    @default("")
     optionalString: String
 
-    @clientOptional @default(false)
+    @clientOptional
+    @default(false)
     optionalBoolean: Boolean
 }

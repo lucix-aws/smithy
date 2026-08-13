@@ -42,25 +42,21 @@ service ValidationProtocolTestService {
 // =============================================================================
 // @range — byte, short, integer, long, float, double
 // =============================================================================
-
 @suppress(["UnstableTrait"])
 @http(uri: "/corpus/MalformedRange", method: "POST")
 operation MalformedRange {
     input: MalformedRangeInput
-    errors: [ValidationException]
+    errors: [
+        ValidationException
+    ]
 }
 
 structure MalformedRangeInput {
     rangeByte: RangeByte
-
     rangeShort: RangeShort
-
     rangeInteger: RangeInteger
-
     rangeLong: RangeLong
-
     rangeFloat: RangeFloat
-
     rangeDouble: RangeDouble
 }
 
@@ -85,21 +81,19 @@ double RangeDouble
 // =============================================================================
 // @length — string, blob, list, map
 // =============================================================================
-
 @suppress(["UnstableTrait"])
 @http(uri: "/corpus/MalformedLength", method: "POST")
 operation MalformedLength {
     input: MalformedLengthInput
-    errors: [ValidationException]
+    errors: [
+        ValidationException
+    ]
 }
 
 structure MalformedLengthInput {
     lengthString: LengthString
-
     lengthBlob: LengthBlob
-
     lengthList: LengthList
-
     lengthMap: LengthMap
 }
 
@@ -123,12 +117,13 @@ map LengthMap {
 // =============================================================================
 // @pattern — string
 // =============================================================================
-
 @suppress(["UnstableTrait"])
 @http(uri: "/corpus/MalformedPattern", method: "POST")
 operation MalformedPattern {
     input: MalformedPatternInput
-    errors: [ValidationException]
+    errors: [
+        ValidationException
+    ]
 }
 
 structure MalformedPatternInput {
@@ -141,12 +136,13 @@ string PatternString
 // =============================================================================
 // @uniqueItems — list
 // =============================================================================
-
 @suppress(["UnstableTrait"])
 @http(uri: "/corpus/MalformedUniqueItems", method: "POST")
 operation MalformedUniqueItems {
     input: MalformedUniqueItemsInput
-    errors: [ValidationException]
+    errors: [
+        ValidationException
+    ]
 }
 
 structure MalformedUniqueItemsInput {
@@ -161,12 +157,13 @@ list UniqueItemsList {
 // =============================================================================
 // @enum — unknown value on deserialize
 // =============================================================================
-
 @suppress(["UnstableTrait"])
 @http(uri: "/corpus/MalformedEnum", method: "POST")
 operation MalformedEnum {
     input: MalformedEnumInput
-    errors: [ValidationException]
+    errors: [
+        ValidationException
+    ]
 }
 
 structure MalformedEnumInput {
@@ -182,12 +179,13 @@ enum ValidationEnum {
 // =============================================================================
 // @required — presence
 // =============================================================================
-
 @suppress(["UnstableTrait"])
 @http(uri: "/corpus/MalformedRequired", method: "POST")
 operation MalformedRequired {
     input: MalformedRequiredInput
-    errors: [ValidationException]
+    errors: [
+        ValidationException
+    ]
 }
 
 structure MalformedRequiredInput {
@@ -197,4 +195,3 @@ structure MalformedRequiredInput {
     @required
     requiredInteger: Integer
 }
-

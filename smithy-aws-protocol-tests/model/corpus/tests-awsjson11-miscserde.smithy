@@ -15,61 +15,50 @@ use smithy.test#httpRequestTests
 // direction-specific. Empty-response deserialization is already covered by the
 // Core layer's EmptyInputOutput operation.
 // =============================================================================
-
 // =============================================================================
 // @endpoint — static host prefix
 // =============================================================================
-
 apply EndpointHostPrefix @httpRequestTests([
     {
-        id: "AwsJson11EndpointHostPrefix",
+        id: "AwsJson11EndpointHostPrefix"
         documentation: """
             Operations prepend a static prefix to the endpoint host when they
             carry the @endpoint trait. The path is unaffected: awsJson always
-            POSTs to /, so the prefix is observable only on the host.""",
-        protocol: awsJson1_1,
-        method: "POST",
-        uri: "/",
-        body: "{}",
-        bodyMediaType: "application/json",
-        host: "example.com",
-        resolvedHost: "data.example.com",
-        headers: {
-            "Content-Type": "application/x-amz-json-1.1",
-            "X-Amz-Target": "AwsJson11CorpusTests.EndpointHostPrefix",
-        },
-    },
+            POSTs to /, so the prefix is observable only on the host."""
+        protocol: awsJson1_1
+        method: "POST"
+        uri: "/"
+        body: "{}"
+        bodyMediaType: "application/json"
+        host: "example.com"
+        resolvedHost: "data.example.com"
+        headers: { "Content-Type": "application/x-amz-json-1.1", "X-Amz-Target": "AwsJson11CorpusTests.EndpointHostPrefix" }
+    }
 ])
 
 // =============================================================================
 // @endpoint + @hostLabel — host prefix with a substituted label
 // =============================================================================
-
 apply EndpointHostLabel @httpRequestTests([
     {
-        id: "AwsJson11EndpointHostLabel",
+        id: "AwsJson11EndpointHostLabel"
         documentation: """
             The @hostLabel member is substituted into the @endpoint hostPrefix
             AND still serialized into the request body — binding a member to
-            the host does not remove it from the payload.""",
-        protocol: awsJson1_1,
-        method: "POST",
-        uri: "/",
+            the host does not remove it from the payload."""
+        protocol: awsJson1_1
+        method: "POST"
+        uri: "/"
         body: """
             {
                 "label": "bar"
-            }""",
-        bodyMediaType: "application/json",
-        host: "example.com",
-        resolvedHost: "data.bar.example.com",
-        headers: {
-            "Content-Type": "application/x-amz-json-1.1",
-            "X-Amz-Target": "AwsJson11CorpusTests.EndpointHostLabel",
-        },
-        params: {
-            label: "bar",
-        }
-    },
+            }"""
+        bodyMediaType: "application/json"
+        host: "example.com"
+        resolvedHost: "data.bar.example.com"
+        headers: { "Content-Type": "application/x-amz-json-1.1", "X-Amz-Target": "AwsJson11CorpusTests.EndpointHostLabel" }
+        params: { label: "bar" }
+    }
 ])
 
 // =============================================================================
@@ -82,44 +71,35 @@ apply EndpointHostLabel @httpRequestTests([
 // (http-protocol-compliance-tests). The auto-fill case is therefore
 // appliesTo: "client" — a server has nothing to auto-populate.
 // =============================================================================
-
 apply IdempotencyTokenOp @httpRequestTests([
     {
-        id: "AwsJson11IdempotencyTokenAutoFill",
-        documentation: "Automatically populates an idempotency token that was not set",
-        protocol: awsJson1_1,
-        method: "POST",
-        uri: "/",
+        id: "AwsJson11IdempotencyTokenAutoFill"
+        documentation: "Automatically populates an idempotency token that was not set"
+        protocol: awsJson1_1
+        method: "POST"
+        uri: "/"
         body: """
             {
                 "token": "00000000-0000-4000-8000-000000000000"
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "Content-Type": "application/x-amz-json-1.1",
-            "X-Amz-Target": "AwsJson11CorpusTests.IdempotencyTokenOp",
-        },
-        appliesTo: "client",
-    },
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "Content-Type": "application/x-amz-json-1.1", "X-Amz-Target": "AwsJson11CorpusTests.IdempotencyTokenOp" }
+        appliesTo: "client"
+    }
     {
-        id: "AwsJson11IdempotencyTokenProvided",
-        documentation: "Uses an explicitly provided idempotency token as-is rather than generating one",
-        protocol: awsJson1_1,
-        method: "POST",
-        uri: "/",
+        id: "AwsJson11IdempotencyTokenProvided"
+        documentation: "Uses an explicitly provided idempotency token as-is rather than generating one"
+        protocol: awsJson1_1
+        method: "POST"
+        uri: "/"
         body: """
             {
                 "token": "8a3e2f1c-5b6d-4e7f-8091-a2b3c4d5e6f7"
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "Content-Type": "application/x-amz-json-1.1",
-            "X-Amz-Target": "AwsJson11CorpusTests.IdempotencyTokenOp",
-        },
-        params: {
-            token: "8a3e2f1c-5b6d-4e7f-8091-a2b3c4d5e6f7",
-        }
-    },
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "Content-Type": "application/x-amz-json-1.1", "X-Amz-Target": "AwsJson11CorpusTests.IdempotencyTokenOp" }
+        params: { token: "8a3e2f1c-5b6d-4e7f-8091-a2b3c4d5e6f7" }
+    }
 ])
 
 // =============================================================================
@@ -143,17 +123,18 @@ apply IdempotencyTokenOp @httpRequestTests([
 // encoding does not clobber a user-supplied Content-Encoding) has nothing to
 // bind to here and is not represented.
 // =============================================================================
-
 apply RequestCompressionOp @httpRequestTests([
     {
-        id: "AwsJson11RequestCompressionGzip",
-        documentation: "Compression algorithm encoding is appended to the Content-Encoding header",
-        protocol: awsJson1_1,
-        method: "POST",
-        uri: "/",
+        id: "AwsJson11RequestCompressionGzip"
+        documentation: "Compression algorithm encoding is appended to the Content-Encoding header"
+        protocol: awsJson1_1
+        method: "POST"
+        uri: "/"
         headers: {
-            "Content-Encoding": "gzip",
-        },
+            "Content-Type": "application/x-amz-json-1.1"
+            "X-Amz-Target": "AwsJson11CorpusTests.RequestCompressionOp"
+            "Content-Encoding": "gzip"
+        }
         params: {
             data: """
                 DET5w2onta019lTPCeLsrdlWLLmMCSRtJydsjLdmiurEenOVtdamJoWVIS5HiAuq4ly8DsLX45dgEXco
@@ -289,5 +270,5 @@ apply RequestCompressionOp @httpRequestTests([
                 OITsWkpZj5TvM8Luf4EBAUcQuSX0Stt9wOxq44oo0mJN0kYyOGMPRRyHSv99vkxmVHRhq0rJRcAY7NcN
                 aBLIYT0XjNbxdOfgMuM737Bxl7lCGr9G9CpMtNBlVESehmnjDMbhlyzfWfeyGwlshNN4uHu21qgAbE9k"""
         }
-    },
+    }
 ])

@@ -35,82 +35,120 @@ service XmlTraitsProtocolTestService with [CoreProtocolTestService] {
 // =============================================================================
 // Flattened lists
 // =============================================================================
-
 operation FlattenedListOfScalars {
     input := {
-        @xmlFlattened @xmlName("xmlBooleans")
+        @xmlFlattened
+        @xmlName("xmlBooleans")
         booleans: BooleanList
-        @xmlFlattened @xmlName("xmlIntegers")
+
+        @xmlFlattened
+        @xmlName("xmlIntegers")
         integers: IntegerList
-        @xmlFlattened @xmlName("xmlStrings")
+
+        @xmlFlattened
+        @xmlName("xmlStrings")
         strings: StringList
-        @xmlFlattened @xmlName("xmlBlobs")
+
+        @xmlFlattened
+        @xmlName("xmlBlobs")
         blobs: BlobList
-        @xmlFlattened @xmlName("xmlTimestamps")
+
+        @xmlFlattened
+        @xmlName("xmlTimestamps")
         timestamps: TimestampList
-        @xmlFlattened @xmlName("xmlEnums")
+
+        @xmlFlattened
+        @xmlName("xmlEnums")
         enums: CorpusStringEnumList
-        @xmlFlattened @xmlName("xmlIntEnums")
+
+        @xmlFlattened
+        @xmlName("xmlIntEnums")
         intEnums: CorpusIntEnumList
     }
+
     output := {
-        @xmlFlattened @xmlName("xmlBooleans")
+        @xmlFlattened
+        @xmlName("xmlBooleans")
         booleans: BooleanList
-        @xmlFlattened @xmlName("xmlIntegers")
+
+        @xmlFlattened
+        @xmlName("xmlIntegers")
         integers: IntegerList
-        @xmlFlattened @xmlName("xmlStrings")
+
+        @xmlFlattened
+        @xmlName("xmlStrings")
         strings: StringList
-        @xmlFlattened @xmlName("xmlBlobs")
+
+        @xmlFlattened
+        @xmlName("xmlBlobs")
         blobs: BlobList
-        @xmlFlattened @xmlName("xmlTimestamps")
+
+        @xmlFlattened
+        @xmlName("xmlTimestamps")
         timestamps: TimestampList
-        @xmlFlattened @xmlName("xmlEnums")
+
+        @xmlFlattened
+        @xmlName("xmlEnums")
         enums: CorpusStringEnumList
-        @xmlFlattened @xmlName("xmlIntEnums")
+
+        @xmlFlattened
+        @xmlName("xmlIntEnums")
         intEnums: CorpusIntEnumList
     }
 }
 
 operation FlattenedListOfStructs {
     input := {
-        @xmlFlattened @xmlName("xmlValues")
+        @xmlFlattened
+        @xmlName("xmlValues")
         values: SimpleStructList
     }
+
     output := {
-        @xmlFlattened @xmlName("xmlValues")
+        @xmlFlattened
+        @xmlName("xmlValues")
         values: SimpleStructList
     }
 }
 
 operation FlattenedListOfLists {
     input := {
-        @xmlFlattened @xmlName("xmlValues")
+        @xmlFlattened
+        @xmlName("xmlValues")
         values: ListOfStringList
     }
+
     output := {
-        @xmlFlattened @xmlName("xmlValues")
+        @xmlFlattened
+        @xmlName("xmlValues")
         values: ListOfStringList
     }
 }
 
 operation FlattenedListOfMaps {
     input := {
-        @xmlFlattened @xmlName("xmlValues")
+        @xmlFlattened
+        @xmlName("xmlValues")
         values: ListOfStringMap
     }
+
     output := {
-        @xmlFlattened @xmlName("xmlValues")
+        @xmlFlattened
+        @xmlName("xmlValues")
         values: ListOfStringMap
     }
 }
 
 operation FlattenedListOfUnions {
     input := {
-        @xmlFlattened @xmlName("xmlValues")
+        @xmlFlattened
+        @xmlName("xmlValues")
         values: CorpusUnionList
     }
+
     output := {
-        @xmlFlattened @xmlName("xmlValues")
+        @xmlFlattened
+        @xmlName("xmlValues")
         values: CorpusUnionList
     }
 }
@@ -118,82 +156,120 @@ operation FlattenedListOfUnions {
 // =============================================================================
 // Flattened maps
 // =============================================================================
-
 operation FlattenedMapOfScalars {
     input := {
-        @xmlFlattened @xmlName("xmlBooleans")
+        @xmlFlattened
+        @xmlName("xmlBooleans")
         booleans: BooleanMap
-        @xmlFlattened @xmlName("xmlIntegers")
+
+        @xmlFlattened
+        @xmlName("xmlIntegers")
         integers: IntegerMap
-        @xmlFlattened @xmlName("xmlStrings")
+
+        @xmlFlattened
+        @xmlName("xmlStrings")
         strings: StringMap
-        @xmlFlattened @xmlName("xmlBlobs")
+
+        @xmlFlattened
+        @xmlName("xmlBlobs")
         blobs: BlobMap
-        @xmlFlattened @xmlName("xmlTimestamps")
+
+        @xmlFlattened
+        @xmlName("xmlTimestamps")
         timestamps: TimestampMap
-        @xmlFlattened @xmlName("xmlEnums")
+
+        @xmlFlattened
+        @xmlName("xmlEnums")
         enums: CorpusStringEnumMap
-        @xmlFlattened @xmlName("xmlIntEnums")
+
+        @xmlFlattened
+        @xmlName("xmlIntEnums")
         intEnums: CorpusIntEnumMap
     }
+
     output := {
-        @xmlFlattened @xmlName("xmlBooleans")
+        @xmlFlattened
+        @xmlName("xmlBooleans")
         booleans: BooleanMap
-        @xmlFlattened @xmlName("xmlIntegers")
+
+        @xmlFlattened
+        @xmlName("xmlIntegers")
         integers: IntegerMap
-        @xmlFlattened @xmlName("xmlStrings")
+
+        @xmlFlattened
+        @xmlName("xmlStrings")
         strings: StringMap
-        @xmlFlattened @xmlName("xmlBlobs")
+
+        @xmlFlattened
+        @xmlName("xmlBlobs")
         blobs: BlobMap
-        @xmlFlattened @xmlName("xmlTimestamps")
+
+        @xmlFlattened
+        @xmlName("xmlTimestamps")
         timestamps: TimestampMap
-        @xmlFlattened @xmlName("xmlEnums")
+
+        @xmlFlattened
+        @xmlName("xmlEnums")
         enums: CorpusStringEnumMap
-        @xmlFlattened @xmlName("xmlIntEnums")
+
+        @xmlFlattened
+        @xmlName("xmlIntEnums")
         intEnums: CorpusIntEnumMap
     }
 }
 
 operation FlattenedMapOfStructs {
     input := {
-        @xmlFlattened @xmlName("xmlValues")
+        @xmlFlattened
+        @xmlName("xmlValues")
         values: SimpleStructMap
     }
+
     output := {
-        @xmlFlattened @xmlName("xmlValues")
+        @xmlFlattened
+        @xmlName("xmlValues")
         values: SimpleStructMap
     }
 }
 
 operation FlattenedMapOfMaps {
     input := {
-        @xmlFlattened @xmlName("xmlValues")
+        @xmlFlattened
+        @xmlName("xmlValues")
         values: MapOfStringMap
     }
+
     output := {
-        @xmlFlattened @xmlName("xmlValues")
+        @xmlFlattened
+        @xmlName("xmlValues")
         values: MapOfStringMap
     }
 }
 
 operation FlattenedMapOfLists {
     input := {
-        @xmlFlattened @xmlName("xmlValues")
+        @xmlFlattened
+        @xmlName("xmlValues")
         values: MapOfStringList
     }
+
     output := {
-        @xmlFlattened @xmlName("xmlValues")
+        @xmlFlattened
+        @xmlName("xmlValues")
         values: MapOfStringList
     }
 }
 
 operation FlattenedMapOfUnions {
     input := {
-        @xmlFlattened @xmlName("xmlValues")
+        @xmlFlattened
+        @xmlName("xmlValues")
         values: CorpusUnionMap
     }
+
     output := {
-        @xmlFlattened @xmlName("xmlValues")
+        @xmlFlattened
+        @xmlName("xmlValues")
         values: CorpusUnionMap
     }
 }
@@ -201,25 +277,30 @@ operation FlattenedMapOfUnions {
 // =============================================================================
 // Flattened sparse containers
 // =============================================================================
-
 operation FlattenedSparseListOfStructs {
     input := {
-        @xmlFlattened @xmlName("xmlValues")
+        @xmlFlattened
+        @xmlName("xmlValues")
         values: SparseSimpleStructList
     }
+
     output := {
-        @xmlFlattened @xmlName("xmlValues")
+        @xmlFlattened
+        @xmlName("xmlValues")
         values: SparseSimpleStructList
     }
 }
 
 operation FlattenedSparseMapOfStructs {
     input := {
-        @xmlFlattened @xmlName("xmlValues")
+        @xmlFlattened
+        @xmlName("xmlValues")
         values: SparseSimpleStructMap
     }
+
     output := {
-        @xmlFlattened @xmlName("xmlValues")
+        @xmlFlattened
+        @xmlName("xmlValues")
         values: SparseSimpleStructMap
     }
 }
@@ -227,7 +308,6 @@ operation FlattenedSparseMapOfStructs {
 // =============================================================================
 // @xmlAttribute — scalar members serialized as XML attributes
 // =============================================================================
-
 operation XmlAttributeMembers {
     input := {
         value: XmlAttributeStruct
@@ -265,7 +345,6 @@ structure XmlAttributeNestedStruct {
 // =============================================================================
 // @xmlNamespace — xmlns declarations on structs and members
 // =============================================================================
-
 operation XmlNamespaceMembers {
     input := {
         value: XmlNamespaceStruct
@@ -298,17 +377,19 @@ structure XmlNamespaceNestedStruct {
 // =============================================================================
 // @xmlName on list member — changes the element name inside the wrapper
 // =============================================================================
-
 operation XmlNamedListMembers {
     input := {
         @xmlName("xmlStrings")
         strings: XmlNamedStringList
+
         @xmlName("xmlIntegers")
         integers: XmlNamedIntegerList
     }
+
     output := {
         @xmlName("xmlStrings")
         strings: XmlNamedStringList
+
         @xmlName("xmlIntegers")
         integers: XmlNamedIntegerList
     }
@@ -329,17 +410,19 @@ list XmlNamedIntegerList {
 // =============================================================================
 // @xmlName on map key/value — changes key/value element names inside entry
 // =============================================================================
-
 operation XmlNamedMapMembers {
     input := {
         @xmlName("xmlStrings")
         strings: XmlNamedStringMap
+
         @xmlName("xmlIntegers")
         integers: XmlNamedIntegerMap
     }
+
     output := {
         @xmlName("xmlStrings")
         strings: XmlNamedStringMap
+
         @xmlName("xmlIntegers")
         integers: XmlNamedIntegerMap
     }
@@ -349,6 +432,7 @@ operation XmlNamedMapMembers {
 map XmlNamedStringMap {
     @xmlName("AttrKey")
     key: String
+
     @xmlName("AttrValue")
     value: String
 }
@@ -357,6 +441,7 @@ map XmlNamedStringMap {
 map XmlNamedIntegerMap {
     @xmlName("AttrKey")
     key: String
+
     @xmlName("AttrValue")
     value: Integer
 }
@@ -365,17 +450,19 @@ map XmlNamedIntegerMap {
 // @xmlFlattened + @xmlName on list/map member target — the member-level xmlName
 // becomes the repeated element name when flattened
 // =============================================================================
-
 operation FlattenedXmlNamedListMembers {
     input := {
         @xmlFlattened
         strings: XmlNamedStringList
+
         @xmlFlattened
         integers: XmlNamedIntegerList
     }
+
     output := {
         @xmlFlattened
         strings: XmlNamedStringList
+
         @xmlFlattened
         integers: XmlNamedIntegerList
     }
@@ -385,12 +472,15 @@ operation FlattenedXmlNamedMapMembers {
     input := {
         @xmlFlattened
         strings: XmlNamedStringMap
+
         @xmlFlattened
         integers: XmlNamedIntegerMap
     }
+
     output := {
         @xmlFlattened
         strings: XmlNamedStringMap
+
         @xmlFlattened
         integers: XmlNamedIntegerMap
     }
@@ -402,19 +492,21 @@ operation FlattenedXmlNamedMapMembers {
 // member name (or member-level @xmlName) always wins; the target shape's
 // @xmlName must never appear on the wire for the member element.
 // =============================================================================
-
 operation XmlNameOnTargetShape {
     input := {
         // No member-level @xmlName: element must be the member name "structTarget",
         // never the target shape's @xmlName ("ShouldNotAppearStruct").
         structTarget: XmlNameStruct
+
         // Member-level @xmlName present: element must be "xmlUnionTarget",
         // never the target union's @xmlName ("ShouldNotAppearUnion").
         @xmlName("xmlUnionTarget")
         unionTarget: XmlNameUnion
     }
+
     output := {
         structTarget: XmlNameStruct
+
         @xmlName("xmlUnionTarget")
         unionTarget: XmlNameUnion
     }
@@ -443,7 +535,6 @@ union XmlNameUnion {
 //   (b) prefix matching a @xmlNamespace prefix declared on the enclosing struct
 //       ("baz:bar" against xmlns:baz)
 // =============================================================================
-
 operation XmlNamePrefixed {
     input := {
         value: XmlNamePrefixedStruct
@@ -468,12 +559,12 @@ structure XmlNamePrefixedStruct {
 // @xmlNamespace on a UNION shape — the xmlNamespace selector permits unions.
 // Verifies namespace declaration propagates onto the union's serialized element.
 // =============================================================================
-
 operation XmlNamespaceOnUnion {
     input := {
         @xmlName("xmlValue")
         value: XmlNamespacedUnion
     }
+
     output := {
         @xmlName("xmlValue")
         value: XmlNamespacedUnion

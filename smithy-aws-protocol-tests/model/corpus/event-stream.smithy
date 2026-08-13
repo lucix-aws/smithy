@@ -21,27 +21,31 @@ service EventStreamProtocolTestService with [CoreProtocolTestService] {
 // =============================================================================
 // Response stream — struct payload events
 // =============================================================================
-
 operation EventStreamResponse {
     input := {}
+
     output := {
-        @jsonName("jsonEvents") @xmlName("xmlEvents")
-        @httpPayload @required events: ResponseEventStream
+        @jsonName("jsonEvents")
+        @xmlName("xmlEvents")
+        @httpPayload
+        @required
+        events: ResponseEventStream
     }
 }
 
 @streaming
 union ResponseEventStream {
     messageEvent: MessageEvent
-
     heartbeatEvent: HeartbeatEvent
 }
 
 structure MessageEvent {
-    @jsonName("jsonContent") @xmlName("xmlContent")
+    @jsonName("jsonContent")
+    @xmlName("xmlContent")
     content: String
 
-    @jsonName("jsonSequence") @xmlName("xmlSequence")
+    @jsonName("jsonSequence")
+    @xmlName("xmlSequence")
     sequence: Integer
 }
 
@@ -50,12 +54,15 @@ structure HeartbeatEvent {}
 // =============================================================================
 // Response stream — blob @eventPayload
 // =============================================================================
-
 operation EventStreamResponseBlobPayload {
     input := {}
+
     output := {
-        @jsonName("jsonEvents") @xmlName("xmlEvents")
-        @httpPayload @required events: BlobPayloadEventStream
+        @jsonName("jsonEvents")
+        @xmlName("xmlEvents")
+        @httpPayload
+        @required
+        events: BlobPayloadEventStream
     }
 }
 
@@ -75,12 +82,15 @@ structure BlobPayloadEvent {
 // =============================================================================
 // Response stream — @eventHeader members
 // =============================================================================
-
 operation EventStreamResponseHeaders {
     input := {}
+
     output := {
-        @jsonName("jsonEvents") @xmlName("xmlEvents")
-        @httpPayload @required events: HeaderEventStream
+        @jsonName("jsonEvents")
+        @xmlName("xmlEvents")
+        @httpPayload
+        @required
+        events: HeaderEventStream
     }
 }
 
@@ -115,11 +125,13 @@ structure HeaderEvent {
 // =============================================================================
 // Response stream — @eventHeader + implicit payload (no @eventPayload)
 // =============================================================================
-
 operation EventStreamResponseImplicitPayload {
     input := {}
+
     output := {
-        @httpPayload @required events: ImplicitPayloadEventStream
+        @httpPayload
+        @required
+        events: ImplicitPayloadEventStream
     }
 }
 
@@ -131,6 +143,7 @@ union ImplicitPayloadEventStream {
 structure ImplicitPayloadEvent {
     @eventHeader
     requestId: String
+
     // These become the protocol-specific document body (implicit payload):
     content: String
 
@@ -142,52 +155,59 @@ structure ImplicitPayloadEvent {
 // =============================================================================
 // Error event in stream
 // =============================================================================
-
 operation EventStreamError {
     input := {}
+
     output := {
-        @jsonName("jsonEvents") @xmlName("xmlEvents")
-        @httpPayload @required events: ErrorEventStream
+        @jsonName("jsonEvents")
+        @xmlName("xmlEvents")
+        @httpPayload
+        @required
+        events: ErrorEventStream
     }
 }
 
 @streaming
 union ErrorEventStream {
     messageEvent: MessageEvent
-
     streamError: StreamError
 }
 
 @error("server")
 structure StreamError {
-    @jsonName("jsonMessage") @xmlName("xmlMessage")
+    @jsonName("jsonMessage")
+    @xmlName("xmlMessage")
     message: String
 
-    @jsonName("jsonCode") @xmlName("xmlCode")
+    @jsonName("jsonCode")
+    @xmlName("xmlCode")
     code: Integer
 }
 
 // =============================================================================
 // Request stream (client -> server)
 // =============================================================================
-
 operation EventStreamRequest {
     input := {
-        @jsonName("jsonEvents") @xmlName("xmlEvents")
-        @httpPayload @required events: RequestEventStream
+        @jsonName("jsonEvents")
+        @xmlName("xmlEvents")
+        @httpPayload
+        @required
+        events: RequestEventStream
     }
+
     output := {}
 }
 
 @streaming
 union RequestEventStream {
     sendMessage: SendMessageEvent
-
     endStream: EndStreamEvent
 }
 
 structure SendMessageEvent {
-    @jsonName("jsonContent") @xmlName("xmlContent")
+    @jsonName("jsonContent")
+    @xmlName("xmlContent")
     content: String
 }
 
@@ -196,16 +216,22 @@ structure EndStreamEvent {}
 // =============================================================================
 // Initial response — non-stream members sent before events
 // =============================================================================
-
 operation EventStreamInitialResponse {
     input := {}
+
     output := {
         @httpHeader("X-Session-Id")
-        @jsonName("jsonSessionId") @xmlName("xmlSessionId")
+        @jsonName("jsonSessionId")
+        @xmlName("xmlSessionId")
         sessionId: String
+
         @httpHeader("X-Timeout")
-        @jsonName("jsonTimeout") @xmlName("xmlTimeout")
+        @jsonName("jsonTimeout")
+        @xmlName("xmlTimeout")
         timeout: Integer
-        @httpPayload @required events: ResponseEventStream
+
+        @httpPayload
+        @required
+        events: ResponseEventStream
     }
 }

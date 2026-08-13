@@ -15,75 +15,54 @@ use smithy.test#httpRequestTests
 // direction-specific. Empty-response deserialization is already covered by the
 // Core layer's EmptyInputOutput operation.
 // =============================================================================
-
 // =============================================================================
 // @endpoint — static host prefix
 // =============================================================================
-
 apply EndpointHostPrefix @httpRequestTests([
     {
-        id: "RpcV2JsonEndpointHostPrefix",
+        id: "RpcV2JsonEndpointHostPrefix"
         documentation: """
             Operations prepend a static prefix to the endpoint host when they
             carry the @endpoint trait. Only the host is affected: the request
-            path still addresses the service and operation as usual.""",
-        protocol: rpcv2Json,
-        method: "POST",
-        uri: "/service/RpcV2JsonCorpusTests/operation/EndpointHostPrefix",
-        body: "{}",
-        bodyMediaType: "application/json",
-        host: "example.com",
-        resolvedHost: "data.example.com",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        },
-        requireHeaders: [
-            "Content-Length",
-        ],
-        forbidHeaders: [
-            "X-Amz-Target",
-        ],
-    },
+            path still addresses the service and operation as usual."""
+        protocol: rpcv2Json
+        method: "POST"
+        uri: "/service/RpcV2JsonCorpusTests/operation/EndpointHostPrefix"
+        body: "{}"
+        bodyMediaType: "application/json"
+        host: "example.com"
+        resolvedHost: "data.example.com"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json", Accept: "application/json" }
+        requireHeaders: ["Content-Length"]
+        forbidHeaders: ["X-Amz-Target"]
+    }
 ])
 
 // =============================================================================
 // @endpoint + @hostLabel — host prefix with a substituted label
 // =============================================================================
-
 apply EndpointHostLabel @httpRequestTests([
     {
-        id: "RpcV2JsonEndpointHostLabel",
+        id: "RpcV2JsonEndpointHostLabel"
         documentation: """
             The @hostLabel member is substituted into the @endpoint hostPrefix
             AND still serialized into the request body — binding a member to
-            the host does not remove it from the payload.""",
-        protocol: rpcv2Json,
-        method: "POST",
-        uri: "/service/RpcV2JsonCorpusTests/operation/EndpointHostLabel",
+            the host does not remove it from the payload."""
+        protocol: rpcv2Json
+        method: "POST"
+        uri: "/service/RpcV2JsonCorpusTests/operation/EndpointHostLabel"
         body: """
             {
                 "label": "bar"
-            }""",
-        bodyMediaType: "application/json",
-        host: "example.com",
-        resolvedHost: "data.bar.example.com",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        },
-        requireHeaders: [
-            "Content-Length",
-        ],
-        forbidHeaders: [
-            "X-Amz-Target",
-        ],
-        params: {
-            label: "bar",
-        }
-    },
+            }"""
+        bodyMediaType: "application/json"
+        host: "example.com"
+        resolvedHost: "data.bar.example.com"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json", Accept: "application/json" }
+        requireHeaders: ["Content-Length"]
+        forbidHeaders: ["X-Amz-Target"]
+        params: { label: "bar" }
+    }
 ])
 
 // =============================================================================
@@ -96,58 +75,39 @@ apply EndpointHostLabel @httpRequestTests([
 // (http-protocol-compliance-tests). The auto-fill case is therefore
 // appliesTo: "client" — a server has nothing to auto-populate.
 // =============================================================================
-
 apply IdempotencyTokenOp @httpRequestTests([
     {
-        id: "RpcV2JsonIdempotencyTokenAutoFill",
-        documentation: "Automatically populates an idempotency token that was not set",
-        protocol: rpcv2Json,
-        method: "POST",
-        uri: "/service/RpcV2JsonCorpusTests/operation/IdempotencyTokenOp",
+        id: "RpcV2JsonIdempotencyTokenAutoFill"
+        documentation: "Automatically populates an idempotency token that was not set"
+        protocol: rpcv2Json
+        method: "POST"
+        uri: "/service/RpcV2JsonCorpusTests/operation/IdempotencyTokenOp"
         body: """
             {
                 "token": "00000000-0000-4000-8000-000000000000"
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        },
-        requireHeaders: [
-            "Content-Length",
-        ],
-        forbidHeaders: [
-            "X-Amz-Target",
-        ],
-        appliesTo: "client",
-    },
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json", Accept: "application/json" }
+        requireHeaders: ["Content-Length"]
+        forbidHeaders: ["X-Amz-Target"]
+        appliesTo: "client"
+    }
     {
-        id: "RpcV2JsonIdempotencyTokenProvided",
-        documentation: "Uses an explicitly provided idempotency token as-is rather than generating one",
-        protocol: rpcv2Json,
-        method: "POST",
-        uri: "/service/RpcV2JsonCorpusTests/operation/IdempotencyTokenOp",
+        id: "RpcV2JsonIdempotencyTokenProvided"
+        documentation: "Uses an explicitly provided idempotency token as-is rather than generating one"
+        protocol: rpcv2Json
+        method: "POST"
+        uri: "/service/RpcV2JsonCorpusTests/operation/IdempotencyTokenOp"
         body: """
             {
                 "token": "8a3e2f1c-5b6d-4e7f-8091-a2b3c4d5e6f7"
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        },
-        requireHeaders: [
-            "Content-Length",
-        ],
-        forbidHeaders: [
-            "X-Amz-Target",
-        ],
-        params: {
-            token: "8a3e2f1c-5b6d-4e7f-8091-a2b3c4d5e6f7",
-        }
-    },
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json", Accept: "application/json" }
+        requireHeaders: ["Content-Length"]
+        forbidHeaders: ["X-Amz-Target"]
+        params: { token: "8a3e2f1c-5b6d-4e7f-8091-a2b3c4d5e6f7" }
+    }
 ])
 
 // =============================================================================
@@ -171,17 +131,21 @@ apply IdempotencyTokenOp @httpRequestTests([
 // encoding does not clobber a user-supplied Content-Encoding) has nothing to
 // bind to here and is not represented.
 // =============================================================================
-
 apply RequestCompressionOp @httpRequestTests([
     {
-        id: "RpcV2JsonRequestCompressionGzip",
-        documentation: "Compression algorithm encoding is appended to the Content-Encoding header",
-        protocol: rpcv2Json,
-        method: "POST",
-        uri: "/service/RpcV2JsonCorpusTests/operation/RequestCompressionOp",
+        id: "RpcV2JsonRequestCompressionGzip"
+        documentation: "Compression algorithm encoding is appended to the Content-Encoding header"
+        protocol: rpcv2Json
+        method: "POST"
+        uri: "/service/RpcV2JsonCorpusTests/operation/RequestCompressionOp"
         headers: {
-            "Content-Encoding": "gzip",
-        },
+            "smithy-protocol": "rpc-v2-json"
+            "Content-Type": "application/json"
+            Accept: "application/json"
+            "Content-Encoding": "gzip"
+        }
+        requireHeaders: ["Content-Length"]
+        forbidHeaders: ["X-Amz-Target"]
         params: {
             data: """
                 DET5w2onta019lTPCeLsrdlWLLmMCSRtJydsjLdmiurEenOVtdamJoWVIS5HiAuq4ly8DsLX45dgEXco
@@ -317,5 +281,5 @@ apply RequestCompressionOp @httpRequestTests([
                 OITsWkpZj5TvM8Luf4EBAUcQuSX0Stt9wOxq44oo0mJN0kYyOGMPRRyHSv99vkxmVHRhq0rJRcAY7NcN
                 aBLIYT0XjNbxdOfgMuM737Bxl7lCGr9G9CpMtNBlVESehmnjDMbhlyzfWfeyGwlshNN4uHu21qgAbE9k"""
         }
-    },
+    }
 ])

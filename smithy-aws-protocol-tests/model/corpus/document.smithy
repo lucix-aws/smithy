@@ -18,17 +18,19 @@ service DocumentProtocolTestService with [CoreProtocolTestService] {
 // =============================================================================
 // struct -> document
 // =============================================================================
-
 operation DocumentMembers {
     input := {
         @jsonName("jsonDocumentValue")
         documentValue: Document
+
         @jsonName("jsonNestedStruct")
         nestedStruct: DocumentStruct
     }
+
     output := {
         @jsonName("jsonDocumentValue")
         documentValue: Document
+
         @jsonName("jsonNestedStruct")
         nestedStruct: DocumentStruct
     }
@@ -45,12 +47,12 @@ structure DocumentStruct {
 // =============================================================================
 // list -> document
 // =============================================================================
-
 operation ListOfDocuments {
     input := {
         @jsonName("jsonValues")
         values: DocumentList
     }
+
     output := {
         @jsonName("jsonValues")
         values: DocumentList
@@ -64,12 +66,12 @@ list DocumentList {
 // =============================================================================
 // map -> document
 // =============================================================================
-
 operation MapOfDocuments {
     input := {
         @jsonName("jsonValues")
         values: DocumentMap
     }
+
     output := {
         @jsonName("jsonValues")
         values: DocumentMap
@@ -84,12 +86,12 @@ map DocumentMap {
 // =============================================================================
 // union -> document
 // =============================================================================
-
 operation DocumentUnion {
     input := {
         @jsonName("jsonValue")
         value: DocumentUnionShape
     }
+
     output := {
         @jsonName("jsonValue")
         value: DocumentUnionShape

@@ -17,7 +17,6 @@ service MiscSerdeTraitProtocolTestService {
 // =============================================================================
 // @endpoint / @hostLabel — host prefix construction
 // =============================================================================
-
 @endpoint(hostPrefix: "data.")
 operation EndpointHostPrefix {
     input := {}
@@ -27,28 +26,29 @@ operation EndpointHostPrefix {
 @endpoint(hostPrefix: "data.{label}.")
 operation EndpointHostLabel {
     input := {
-        @required @hostLabel
+        @required
+        @hostLabel
         label: String
     }
+
     output := {}
 }
 
 // =============================================================================
 // @idempotencyToken — client auto-populates a UUID if not provided
 // =============================================================================
-
 operation IdempotencyTokenOp {
     input := {
         @idempotencyToken
         token: String
     }
+
     output := {}
 }
 
 // =============================================================================
 // @requestCompression — gzip-compresses the request body
 // =============================================================================
-
 @requestCompression(
     encodings: ["gzip"]
 )

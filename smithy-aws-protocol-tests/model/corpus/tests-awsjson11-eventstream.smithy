@@ -31,12 +31,10 @@ use smithy.test#eventStreamTests
 //                   text/plain for a string @eventPayload. Events with no
 //                   payload at all carry no :content-type.
 // =============================================================================
-
 // =============================================================================
 // EventStreamResponse — struct payload events, and event dispatch across
 // multiple variants in one stream
 // =============================================================================
-
 apply EventStreamResponse @eventStreamTests([
     {
         id: "AwsJson11EventStreamResponseMessage"
@@ -112,7 +110,6 @@ apply EventStreamResponse @eventStreamTests([
 // =============================================================================
 // EventStreamResponseBlobPayload — blob @eventPayload
 // =============================================================================
-
 apply EventStreamResponseBlobPayload @eventStreamTests([
     {
         id: "AwsJson11EventStreamResponseBlobPayload"
@@ -132,7 +129,7 @@ apply EventStreamResponseBlobPayload @eventStreamTests([
                     ":message-type": { string: "event" }
                     ":event-type": { string: "blobEvent" }
                     ":content-type": { string: "application/octet-stream" }
-                    "contentType": { string: "text/csv" }
+                    contentType: { string: "text/csv" }
                 }
                 body: "row1,row2"
                 bodyMediaType: "application/octet-stream"
@@ -145,7 +142,6 @@ apply EventStreamResponseBlobPayload @eventStreamTests([
 // EventStreamResponseHeaders — every @eventHeader scalar type, plus a string
 // @eventPayload
 // =============================================================================
-
 apply EventStreamResponseHeaders @eventStreamTests([
     {
         id: "AwsJson11EventStreamResponseHeaders"
@@ -172,12 +168,12 @@ apply EventStreamResponseHeaders @eventStreamTests([
                     ":message-type": { string: "event" }
                     ":event-type": { string: "headerEvent" }
                     ":content-type": { string: "text/plain" }
-                    "stringHeader": { string: "headerString" }
-                    "integerHeader": { integer: 1234 }
-                    "booleanHeader": { boolean: true }
-                    "longHeader": { long: 9000000000 }
-                    "timestampHeader": { timestamp: 1609502096 }
-                    "blobHeader": { blob: "aGVhZGVy" }
+                    stringHeader: { string: "headerString" }
+                    integerHeader: { integer: 1234 }
+                    booleanHeader: { boolean: true }
+                    longHeader: { long: 9000000000 }
+                    timestampHeader: { timestamp: 1609502096 }
+                    blobHeader: { blob: "aGVhZGVy" }
                 }
                 body: "event payload text"
                 bodyMediaType: "text/plain"
@@ -190,7 +186,6 @@ apply EventStreamResponseHeaders @eventStreamTests([
 // EventStreamResponseImplicitPayload — @eventHeader alongside an implicit
 // document payload
 // =============================================================================
-
 apply EventStreamResponseImplicitPayload @eventStreamTests([
     {
         id: "AwsJson11EventStreamResponseImplicitPayload"
@@ -207,19 +202,14 @@ apply EventStreamResponseImplicitPayload @eventStreamTests([
                         requestId: "request-91"
                         content: "implicit payload content"
                         count: 33
-                        nested: {
-                            stringMember: "nestedString"
-                            integerMember: 44
-                            booleanMember: true
-                            mediaTypeMember: "{\"nested\":true}"
-                        }
+                        nested: { stringMember: "nestedString", integerMember: 44, booleanMember: true, mediaTypeMember: "{\"nested\":true}" }
                     }
                 }
                 headers: {
                     ":message-type": { string: "event" }
                     ":event-type": { string: "dataEvent" }
                     ":content-type": { string: "application/json" }
-                    "requestId": { string: "request-91" }
+                    requestId: { string: "request-91" }
                 }
                 body: """
                     {"content":"implicit payload content","count":33,"nested":{"stringMember":"nestedString","integerMember":44,"booleanMember":true,"mediaTypeMember":"{\\\"nested\\\":true}"}}"""
@@ -237,7 +227,6 @@ apply EventStreamResponseImplicitPayload @eventStreamTests([
 // that is a client-side deserialization behavior, and the corresponding server
 // behavior (choosing to emit it) is not something a static case can assert.
 // =============================================================================
-
 apply EventStreamError @eventStreamTests([
     {
         id: "AwsJson11EventStreamErrorModeled"
@@ -336,7 +325,6 @@ apply EventStreamError @eventStreamTests([
 // =============================================================================
 // EventStreamRequest — client to server stream
 // =============================================================================
-
 apply EventStreamRequest @eventStreamTests([
     {
         id: "AwsJson11EventStreamRequestSendMessage"
@@ -441,7 +429,6 @@ apply EventStreamRequest @eventStreamTests([
 // members are not `@required`. Until that validator is fixed, the wire form is
 // asserted through the initial-response event's body instead.
 // =============================================================================
-
 apply EventStreamInitialResponse @eventStreamTests([
     {
         id: "AwsJson11EventStreamInitialResponse"
@@ -453,9 +440,7 @@ apply EventStreamInitialResponse @eventStreamTests([
         protocol: awsJson1_1
         initialResponse: {
             code: 200
-            headers: {
-                "Content-Type": "application/x-amz-json-1.1"
-            }
+            headers: { "Content-Type": "application/x-amz-json-1.1" }
         }
         initialResponseShape: InitialHttpResponse
         events: [

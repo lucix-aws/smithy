@@ -22,7 +22,6 @@ use smithy.test#httpResponseTests
 // Tagged cases are deliberately exempt from the base case rules: each one
 // isolates a single edge rather than exhaustively populating its shape.
 // =============================================================================
-
 // =============================================================================
 // arbitrary-precision — bigInteger / bigDecimal
 //
@@ -32,58 +31,50 @@ use smithy.test#httpResponseTests
 // corpus projection stripped bignum members with excludeShapesBySelector; that
 // transform is gone now that smithy-go supports bignums.)
 // =============================================================================
-
 apply ScalarMembers @httpRequestTests([
     {
-        id: "RpcV2JsonScalarMembersArbitraryPrecision",
+        id: "RpcV2JsonScalarMembersArbitraryPrecision"
         documentation: """
             Serializes integers and decimals too large for int64/float64 as JSON
             STRINGS, which is how this protocol keeps arbitrary precision intact
-            (a JSON number would be routed through a double by many parsers)""",
-        protocol: rpcv2Json,
-        method: "POST",
-        uri: "/service/RpcV2JsonCorpusTests/operation/ScalarMembers",
+            (a JSON number would be routed through a double by many parsers)"""
+        protocol: rpcv2Json
+        method: "POST"
+        uri: "/service/RpcV2JsonCorpusTests/operation/ScalarMembers"
         body: """
             {
                 "bigIntegerMember": "1234567890123456789012345678901234567890",
                 "bigDecimalMember": "3.141592653589793238462643383279502884197"
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        },
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json", Accept: "application/json" }
         params: {
-            bigIntegerMember: 1234567890123456789012345678901234567890,
-            bigDecimalMember: 3.141592653589793238462643383279502884197,
-        },
+            bigIntegerMember: 1234567890123456789012345678901234567890
+            bigDecimalMember: 3.141592653589793238462643383279502884197
+        }
         tags: ["arbitrary-precision"]
-    },
+    }
 ])
 
 apply ScalarMembers @httpResponseTests([
     {
-        id: "RpcV2JsonScalarMembersArbitraryPrecisionDeserialize",
-        documentation: "Deserializes arbitrary-precision numbers without losing digits",
-        protocol: rpcv2Json,
-        code: 200,
+        id: "RpcV2JsonScalarMembersArbitraryPrecisionDeserialize"
+        documentation: "Deserializes arbitrary-precision numbers without losing digits"
+        protocol: rpcv2Json
+        code: 200
         body: """
             {
                 "bigIntegerMember": "1234567890123456789012345678901234567890",
                 "bigDecimalMember": "3.141592653589793238462643383279502884197"
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-        },
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json" }
         params: {
-            bigIntegerMember: 1234567890123456789012345678901234567890,
-            bigDecimalMember: 3.141592653589793238462643383279502884197,
-        },
+            bigIntegerMember: 1234567890123456789012345678901234567890
+            bigDecimalMember: 3.141592653589793238462643383279502884197
+        }
         tags: ["arbitrary-precision"]
-    },
+    }
 ])
 
 // =============================================================================
@@ -92,43 +83,33 @@ apply ScalarMembers @httpResponseTests([
 // The 2^53 boundary matters because a JSON number is a double in many
 // languages: a long above it cannot round-trip through a float64.
 // =============================================================================
-
 apply ScalarMembers @httpRequestTests([
     {
-        id: "RpcV2JsonScalarMembersNumericMinima",
-        documentation: "Serializes the minimum value of each integral type, including negatives",
-        protocol: rpcv2Json,
-        method: "POST",
-        uri: "/service/RpcV2JsonCorpusTests/operation/ScalarMembers",
+        id: "RpcV2JsonScalarMembersNumericMinima"
+        documentation: "Serializes the minimum value of each integral type, including negatives"
+        protocol: rpcv2Json
+        method: "POST"
+        uri: "/service/RpcV2JsonCorpusTests/operation/ScalarMembers"
         body: """
             {
                 "byteMember": -128,
                 "shortMember": -32768,
                 "integerMember": -2147483648,
                 "longMember": -9007199254740993
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        },
-        params: {
-            byteMember: -128,
-            shortMember: -32768,
-            integerMember: -2147483648,
-            longMember: -9007199254740993,
-        },
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json", Accept: "application/json" }
+        params: { byteMember: -128, shortMember: -32768, integerMember: -2147483648, longMember: -9007199254740993 }
         tags: ["numeric-boundaries"]
-    },
+    }
     {
-        id: "RpcV2JsonScalarMembersNumericMaxima",
+        id: "RpcV2JsonScalarMembersNumericMaxima"
         documentation: """
             Serializes the maximum value of each integral type, plus a long above
-            2^53 and a double at full 17-significant-digit precision""",
-        protocol: rpcv2Json,
-        method: "POST",
-        uri: "/service/RpcV2JsonCorpusTests/operation/ScalarMembers",
+            2^53 and a double at full 17-significant-digit precision"""
+        protocol: rpcv2Json
+        method: "POST"
+        uri: "/service/RpcV2JsonCorpusTests/operation/ScalarMembers"
         body: """
             {
                 "byteMember": 127,
@@ -136,55 +117,43 @@ apply ScalarMembers @httpRequestTests([
                 "integerMember": 2147483647,
                 "longMember": 9007199254740993,
                 "doubleMember": 123456789.12345679
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        },
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json", Accept: "application/json" }
         params: {
-            byteMember: 127,
-            shortMember: 32767,
-            integerMember: 2147483647,
-            longMember: 9007199254740993,
-            doubleMember: 123456789.12345679,
-        },
+            byteMember: 127
+            shortMember: 32767
+            integerMember: 2147483647
+            longMember: 9007199254740993
+            doubleMember: 123456789.12345679
+        }
         tags: ["numeric-boundaries"]
-    },
+    }
 ])
 
 apply ScalarMembers @httpResponseTests([
     {
-        id: "RpcV2JsonScalarMembersNumericMinimaDeserialize",
-        documentation: "Deserializes the minimum value of each integral type, including negatives",
-        protocol: rpcv2Json,
-        code: 200,
+        id: "RpcV2JsonScalarMembersNumericMinimaDeserialize"
+        documentation: "Deserializes the minimum value of each integral type, including negatives"
+        protocol: rpcv2Json
+        code: 200
         body: """
             {
                 "byteMember": -128,
                 "shortMember": -32768,
                 "integerMember": -2147483648,
                 "longMember": -9007199254740993
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-        },
-        params: {
-            byteMember: -128,
-            shortMember: -32768,
-            integerMember: -2147483648,
-            longMember: -9007199254740993,
-        },
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json" }
+        params: { byteMember: -128, shortMember: -32768, integerMember: -2147483648, longMember: -9007199254740993 }
         tags: ["numeric-boundaries"]
-    },
+    }
     {
-        id: "RpcV2JsonScalarMembersNumericMaximaDeserialize",
-        documentation: "Deserializes maxima, a long above 2^53, and a full-precision double",
-        protocol: rpcv2Json,
-        code: 200,
+        id: "RpcV2JsonScalarMembersNumericMaximaDeserialize"
+        documentation: "Deserializes maxima, a long above 2^53, and a full-precision double"
+        protocol: rpcv2Json
+        code: 200
         body: """
             {
                 "byteMember": 127,
@@ -192,21 +161,18 @@ apply ScalarMembers @httpResponseTests([
                 "integerMember": 2147483647,
                 "longMember": 9007199254740993,
                 "doubleMember": 123456789.12345679
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-        },
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json" }
         params: {
-            byteMember: 127,
-            shortMember: 32767,
-            integerMember: 2147483647,
-            longMember: 9007199254740993,
-            doubleMember: 123456789.12345679,
-        },
+            byteMember: 127
+            shortMember: 32767
+            integerMember: 2147483647
+            longMember: 9007199254740993
+            doubleMember: 123456789.12345679
+        }
         tags: ["numeric-boundaries"]
-    },
+    }
 ])
 
 // =============================================================================
@@ -216,51 +182,39 @@ apply ScalarMembers @httpResponseTests([
 // escaped; everything above the BMP has to survive as a surrogate pair in
 // UTF-16 languages.
 // =============================================================================
-
 apply ScalarMembers @httpRequestTests([
     {
-        id: "RpcV2JsonScalarMembersStringEscaping",
-        documentation: "Escapes quotes, backslashes, control characters and preserves non-BMP text",
-        protocol: rpcv2Json,
-        method: "POST",
-        uri: "/service/RpcV2JsonCorpusTests/operation/ScalarMembers",
+        id: "RpcV2JsonScalarMembersStringEscaping"
+        documentation: "Escapes quotes, backslashes, control characters and preserves non-BMP text"
+        protocol: rpcv2Json
+        method: "POST"
+        uri: "/service/RpcV2JsonCorpusTests/operation/ScalarMembers"
         body: """
             {
                 "stringMember": "quote \\" backslash \\\\ newline \\n tab \\t control \\u0001 astral \\ud83d\\ude00"
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        },
-        params: {
-            stringMember: "quote \" backslash \\ newline \n tab \t control \u0001 astral \ud83d\ude00",
-        },
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json", Accept: "application/json" }
+        params: { stringMember: "quote \" backslash \\ newline \n tab \t control \u0001 astral \ud83d\ude00" }
         tags: ["string-escaping"]
-    },
+    }
 ])
 
 apply ScalarMembers @httpResponseTests([
     {
-        id: "RpcV2JsonScalarMembersStringEscapingDeserialize",
-        documentation: "Unescapes quotes, backslashes, control characters and non-BMP text",
-        protocol: rpcv2Json,
-        code: 200,
+        id: "RpcV2JsonScalarMembersStringEscapingDeserialize"
+        documentation: "Unescapes quotes, backslashes, control characters and non-BMP text"
+        protocol: rpcv2Json
+        code: 200
         body: """
             {
                 "stringMember": "quote \\" backslash \\\\ newline \\n tab \\t control \\u0001 astral \\ud83d\\ude00"
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-        },
-        params: {
-            stringMember: "quote \" backslash \\ newline \n tab \t control \u0001 astral \ud83d\ude00",
-        },
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json" }
+        params: { stringMember: "quote \" backslash \\ newline \n tab \t control \u0001 astral \ud83d\ude00" }
         tags: ["string-escaping"]
-    },
+    }
 ])
 
 // =============================================================================
@@ -270,91 +224,68 @@ apply ScalarMembers @httpResponseTests([
 // yields two '=' characters, two input bytes yield one. The corpus baseline
 // only ever uses 3-byte values, which are the one case that needs no padding.
 // =============================================================================
-
 apply ScalarMembers @httpRequestTests([
     {
-        id: "RpcV2JsonScalarMembersBlobPaddingOneByte",
-        documentation: "Base64-encodes a one-byte blob, which requires two padding characters",
-        protocol: rpcv2Json,
-        method: "POST",
-        uri: "/service/RpcV2JsonCorpusTests/operation/ScalarMembers",
+        id: "RpcV2JsonScalarMembersBlobPaddingOneByte"
+        documentation: "Base64-encodes a one-byte blob, which requires two padding characters"
+        protocol: rpcv2Json
+        method: "POST"
+        uri: "/service/RpcV2JsonCorpusTests/operation/ScalarMembers"
         body: """
             {
                 "blobMember": "Zg=="
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        },
-        params: {
-            blobMember: "f",
-        },
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json", Accept: "application/json" }
+        params: { blobMember: "f" }
         tags: ["blob-encoding"]
-    },
+    }
     {
-        id: "RpcV2JsonScalarMembersBlobPaddingTwoBytes",
-        documentation: "Base64-encodes a two-byte blob, which requires one padding character",
-        protocol: rpcv2Json,
-        method: "POST",
-        uri: "/service/RpcV2JsonCorpusTests/operation/ScalarMembers",
+        id: "RpcV2JsonScalarMembersBlobPaddingTwoBytes"
+        documentation: "Base64-encodes a two-byte blob, which requires one padding character"
+        protocol: rpcv2Json
+        method: "POST"
+        uri: "/service/RpcV2JsonCorpusTests/operation/ScalarMembers"
         body: """
             {
                 "blobMember": "Zm8="
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        },
-        params: {
-            blobMember: "fo",
-        },
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json", Accept: "application/json" }
+        params: { blobMember: "fo" }
         tags: ["blob-encoding"]
-    },
+    }
 ])
 
 apply ScalarMembers @httpResponseTests([
     {
-        id: "RpcV2JsonScalarMembersBlobPaddingOneByteDeserialize",
-        documentation: "Decodes a base64 blob with two padding characters",
-        protocol: rpcv2Json,
-        code: 200,
+        id: "RpcV2JsonScalarMembersBlobPaddingOneByteDeserialize"
+        documentation: "Decodes a base64 blob with two padding characters"
+        protocol: rpcv2Json
+        code: 200
         body: """
             {
                 "blobMember": "Zg=="
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-        },
-        params: {
-            blobMember: "f",
-        },
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json" }
+        params: { blobMember: "f" }
         tags: ["blob-encoding"]
-    },
+    }
     {
-        id: "RpcV2JsonScalarMembersBlobPaddingTwoBytesDeserialize",
-        documentation: "Decodes a base64 blob with one padding character",
-        protocol: rpcv2Json,
-        code: 200,
+        id: "RpcV2JsonScalarMembersBlobPaddingTwoBytesDeserialize"
+        documentation: "Decodes a base64 blob with one padding character"
+        protocol: rpcv2Json
+        code: 200
         body: """
             {
                 "blobMember": "Zm8="
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-        },
-        params: {
-            blobMember: "fo",
-        },
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json" }
+        params: { blobMember: "fo" }
         tags: ["blob-encoding"]
-    },
+    }
 ])
 
 // =============================================================================
@@ -371,28 +302,22 @@ apply ScalarMembers @httpResponseTests([
 // as a string and has no HTTP bindings to carry one, so there is no offset to
 // normalize. It stays uncovered here by design, not by omission.
 // =============================================================================
-
 apply ScalarMembers @httpResponseTests([
     {
-        id: "RpcV2JsonScalarMembersFractionalSecondsDeserialize",
-        documentation: "Preserves sub-second precision carried in the fraction of an epoch-seconds number",
-        protocol: rpcv2Json,
-        code: 200,
+        id: "RpcV2JsonScalarMembersFractionalSecondsDeserialize"
+        documentation: "Preserves sub-second precision carried in the fraction of an epoch-seconds number"
+        protocol: rpcv2Json
+        code: 200
         body: """
             {
                 "epochSecondsMember": 1609502096.123
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-        },
-        params: {
-            epochSecondsMember: 1609502096.123,
-        },
-        appliesTo: "client",
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json" }
+        params: { epochSecondsMember: 1609502096.123 }
+        appliesTo: "client"
         tags: ["timestamp-fractional-seconds"]
-    },
+    }
 ])
 
 // =============================================================================
@@ -405,43 +330,39 @@ apply ScalarMembers @httpResponseTests([
 // MUST NOT be used to distinguish which error is contained in a response"; and
 // a union deserializer "MUST ignore an unrecognized __type member if present".
 // =============================================================================
-
 apply HttpErrorGone @httpResponseTests([
     {
-        id: "RpcV2JsonErrorIgnoresErrorTypeHeader",
+        id: "RpcV2JsonErrorIgnoresErrorTypeHeader"
         documentation: """
             Resolves the error from the body's __type even when an
             X-Amzn-ErrorType header names a different shape, because clients
-            MUST ignore that header under this protocol""",
-        protocol: rpcv2Json,
-        code: 410,
+            MUST ignore that header under this protocol"""
+        protocol: rpcv2Json
+        code: 410
         body: """
             {
                 "__type": "aws.protocoltests.corpus#HttpErrorGone",
                 "message": "resource was deleted",
                 "details": "deleted on 2021-01-01"
-            }""",
-        bodyMediaType: "application/json",
+            }"""
+        bodyMediaType: "application/json"
         headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-            "X-Amzn-ErrorType": "aws.protocoltests.corpus#HttpErrorConflict",
-        },
-        params: {
-            message: "resource was deleted",
-            details: "deleted on 2021-01-01",
-        },
-        appliesTo: "client",
+            "smithy-protocol": "rpc-v2-json"
+            "Content-Type": "application/json"
+            "X-Amzn-ErrorType": "aws.protocoltests.corpus#HttpErrorConflict"
+        }
+        params: { message: "resource was deleted", details: "deleted on 2021-01-01" }
+        appliesTo: "client"
         tags: ["error-discrimination"]
-    },
+    }
     {
-        id: "RpcV2JsonErrorIgnoresCodeBodyField",
+        id: "RpcV2JsonErrorIgnoresCodeBodyField"
         documentation: """
             Resolves the error from __type even when Code and code body fields
             name a different shape, because they MUST NOT be used to
-            distinguish which error is contained""",
-        protocol: rpcv2Json,
-        code: 410,
+            distinguish which error is contained"""
+        protocol: rpcv2Json
+        code: 410
         body: """
             {
                 "__type": "aws.protocoltests.corpus#HttpErrorGone",
@@ -449,19 +370,13 @@ apply HttpErrorGone @httpResponseTests([
                 "code": "HttpErrorServiceUnavailable",
                 "message": "resource was deleted",
                 "details": "deleted on 2021-01-01"
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-        },
-        params: {
-            message: "resource was deleted",
-            details: "deleted on 2021-01-01",
-        },
-        appliesTo: "client",
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json" }
+        params: { message: "resource was deleted", details: "deleted on 2021-01-01" }
+        appliesTo: "client"
         tags: ["error-discrimination"]
-    },
+    }
 ])
 
 // A union carrying a stray __type sibling: the spec requires deserializers to
@@ -469,30 +384,25 @@ apply HttpErrorGone @httpResponseTests([
 // variant or failing.
 apply UnionOfScalars @httpResponseTests([
     {
-        id: "RpcV2JsonUnionIgnoresUnrecognizedTypeMember",
-        documentation: "Ignores an unrecognized __type member alongside a union variant",
-        protocol: rpcv2Json,
-        code: 200,
+        id: "RpcV2JsonUnionIgnoresUnrecognizedTypeMember"
+        documentation: "Ignores an unrecognized __type member alongside a union variant"
+        protocol: rpcv2Json
+        code: 200
         body: """
             {
                 "value": {
                     "__type": "aws.protocoltests.corpus#NotARealShape",
                     "stringValue": "union string"
                 }
-            }""",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-        },
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json" }
         params: {
-            value: {
-                stringValue: "union string",
-            },
-        },
-        appliesTo: "client",
+            value: { stringValue: "union string" }
+        }
+        appliesTo: "client"
         tags: ["unknown-fields", "error-discrimination"]
-    },
+    }
 ])
 
 // =============================================================================
@@ -504,7 +414,6 @@ apply UnionOfScalars @httpResponseTests([
 // reflects whether the RESPONSE streams. Asserted through initialRequest, which
 // describes the HTTP request of an event stream operation.
 // =============================================================================
-
 apply EventStreamRequest @eventStreamTests([
     {
         id: "RpcV2JsonEventStreamRequestEnvelope"
@@ -516,11 +425,7 @@ apply EventStreamRequest @eventStreamTests([
         initialRequest: {
             method: "POST"
             uri: "/service/RpcV2JsonCorpusTests/operation/EventStreamRequest"
-            headers: {
-                "smithy-protocol": "rpc-v2-json"
-                "Content-Type": "application/vnd.amazon.eventstream"
-                "Accept": "application/json"
-            }
+            headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/vnd.amazon.eventstream", Accept: "application/json" }
         }
         initialRequestShape: InitialHttpRequest
     }
@@ -537,11 +442,7 @@ apply EventStreamResponse @eventStreamTests([
         initialRequest: {
             method: "POST"
             uri: "/service/RpcV2JsonCorpusTests/operation/EventStreamResponse"
-            headers: {
-                "smithy-protocol": "rpc-v2-json"
-                "Content-Type": "application/json"
-                "Accept": "application/vnd.amazon.eventstream"
-            }
+            headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json", Accept: "application/vnd.amazon.eventstream" }
         }
         initialRequestShape: InitialHttpRequest
     }
@@ -557,41 +458,31 @@ apply EventStreamResponse @eventStreamTests([
 // MUST tolerate a peer that sends `{}` or an empty body anyway. Ported from
 // upstream's own rpcv2Json empty-input-output suite.
 // =============================================================================
-
 apply NoInputOutput @httpRequestTests([
     {
-        id: "RpcV2JsonNoInputServerAllowsEmptyJsonObject",
-        documentation: "Servers should accept an empty JSON object for an operation with no input",
-        protocol: rpcv2Json,
-        method: "POST",
-        uri: "/service/RpcV2JsonCorpusTests/operation/NoInputOutput",
-        body: "{}",
-        bodyMediaType: "application/json",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        },
-        appliesTo: "server",
-    },
+        id: "RpcV2JsonNoInputServerAllowsEmptyJsonObject"
+        documentation: "Servers should accept an empty JSON object for an operation with no input"
+        protocol: rpcv2Json
+        method: "POST"
+        uri: "/service/RpcV2JsonCorpusTests/operation/NoInputOutput"
+        body: "{}"
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json", Accept: "application/json" }
+        appliesTo: "server"
+    }
     {
-        id: "RpcV2JsonNoInputServerAllowsEmptyBody",
+        id: "RpcV2JsonNoInputServerAllowsEmptyBody"
         documentation: """
             Servers should accept an empty body for an operation with no input,
-            and must not fail merely because Accept is set""",
-        protocol: rpcv2Json,
-        method: "POST",
-        uri: "/service/RpcV2JsonCorpusTests/operation/NoInputOutput",
-        body: "",
-        headers: {
-            "smithy-protocol": "rpc-v2-json",
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        },
-        appliesTo: "server",
-    },
+            and must not fail merely because Accept is set"""
+        protocol: rpcv2Json
+        method: "POST"
+        uri: "/service/RpcV2JsonCorpusTests/operation/NoInputOutput"
+        body: ""
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json", Accept: "application/json" }
+        appliesTo: "server"
+    }
 ])
-
 // unknown-enum — NOT EXPRESSIBLE, and this is a strategy problem, not an omission
 //
 // The tag wants a response carrying an enum value the model does not declare,
