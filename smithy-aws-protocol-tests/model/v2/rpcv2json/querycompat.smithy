@@ -7,25 +7,6 @@ use smithy.protocols#rpcv2Json
 use smithy.test#httpRequestTests
 use smithy.test#httpResponseTests
 
-// =============================================================================
-// RpcV2JsonQueryCompatCorpusTests — @awsQueryCompatible + @awsQueryError
-//
-// Two wire effects, one per direction:
-//   request  — the client MUST send x-amzn-query-mode: true
-//   response — error responses carry x-amzn-query-error: "Code;Fault", where
-//              Code comes from @awsQueryError and Fault is Sender (a @error
-//              "client") or Receiver (a @error "server")
-//
-// Note on status codes: @awsQueryError's httpResponseCode is NOT applied under
-// this protocol. It describes what awsQuery itself would have returned, and
-// awsQueryCompatible exists so a service can migrate off awsQuery without
-// dropping those values. The status therefore still comes from the @error
-// trait, so QueryCompatCustomCodeError is 400 despite declaring 402. Upstream's
-// rpcv2Cbor query-compatible suite asserts the same thing.
-//
-// These cases target a standalone service that the awsJson corpus files know
-// nothing about, so they have no awsJson1_0 counterpart to mirror.
-// =============================================================================
 apply QueryCompatErrorOp @httpRequestTests([
     {
         id: "RpcV2JsonQueryCompatSendsQueryModeHeader"

@@ -6,25 +6,6 @@ use smithy.protocols#rpcv2Json
 use smithy.test#httpRequestTests
 use smithy.test#httpResponseTests
 
-// =============================================================================
-// NoProtocolTraitsBehavior — no @jsonName / @xmlName / @ec2QueryName anywhere,
-// and no @timestampFormat.
-//
-// These operations are the control group for the corpus's wire-name-trait
-// design bet: every other layer annotates every member, so a protocol that
-// ignored the member name entirely and only ever read @jsonName would still
-// pass. Here the traits are absent, so the wire key MUST fall back to the
-// plain member name, and timestamps MUST fall back to the protocol default
-// format (epoch-seconds for rpcv2Json).
-//
-// Note that rpcv2Json ignores @jsonName, so these bodies are byte-identical in
-// shape to their annotated Core-layer counterparts. That is the point: for
-// rpcv2Json specifically, the annotated and unannotated operations must agree.
-//
-// bigIntegerMember / bigDecimalMember are deliberately left unset per base
-// case rule 1.1 (capability-gated types stay out of the baseline and get
-// their own `arbitrary-precision`-tagged case).
-// =============================================================================
 apply NoTraitScalarMembers @httpRequestTests([
     {
         id: "RpcV2JsonNoTraitScalarMembersSerialize"
@@ -113,9 +94,6 @@ apply NoTraitScalarMembers @httpResponseTests([
     }
 ])
 
-// =============================================================================
-// NoTraitStructOfScalars — struct -> struct with no traits at either level
-// =============================================================================
 apply NoTraitStructOfScalars @httpRequestTests([
     {
         id: "RpcV2JsonNoTraitStructOfScalarsSerialize"
@@ -165,9 +143,6 @@ apply NoTraitStructOfScalars @httpResponseTests([
     }
 ])
 
-// =============================================================================
-// NoTraitListOfScalars — list members with no traits
-// =============================================================================
 apply NoTraitListOfScalars @httpRequestTests([
     {
         id: "RpcV2JsonNoTraitListOfScalarsSerialize"
@@ -215,9 +190,6 @@ apply NoTraitListOfScalars @httpResponseTests([
     }
 ])
 
-// =============================================================================
-// NoTraitMapOfScalars — map members with no traits
-// =============================================================================
 apply NoTraitMapOfScalars @httpRequestTests([
     {
         id: "RpcV2JsonNoTraitMapOfScalarsSerialize"
@@ -283,13 +255,6 @@ apply NoTraitMapOfScalars @httpResponseTests([
     }
 ])
 
-// =============================================================================
-// NoTraitUnionMembers — union variant name resolution with no traits.
-//
-// One case per variant, in both directions, per base case rule 2: a union can
-// only carry one variant at a time, so exhaustive coverage has to come from
-// separate cases rather than a single fully-populated one.
-// =============================================================================
 apply NoTraitUnionMembers @httpRequestTests([
     {
         id: "RpcV2JsonNoTraitUnionStringSerialize"

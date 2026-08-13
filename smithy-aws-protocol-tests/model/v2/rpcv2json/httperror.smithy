@@ -5,16 +5,6 @@ namespace aws.protocoltests.corpus
 use smithy.protocols#rpcv2Json
 use smithy.test#httpResponseTests
 
-// =============================================================================
-// HttpErrorOperation — @httpError status code overrides
-//
-// Each case is applied to the @error STRUCTURE rather than the operation,
-// which is what smithy.test#httpResponseTests' selector targets for errors.
-// rpcv2Json discriminates the error shape from the body's "__type" field, which
-// carries the absolute shape ID; the status code is asserted independently so
-// that a client that discriminates purely on status (or purely on __type)
-// cannot pass by accident.
-// =============================================================================
 apply HttpErrorConflict @httpResponseTests([
     {
         id: "RpcV2JsonHttpErrorConflictDeserialize"

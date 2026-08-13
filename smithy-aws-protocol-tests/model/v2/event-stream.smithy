@@ -2,9 +2,18 @@ $version: "2.0"
 
 namespace aws.protocoltests.corpus
 
-/// Event stream operations. Tests the binary message framing, event
-/// dispatch, @eventHeader/@eventPayload traits, error events, and
-/// initial messages. Applies to all protocols except query.
+// Binary event stream framing: message dispatch, @eventHeader and @eventPayload,
+// implicit payloads, error events, request streams, and the initial response.
+// Mixed into every protocol except awsQuery and ec2Query.
+//
+// The payload inside an event is ordinary serde, so ResponseEventStream mirrors
+// the Core transitions with one event per class (scalars, list, map, struct,
+// union) plus an empty event that carries no payload at all. document stays out
+// for the same reason it's out of Core. Extend by adding a framing behavior, or
+// by widening an event's payload to match a Core transition it's missing.
+//
+// Cases use @eventStreamTests rather than the http test traits, since framing
+// can't be expressed as a single request or response.
 @mixin
 service EventStreamProtocolTestService with [CoreProtocolTestService] {
     operations: [
@@ -18,25 +27,127 @@ service EventStreamProtocolTestService with [CoreProtocolTestService] {
     ]
 }
 
-// =============================================================================
-// Response stream — struct payload events
-// =============================================================================
 operation EventStreamResponse {
-    input := {}
+    input: EventStreamResponseInput
+    output: EventStreamResponseOutput
+}
 
-    output := {
-        @jsonName("jsonEvents")
-        @xmlName("xmlEvents")
-        @httpPayload
-        @required
-        events: ResponseEventStream
-    }
+structure EventStreamResponseInput {}
+
+structure EventStreamResponseOutput {
+    @jsonName("jsonEvents")
+    @xmlName("xmlEvents")
+    @httpPayload
+    @required
+    events: ResponseEventStream
 }
 
 @streaming
 union ResponseEventStream {
-    messageEvent: MessageEvent
+    scalarsEvent: ScalarsEvent
+    listEvent: ListEvent
+    mapEvent: MapEvent
+    structEvent: StructEvent
+    unionEvent: UnionEvent
     heartbeatEvent: HeartbeatEvent
+}
+
+structure ScalarsEvent {
+    @jsonName("jsonBooleanMember")
+    @xmlName("xmlBooleanMember")
+    booleanMember: Boolean
+
+    @jsonName("jsonByteMember")
+    @xmlName("xmlByteMember")
+    byteMember: Byte
+
+    @jsonName("jsonShortMember")
+    @xmlName("xmlShortMember")
+    shortMember: Short
+
+    @jsonName("jsonIntegerMember")
+    @xmlName("xmlIntegerMember")
+    integerMember: Integer
+
+    @jsonName("jsonLongMember")
+    @xmlName("xmlLongMember")
+    longMember: Long
+
+    @jsonName("jsonFloatMember")
+    @xmlName("xmlFloatMember")
+    floatMember: Float
+
+    @jsonName("jsonDoubleMember")
+    @xmlName("xmlDoubleMember")
+    doubleMember: Double
+
+    @jsonName("jsonBigIntegerMember")
+    @xmlName("xmlBigIntegerMember")
+    bigIntegerMember: BigInteger
+
+    @jsonName("jsonBigDecimalMember")
+    @xmlName("xmlBigDecimalMember")
+    bigDecimalMember: BigDecimal
+
+    @jsonName("jsonStringMember")
+    @xmlName("xmlStringMember")
+    stringMember: String
+
+    @jsonName("jsonBlobMember")
+    @xmlName("xmlBlobMember")
+    blobMember: Blob
+
+    @jsonName("jsonTimestampMember")
+    @xmlName("xmlTimestampMember")
+    timestampMember: NoFormatTimestamp
+
+    @jsonName("jsonStringEnum")
+    @xmlName("xmlStringEnum")
+    stringEnum: CorpusStringEnum
+
+    @jsonName("jsonIntEnum")
+    @xmlName("xmlIntEnum")
+    intEnum: CorpusIntEnum
+}
+
+structure ListEvent {
+    @jsonName("jsonStrings")
+    @xmlName("xmlStrings")
+    strings: StringList
+
+    @jsonName("jsonIntegers")
+    @xmlName("xmlIntegers")
+    integers: IntegerList
+
+    @jsonName("jsonTimestamps")
+    @xmlName("xmlTimestamps")
+    timestamps: TimestampList
+}
+
+structure MapEvent {
+    @jsonName("jsonStrings")
+    @xmlName("xmlStrings")
+    strings: StringMap
+
+    @jsonName("jsonIntegers")
+    @xmlName("xmlIntegers")
+    integers: IntegerMap
+
+    @jsonName("jsonTimestamps")
+    @xmlName("xmlTimestamps")
+    timestamps: TimestampMap
+}
+
+structure StructEvent {
+    @jsonName("jsonValue")
+    @xmlName("xmlValue")
+    value: SimpleStruct
+}
+
+structure UnionEvent {
+    @jsonName("jsonValue")
+    @xmlName("xmlValue")
+    value: CorpusUnion
 }
 
 structure MessageEvent {
@@ -51,19 +162,19 @@ structure MessageEvent {
 
 structure HeartbeatEvent {}
 
-// =============================================================================
-// Response stream — blob @eventPayload
-// =============================================================================
 operation EventStreamResponseBlobPayload {
-    input := {}
+    input: EventStreamResponseBlobPayloadInput
+    output: EventStreamResponseBlobPayloadOutput
+}
 
-    output := {
-        @jsonName("jsonEvents")
-        @xmlName("xmlEvents")
-        @httpPayload
-        @required
-        events: BlobPayloadEventStream
-    }
+structure EventStreamResponseBlobPayloadInput {}
+
+structure EventStreamResponseBlobPayloadOutput {
+    @jsonName("jsonEvents")
+    @xmlName("xmlEvents")
+    @httpPayload
+    @required
+    events: BlobPayloadEventStream
 }
 
 @streaming
@@ -79,19 +190,19 @@ structure BlobPayloadEvent {
     data: Blob
 }
 
-// =============================================================================
-// Response stream — @eventHeader members
-// =============================================================================
 operation EventStreamResponseHeaders {
-    input := {}
+    input: EventStreamResponseHeadersInput
+    output: EventStreamResponseHeadersOutput
+}
 
-    output := {
-        @jsonName("jsonEvents")
-        @xmlName("xmlEvents")
-        @httpPayload
-        @required
-        events: HeaderEventStream
-    }
+structure EventStreamResponseHeadersInput {}
+
+structure EventStreamResponseHeadersOutput {
+    @jsonName("jsonEvents")
+    @xmlName("xmlEvents")
+    @httpPayload
+    @required
+    events: HeaderEventStream
 }
 
 @streaming
@@ -113,7 +224,7 @@ structure HeaderEvent {
     longHeader: Long
 
     @eventHeader
-    timestampHeader: Timestamp
+    timestampHeader: NoFormatTimestamp
 
     @eventHeader
     blobHeader: Blob
@@ -122,17 +233,17 @@ structure HeaderEvent {
     body: String
 }
 
-// =============================================================================
-// Response stream — @eventHeader + implicit payload (no @eventPayload)
-// =============================================================================
 operation EventStreamResponseImplicitPayload {
-    input := {}
+    input: EventStreamResponseImplicitPayloadInput
+    output: EventStreamResponseImplicitPayloadOutput
+}
 
-    output := {
-        @httpPayload
-        @required
-        events: ImplicitPayloadEventStream
-    }
+structure EventStreamResponseImplicitPayloadInput {}
+
+structure EventStreamResponseImplicitPayloadOutput {
+    @httpPayload
+    @required
+    events: ImplicitPayloadEventStream
 }
 
 @streaming
@@ -144,7 +255,6 @@ structure ImplicitPayloadEvent {
     @eventHeader
     requestId: String
 
-    // These become the protocol-specific document body (implicit payload):
     content: String
 
     count: Integer
@@ -152,19 +262,19 @@ structure ImplicitPayloadEvent {
     nested: SimpleStruct
 }
 
-// =============================================================================
-// Error event in stream
-// =============================================================================
 operation EventStreamError {
-    input := {}
+    input: EventStreamErrorInput
+    output: EventStreamErrorOutput
+}
 
-    output := {
-        @jsonName("jsonEvents")
-        @xmlName("xmlEvents")
-        @httpPayload
-        @required
-        events: ErrorEventStream
-    }
+structure EventStreamErrorInput {}
+
+structure EventStreamErrorOutput {
+    @jsonName("jsonEvents")
+    @xmlName("xmlEvents")
+    @httpPayload
+    @required
+    events: ErrorEventStream
 }
 
 @streaming
@@ -184,20 +294,20 @@ structure StreamError {
     code: Integer
 }
 
-// =============================================================================
-// Request stream (client -> server)
-// =============================================================================
 operation EventStreamRequest {
-    input := {
-        @jsonName("jsonEvents")
-        @xmlName("xmlEvents")
-        @httpPayload
-        @required
-        events: RequestEventStream
-    }
-
-    output := {}
+    input: EventStreamRequestInput
+    output: EventStreamRequestOutput
 }
+
+structure EventStreamRequestInput {
+    @jsonName("jsonEvents")
+    @xmlName("xmlEvents")
+    @httpPayload
+    @required
+    events: RequestEventStream
+}
+
+structure EventStreamRequestOutput {}
 
 @streaming
 union RequestEventStream {
@@ -213,25 +323,25 @@ structure SendMessageEvent {
 
 structure EndStreamEvent {}
 
-// =============================================================================
-// Initial response — non-stream members sent before events
-// =============================================================================
 operation EventStreamInitialResponse {
-    input := {}
+    input: EventStreamInitialResponseInput
+    output: EventStreamInitialResponseOutput
+}
 
-    output := {
-        @httpHeader("X-Session-Id")
-        @jsonName("jsonSessionId")
-        @xmlName("xmlSessionId")
-        sessionId: String
+structure EventStreamInitialResponseInput {}
 
-        @httpHeader("X-Timeout")
-        @jsonName("jsonTimeout")
-        @xmlName("xmlTimeout")
-        timeout: Integer
+structure EventStreamInitialResponseOutput {
+    @httpHeader("X-Session-Id")
+    @jsonName("jsonSessionId")
+    @xmlName("xmlSessionId")
+    sessionId: String
 
-        @httpPayload
-        @required
-        events: ResponseEventStream
-    }
+    @httpHeader("X-Timeout")
+    @jsonName("jsonTimeout")
+    @xmlName("xmlTimeout")
+    timeout: Integer
+
+    @httpPayload
+    @required
+    events: ResponseEventStream
 }

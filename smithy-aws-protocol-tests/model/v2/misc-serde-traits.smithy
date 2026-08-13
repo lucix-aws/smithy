@@ -2,8 +2,15 @@ $version: "2.0"
 
 namespace aws.protocoltests.corpus
 
-/// Miscellaneous serialization traits that don't fit cleanly into the other
-/// layers. These are protocol-agnostic and apply to all services.
+use aws.protocols#ec2QueryName
+
+// Serialization traits that affect the request or response envelope rather than
+// the shape of the body, and that every protocol supports. Mixed into all
+// protocol services.
+//
+// One operation per trait. These are request-only where the behavior only happens
+// on the way out (host resolution, token auto-fill, body compression), which is a
+// genuine direction-specific exception to the case symmetry rule.
 @mixin
 service MiscSerdeTraitProtocolTestService {
     operations: [
@@ -11,50 +18,71 @@ service MiscSerdeTraitProtocolTestService {
         EndpointHostLabel
         IdempotencyTokenOp
         RequestCompressionOp
+        MediaTypeOp
     ]
 }
 
-// =============================================================================
-// @endpoint / @hostLabel — host prefix construction
-// =============================================================================
 @endpoint(hostPrefix: "data.")
 operation EndpointHostPrefix {
-    input := {}
-    output := {}
+    input: EndpointHostPrefixInput
+    output: EndpointHostPrefixOutput
 }
+
+structure EndpointHostPrefixInput {}
+
+structure EndpointHostPrefixOutput {}
 
 @endpoint(hostPrefix: "data.{label}.")
 operation EndpointHostLabel {
-    input := {
-        @required
-        @hostLabel
-        label: String
-    }
-
-    output := {}
+    input: EndpointHostLabelInput
+    output: EndpointHostLabelOutput
 }
 
-// =============================================================================
-// @idempotencyToken — client auto-populates a UUID if not provided
-// =============================================================================
+structure EndpointHostLabelInput {
+    @required
+    @hostLabel
+    label: String
+}
+
+structure EndpointHostLabelOutput {}
+
 operation IdempotencyTokenOp {
-    input := {
-        @idempotencyToken
-        token: String
-    }
-
-    output := {}
+    input: IdempotencyTokenOpInput
+    output: IdempotencyTokenOpOutput
 }
 
-// =============================================================================
-// @requestCompression — gzip-compresses the request body
-// =============================================================================
+structure IdempotencyTokenOpInput {
+    @idempotencyToken
+    token: String
+}
+
+structure IdempotencyTokenOpOutput {}
+
 @requestCompression(
     encodings: ["gzip"]
 )
 operation RequestCompressionOp {
-    input := {
-        data: String
-    }
-    output := {}
+    input: RequestCompressionOpInput
+    output: RequestCompressionOpOutput
 }
+
+structure RequestCompressionOpInput {
+    data: String
+}
+
+structure RequestCompressionOpOutput {}
+
+operation MediaTypeOp {
+    input: MediaTypeOpInputOutput
+    output: MediaTypeOpInputOutput
+}
+
+structure MediaTypeOpInputOutput {
+    @jsonName("jsonMediaTypeMember")
+    @xmlName("xmlMediaTypeMember")
+    @ec2QueryName("ec2MediaTypeMember")
+    mediaTypeMember: MediaTypeJsonString
+}
+
+@mediaType("application/json")
+string MediaTypeJsonString

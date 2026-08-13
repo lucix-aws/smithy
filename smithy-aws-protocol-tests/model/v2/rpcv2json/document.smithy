@@ -6,9 +6,6 @@ use smithy.protocols#rpcv2Json
 use smithy.test#httpRequestTests
 use smithy.test#httpResponseTests
 
-// =============================================================================
-// DocumentMembers
-// =============================================================================
 apply DocumentMembers @httpRequestTests([
     {
         id: "RpcV2JsonDocumentMembersJsonObject"
@@ -242,9 +239,6 @@ apply DocumentMembers @httpResponseTests([
     }
 ])
 
-// =============================================================================
-// ListOfDocuments
-// =============================================================================
 apply ListOfDocuments @httpRequestTests([
     {
         id: "RpcV2JsonListOfDocumentsMixedTypes"
@@ -300,9 +294,6 @@ apply ListOfDocuments @httpResponseTests([
     }
 ])
 
-// =============================================================================
-// MapOfDocuments
-// =============================================================================
 apply MapOfDocuments @httpRequestTests([
     {
         id: "RpcV2JsonMapOfDocumentsMixedTypes"
@@ -366,9 +357,6 @@ apply MapOfDocuments @httpResponseTests([
     }
 ])
 
-// =============================================================================
-// DocumentUnion
-// =============================================================================
 apply DocumentUnion @httpRequestTests([
     {
         id: "RpcV2JsonDocumentUnionDocumentValue"

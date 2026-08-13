@@ -4,6 +4,18 @@ namespace aws.protocoltests.corpus
 
 use aws.protocols#ec2QueryName
 
+// A deserializer is a state machine: at any point it's inside a container
+// (struct, list, map, union) and reads the next element, which is a scalar or
+// another container. Every container x element pair is a transition, and this
+// layer covers all 20 of them, plus sparse variants, errors, and the empty and
+// absent body edge cases. Every protocol mixes this in.
+//
+// Each operation tests all scalar types at once (ListOfScalars carries a member
+// per leaf type) so the matrix stays linear instead of scalar x container. Adding
+// a scalar type means a member on the existing input/output structures, not a new
+// operation. Add an operation only for a transition that isn't covered yet.
+// document is deliberately absent: not every protocol supports it, so it gets its
+// own layer that services opt into.
 @mixin
 service CoreProtocolTestService {
     operations: [
@@ -92,11 +104,6 @@ structure ScalarMembersInputOutput {
     @ec2QueryName("ec2StringMember")
     stringMember: String
 
-    @jsonName("jsonMediaTypeMember")
-    @xmlName("xmlMediaTypeMember")
-    @ec2QueryName("ec2MediaTypeMember")
-    mediaTypeMember: MediaTypeJsonString
-
     @jsonName("jsonBlobMember")
     @xmlName("xmlBlobMember")
     @ec2QueryName("ec2BlobMember")
@@ -105,20 +112,17 @@ structure ScalarMembersInputOutput {
     @jsonName("jsonDateTimeMember")
     @xmlName("xmlDateTimeMember")
     @ec2QueryName("ec2DateTimeMember")
-    @timestampFormat("date-time")
-    dateTimeMember: Timestamp
+    dateTimeMember: DateTimeTimestamp
 
     @jsonName("jsonEpochSecondsMember")
     @xmlName("xmlEpochSecondsMember")
     @ec2QueryName("ec2EpochSecondsMember")
-    @timestampFormat("epoch-seconds")
-    epochSecondsMember: Timestamp
+    epochSecondsMember: EpochSecondsTimestamp
 
     @jsonName("jsonHttpDateMember")
     @xmlName("xmlHttpDateMember")
     @ec2QueryName("ec2HttpDateMember")
-    @timestampFormat("http-date")
-    httpDateMember: Timestamp
+    httpDateMember: HttpDateTimestamp
 
     @jsonName("jsonStringEnum")
     @xmlName("xmlStringEnum")
@@ -540,17 +544,13 @@ union CorpusUnion {
     @xmlName("xmlStringValue")
     stringValue: String
 
-    @jsonName("jsonMediaTypeValue")
-    @xmlName("xmlMediaTypeValue")
-    mediaTypeValue: MediaTypeJsonString
-
     @jsonName("jsonBlobValue")
     @xmlName("xmlBlobValue")
     blobValue: Blob
 
     @jsonName("jsonTimestampValue")
     @xmlName("xmlTimestampValue")
-    timestampValue: Timestamp
+    timestampValue: NoFormatTimestamp
 
     @jsonName("jsonEnumValue")
     @xmlName("xmlEnumValue")
@@ -650,11 +650,6 @@ structure ScalarStruct {
     @ec2QueryName("ec2StringMember")
     stringMember: String
 
-    @jsonName("jsonMediaTypeMember")
-    @xmlName("xmlMediaTypeMember")
-    @ec2QueryName("ec2MediaTypeMember")
-    mediaTypeMember: MediaTypeJsonString
-
     @jsonName("jsonBlobMember")
     @xmlName("xmlBlobMember")
     @ec2QueryName("ec2BlobMember")
@@ -663,20 +658,17 @@ structure ScalarStruct {
     @jsonName("jsonDateTimeMember")
     @xmlName("xmlDateTimeMember")
     @ec2QueryName("ec2DateTimeMember")
-    @timestampFormat("date-time")
-    dateTimeMember: Timestamp
+    dateTimeMember: DateTimeTimestamp
 
     @jsonName("jsonEpochSecondsMember")
     @xmlName("xmlEpochSecondsMember")
     @ec2QueryName("ec2EpochSecondsMember")
-    @timestampFormat("epoch-seconds")
-    epochSecondsMember: Timestamp
+    epochSecondsMember: EpochSecondsTimestamp
 
     @jsonName("jsonHttpDateMember")
     @xmlName("xmlHttpDateMember")
     @ec2QueryName("ec2HttpDateMember")
-    @timestampFormat("http-date")
-    httpDateMember: Timestamp
+    httpDateMember: HttpDateTimestamp
 
     @jsonName("jsonStringEnum")
     @xmlName("xmlStringEnum")
@@ -1006,20 +998,28 @@ structure RecursiveUnionStruct {
 }
 
 operation EmptyInputOutput {
-    input := {}
-    output := {}
+    input: EmptyInputOutputInput
+    output: EmptyInputOutputOutput
 }
+
+structure EmptyInputOutputInput {}
+
+structure EmptyInputOutputOutput {}
 
 operation NoInputOutput {}
 
 operation ErrorOperation {
-    input := {}
-    output := {}
+    input: ErrorOperationInput
+    output: ErrorOperationOutput
     errors: [
         SimpleError
         ComplexError
     ]
 }
+
+structure ErrorOperationInput {}
+
+structure ErrorOperationOutput {}
 
 @error("client")
 structure SimpleError {
@@ -1074,11 +1074,6 @@ structure SimpleStruct {
     @xmlName("xmlBooleanMember")
     @ec2QueryName("ec2BooleanMember")
     booleanMember: Boolean
-
-    @jsonName("jsonMediaTypeMember")
-    @xmlName("xmlMediaTypeMember")
-    @ec2QueryName("ec2MediaTypeMember")
-    mediaTypeMember: MediaTypeJsonString
 }
 
 list BooleanList {
@@ -1126,7 +1121,7 @@ list BlobList {
 }
 
 list TimestampList {
-    member: Timestamp
+    member: NoFormatTimestamp
 }
 
 list DateTimeTimestampList {
@@ -1137,14 +1132,16 @@ list HttpDateTimestampList {
     member: HttpDateTimestamp
 }
 
+timestamp NoFormatTimestamp
+
 @timestampFormat("date-time")
 timestamp DateTimeTimestamp
 
+@timestampFormat("epoch-seconds")
+timestamp EpochSecondsTimestamp
+
 @timestampFormat("http-date")
 timestamp HttpDateTimestamp
-
-@mediaType("application/json")
-string MediaTypeJsonString
 
 list CorpusStringEnumList {
     member: CorpusStringEnum
@@ -1275,7 +1272,7 @@ list SparseBlobList {
 
 @sparse
 list SparseTimestampList {
-    member: Timestamp
+    member: NoFormatTimestamp
 }
 
 @sparse
@@ -1350,7 +1347,7 @@ map BlobMap {
 
 map TimestampMap {
     key: String
-    value: Timestamp
+    value: NoFormatTimestamp
 }
 
 map CorpusStringEnumMap {
@@ -1512,7 +1509,7 @@ map SparseBlobMap {
 @sparse
 map SparseTimestampMap {
     key: String
-    value: Timestamp
+    value: NoFormatTimestamp
 }
 
 @sparse

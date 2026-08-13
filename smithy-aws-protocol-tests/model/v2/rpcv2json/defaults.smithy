@@ -6,9 +6,6 @@ use smithy.protocols#rpcv2Json
 use smithy.test#httpRequestTests
 use smithy.test#httpResponseTests
 
-// =============================================================================
-// DefaultScalars
-// =============================================================================
 apply DefaultScalars @httpRequestTests([
     {
         id: "RpcV2JsonDefaultScalarsOmitsDefaults"
@@ -125,9 +122,6 @@ apply DefaultScalars @httpResponseTests([
     }
 ])
 
-// =============================================================================
-// DefaultCollections
-// =============================================================================
 apply DefaultCollections @httpRequestTests([
     {
         id: "RpcV2JsonDefaultCollectionsOmitsEmptyDefaults"
@@ -171,9 +165,6 @@ apply DefaultCollections @httpRequestTests([
     }
 ])
 
-// =============================================================================
-// NestedDefaults
-// =============================================================================
 apply NestedDefaults @httpRequestTests([
     {
         id: "RpcV2JsonNestedDefaultsSerialize"
@@ -307,9 +298,6 @@ apply NestedDefaults @httpResponseTests([
     }
 ])
 
-// =============================================================================
-// RequiredMembers
-// =============================================================================
 apply RequiredMembers @httpRequestTests([
     {
         id: "RpcV2JsonRequiredMembersSerialize"
@@ -406,9 +394,6 @@ apply RequiredMembers @httpResponseTests([
     }
 ])
 
-// =============================================================================
-// NullSparseMembers
-// =============================================================================
 apply NullSparseMembers @httpRequestTests([
     {
         id: "RpcV2JsonNullSparseMembersSerialize"
@@ -420,8 +405,8 @@ apply NullSparseMembers @httpRequestTests([
             {
                 "sparseStringList": [null, "hello", null, "world", null],
                 "sparseStringMap": {"key1": null, "key2": "value", "key3": "value2"},
-                "sparseStructList": [null, {"stringMember": "a", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"}, null, {"stringMember": "b", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"}],
-                "sparseStructMap": {"key1": null, "key2": {"stringMember": "a", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"}, "key3": {"stringMember": "b", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"}}
+                "sparseStructList": [null, {"stringMember": "a", "integerMember": 1, "booleanMember": true}, null, {"stringMember": "b", "integerMember": 2, "booleanMember": false}],
+                "sparseStructMap": {"key1": null, "key2": {"stringMember": "a", "integerMember": 1, "booleanMember": true}, "key3": {"stringMember": "b", "integerMember": 2, "booleanMember": false}}
             }"""
         bodyMediaType: "application/json"
         headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json", Accept: "application/json" }
@@ -436,20 +421,18 @@ apply NullSparseMembers @httpRequestTests([
                     stringMember: "a"
                     integerMember: 1
                     booleanMember: true
-                    mediaTypeMember: "{\"n\":1}"
                 }
                 null
                 {
                     stringMember: "b"
                     integerMember: 2
                     booleanMember: false
-                    mediaTypeMember: "{\"n\":2}"
                 }
             ]
             sparseStructMap: {
                 key1: null
-                key2: { stringMember: "a", integerMember: 1, booleanMember: true, mediaTypeMember: "{\"n\":1}" }
-                key3: { stringMember: "b", integerMember: 2, booleanMember: false, mediaTypeMember: "{\"n\":2}" }
+                key2: { stringMember: "a", integerMember: 1, booleanMember: true }
+                key3: { stringMember: "b", integerMember: 2, booleanMember: false }
             }
         }
     }
@@ -465,8 +448,8 @@ apply NullSparseMembers @httpResponseTests([
             {
                 "sparseStringList": [null, "hello", null, "world", null],
                 "sparseStringMap": {"key1": null, "key2": "value", "key3": "value2"},
-                "sparseStructList": [null, {"stringMember": "a", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"}, null, {"stringMember": "b", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"}],
-                "sparseStructMap": {"key1": null, "key2": {"stringMember": "a", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"}, "key3": {"stringMember": "b", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"}}
+                "sparseStructList": [null, {"stringMember": "a", "integerMember": 1, "booleanMember": true}, null, {"stringMember": "b", "integerMember": 2, "booleanMember": false}],
+                "sparseStructMap": {"key1": null, "key2": {"stringMember": "a", "integerMember": 1, "booleanMember": true}, "key3": {"stringMember": "b", "integerMember": 2, "booleanMember": false}}
             }"""
         bodyMediaType: "application/json"
         headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json" }
@@ -479,28 +462,23 @@ apply NullSparseMembers @httpResponseTests([
                     stringMember: "a"
                     integerMember: 1
                     booleanMember: true
-                    mediaTypeMember: "{\"n\":1}"
                 }
                 null
                 {
                     stringMember: "b"
                     integerMember: 2
                     booleanMember: false
-                    mediaTypeMember: "{\"n\":2}"
                 }
             ]
             sparseStructMap: {
                 key1: null
-                key2: { stringMember: "a", integerMember: 1, booleanMember: true, mediaTypeMember: "{\"n\":1}" }
-                key3: { stringMember: "b", integerMember: 2, booleanMember: false, mediaTypeMember: "{\"n\":2}" }
+                key2: { stringMember: "a", integerMember: 1, booleanMember: true }
+                key3: { stringMember: "b", integerMember: 2, booleanMember: false }
             }
         }
     }
 ])
 
-// =============================================================================
-// ClientOptionalDefaults
-// =============================================================================
 apply ClientOptionalDefaults @httpRequestTests([
     {
         id: "RpcV2JsonClientOptionalDefaultsNotPopulated"

@@ -2,9 +2,14 @@ $version: "2.0"
 
 namespace aws.protocoltests.corpus
 
-/// Default value, required member, and null handling semantics. These test
-/// whether a serializer correctly omits/populates members based on @default,
-/// @required, @clientOptional, and sparse collection traits.
+// Value semantics: when a member is omitted, when it's populated from @default,
+// and what a null on the wire means. This is where implementations diverge most,
+// so the operations are split by the trait combination under test rather than by
+// shape.
+//
+// Extend by adding an operation for a distinct presence or default behavior. The
+// cases here carry the presence and defaults tags, so a consumer that hasn't
+// implemented @default can filter them out.
 @mixin
 service DefaultsProtocolTestService with [CoreProtocolTestService] {
     operations: [
@@ -17,13 +22,14 @@ service DefaultsProtocolTestService with [CoreProtocolTestService] {
     ]
 }
 
-// =============================================================================
-// Default scalars — all scalar types with @default
-// =============================================================================
 operation DefaultScalars {
-    input := with [DefaultScalarsMixin] {}
-    output := with [DefaultScalarsMixin] {}
+    input: DefaultScalarsInput
+    output: DefaultScalarsOutput
 }
+
+structure DefaultScalarsInput with [DefaultScalarsMixin] {}
+
+structure DefaultScalarsOutput with [DefaultScalarsMixin] {}
 
 @mixin
 structure DefaultScalarsMixin {
@@ -60,7 +66,6 @@ structure DefaultScalarsMixin {
     @default(1)
     defaultIntEnum: CorpusIntEnum
 
-    // Zero-value members (explicitly set to the zero/default value)
     @default(false)
     zeroBoolean: Boolean
 
@@ -89,13 +94,14 @@ structure DefaultScalarsMixin {
     emptyBlob: Blob
 }
 
-// =============================================================================
-// Default collections
-// =============================================================================
 operation DefaultCollections {
-    input := with [DefaultCollectionsMixin] {}
-    output := with [DefaultCollectionsMixin] {}
+    input: DefaultCollectionsInput
+    output: DefaultCollectionsOutput
 }
+
+structure DefaultCollectionsInput with [DefaultCollectionsMixin] {}
+
+structure DefaultCollectionsOutput with [DefaultCollectionsMixin] {}
 
 @mixin
 structure DefaultCollectionsMixin {
@@ -106,16 +112,17 @@ structure DefaultCollectionsMixin {
     defaultMap: StringMap
 }
 
-// =============================================================================
-// Nested defaults — defaults inside structs within collections
-// =============================================================================
 operation NestedDefaults {
-    input := {
-        topLevel: TopLevelWithDefaults
-    }
-    output := {
-        topLevel: TopLevelWithDefaults
-    }
+    input: NestedDefaultsInput
+    output: NestedDefaultsOutput
+}
+
+structure NestedDefaultsInput {
+    topLevel: TopLevelWithDefaults
+}
+
+structure NestedDefaultsOutput {
+    topLevel: TopLevelWithDefaults
 }
 
 structure TopLevelWithDefaults {
@@ -151,13 +158,14 @@ map NestedWithDefaultsMap {
     value: NestedWithDefaults
 }
 
-// =============================================================================
-// Required members — server omits required fields, client must error-correct
-// =============================================================================
 operation RequiredMembers {
-    input := with [RequiredMembersMixin] {}
-    output := with [RequiredMembersMixin] {}
+    input: RequiredMembersInput
+    output: RequiredMembersOutput
 }
+
+structure RequiredMembersInput with [RequiredMembersMixin] {}
+
+structure RequiredMembersOutput with [RequiredMembersMixin] {}
 
 @mixin
 structure RequiredMembersMixin {
@@ -176,7 +184,6 @@ structure RequiredMembersMixin {
     @required
     requiredMap: StringMap
 
-    // Required with defaults — client fills default when server omits
     @required
     @default("default")
     requiredStringWithDefault: String
@@ -198,31 +205,33 @@ structure RequiredMembersMixin {
     requiredMapWithDefault: StringMap
 }
 
-// =============================================================================
-// Null handling in sparse collections
-// =============================================================================
 operation NullSparseMembers {
-    input := {
-        sparseStringList: SparseStringList
-        sparseStringMap: SparseStringMap
-        sparseStructList: SparseSimpleStructList
-        sparseStructMap: SparseSimpleStructMap
-    }
-    output := {
-        sparseStringList: SparseStringList
-        sparseStringMap: SparseStringMap
-        sparseStructList: SparseSimpleStructList
-        sparseStructMap: SparseSimpleStructMap
-    }
+    input: NullSparseMembersInput
+    output: NullSparseMembersOutput
 }
 
-// =============================================================================
-// clientOptional — suppresses default population on client
-// =============================================================================
-operation ClientOptionalDefaults {
-    input := with [ClientOptionalMixin] {}
-    output := with [ClientOptionalMixin] {}
+structure NullSparseMembersInput {
+    sparseStringList: SparseStringList
+    sparseStringMap: SparseStringMap
+    sparseStructList: SparseSimpleStructList
+    sparseStructMap: SparseSimpleStructMap
 }
+
+structure NullSparseMembersOutput {
+    sparseStringList: SparseStringList
+    sparseStringMap: SparseStringMap
+    sparseStructList: SparseSimpleStructList
+    sparseStructMap: SparseSimpleStructMap
+}
+
+operation ClientOptionalDefaults {
+    input: ClientOptionalDefaultsInput
+    output: ClientOptionalDefaultsOutput
+}
+
+structure ClientOptionalDefaultsInput with [ClientOptionalMixin] {}
+
+structure ClientOptionalDefaultsOutput with [ClientOptionalMixin] {}
 
 @mixin
 structure ClientOptionalMixin {

@@ -4,20 +4,8 @@ namespace aws.protocoltests.corpus
 
 use smithy.protocols#rpcv2Json
 use smithy.test#httpRequestTests
+use smithy.test#httpResponseTests
 
-// =============================================================================
-// MiscSerdeTraitProtocolTestService
-//
-// Every case here is request-only. All four operations have empty outputs and
-// the behavior under test happens on the way out (host resolution, token
-// auto-fill, body compression), so base case rule 5's request/response
-// symmetry requirement does not apply — these are genuinely
-// direction-specific. Empty-response deserialization is already covered by the
-// Core layer's EmptyInputOutput operation.
-// =============================================================================
-// =============================================================================
-// @endpoint — static host prefix
-// =============================================================================
 apply EndpointHostPrefix @httpRequestTests([
     {
         id: "RpcV2JsonEndpointHostPrefix"
@@ -38,9 +26,6 @@ apply EndpointHostPrefix @httpRequestTests([
     }
 ])
 
-// =============================================================================
-// @endpoint + @hostLabel — host prefix with a substituted label
-// =============================================================================
 apply EndpointHostLabel @httpRequestTests([
     {
         id: "RpcV2JsonEndpointHostLabel"
@@ -65,16 +50,6 @@ apply EndpointHostLabel @httpRequestTests([
     }
 ])
 
-// =============================================================================
-// @idempotencyToken — client auto-population
-//
-// The auto-filled value is nondeterministic in production, so the compliance
-// spec pins it for testing: "Client implementations that automatically provide
-// values for members marked with the idempotencyToken trait MUST use a
-// constant value of 00000000-0000-4000-8000-000000000000"
-// (http-protocol-compliance-tests). The auto-fill case is therefore
-// appliesTo: "client" — a server has nothing to auto-populate.
-// =============================================================================
 apply IdempotencyTokenOp @httpRequestTests([
     {
         id: "RpcV2JsonIdempotencyTokenAutoFill"
@@ -110,27 +85,6 @@ apply IdempotencyTokenOp @httpRequestTests([
     }
 ])
 
-// =============================================================================
-// @requestCompression — gzip
-//
-// No body assertion: the wire body is gzip output, which is not
-// byte-reproducible across compressor implementations or levels, so the
-// assertion is on the Content-Encoding header while `params` carries the
-// LOGICAL uncompressed value. This matches upstream's own requestCompression
-// suite for every protocol.
-//
-// The payload is deliberately large. Compression is only applied once the
-// serialized body exceeds the SDK-configured minimum
-// (requestMinCompressionSizeBytes, default 10240 bytes), so a short body would
-// legitimately arrive uncompressed and the Content-Encoding assertion would
-// fail for reasons that have nothing to do with the protocol. The value itself
-// is arbitrary filler; only its length matters.
-//
-// Note the corpus's RequestCompressionOp has no @httpHeader-bound encoding
-// member, so upstream's second case (asserting that an SDK-applied gzip
-// encoding does not clobber a user-supplied Content-Encoding) has nothing to
-// bind to here and is not represented.
-// =============================================================================
 apply RequestCompressionOp @httpRequestTests([
     {
         id: "RpcV2JsonRequestCompressionGzip"
@@ -281,5 +235,44 @@ apply RequestCompressionOp @httpRequestTests([
                 OITsWkpZj5TvM8Luf4EBAUcQuSX0Stt9wOxq44oo0mJN0kYyOGMPRRyHSv99vkxmVHRhq0rJRcAY7NcN
                 aBLIYT0XjNbxdOfgMuM737Bxl7lCGr9G9CpMtNBlVESehmnjDMbhlyzfWfeyGwlshNN4uHu21qgAbE9k"""
         }
+    }
+])
+
+apply MediaTypeOp @httpRequestTests([
+    {
+        id: "RpcV2JsonMediaTypeSerialize"
+        documentation: """
+            A @mediaType string is serialized as an ordinary string. The trait
+            documents the contents for tooling and does not change the wire
+            form, so a JSON document carried in a string stays escaped rather
+            than being inlined into the surrounding body."""
+        protocol: rpcv2Json
+        method: "POST"
+        uri: "/service/RpcV2JsonCorpusTests/operation/MediaTypeOp"
+        body: """
+            {
+                "mediaTypeMember": "{\\\"nested\\\":true}"
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json", Accept: "application/json" }
+        requireHeaders: ["Content-Length"]
+        forbidHeaders: ["X-Amz-Target"]
+        params: { mediaTypeMember: "{\"nested\":true}" }
+    }
+])
+
+apply MediaTypeOp @httpResponseTests([
+    {
+        id: "RpcV2JsonMediaTypeDeserialize"
+        documentation: "A @mediaType string is deserialized as an ordinary string, contents uninterpreted"
+        protocol: rpcv2Json
+        code: 200
+        body: """
+            {
+                "mediaTypeMember": "{\\\"nested\\\":true}"
+            }"""
+        bodyMediaType: "application/json"
+        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json" }
+        params: { mediaTypeMember: "{\"nested\":true}" }
     }
 ])

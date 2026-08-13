@@ -28,8 +28,7 @@ apply ScalarMembers @httpRequestTests([
                 "epochSecondsMember": 1612325106,
                 "httpDateMember": 1614834367,
                 "stringEnum": "Foo",
-                "intEnum": 1,
-                "mediaTypeMember": "{\\\"nested\\\":true}"
+                "intEnum": 1
             }"""
         bodyMediaType: "application/json"
         headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json", Accept: "application/json" }
@@ -50,7 +49,6 @@ apply ScalarMembers @httpRequestTests([
             httpDateMember: 1614834367
             stringEnum: "Foo"
             intEnum: 1
-            mediaTypeMember: "{\"nested\":true}"
         }
     }
     {
@@ -195,8 +193,7 @@ apply ScalarMembers @httpResponseTests([
                 "epochSecondsMember": 1612325106,
                 "httpDateMember": 1614834367,
                 "stringEnum": "Foo",
-                "intEnum": 1,
-                "mediaTypeMember": "{\\\"nested\\\":true}"
+                "intEnum": 1
             }"""
         bodyMediaType: "application/json"
         headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json" }
@@ -215,7 +212,6 @@ apply ScalarMembers @httpResponseTests([
             httpDateMember: 1614834367
             stringEnum: "Foo"
             intEnum: 1
-            mediaTypeMember: "{\"nested\":true}"
         }
     }
     {
@@ -328,9 +324,6 @@ apply ScalarMembers @httpResponseTests([
     }
 ])
 
-// =============================================================================
-// ListOfScalars
-// =============================================================================
 apply ListOfScalars @httpRequestTests([
     {
         id: "RpcV2JsonListOfScalarsPopulated"
@@ -493,15 +486,6 @@ apply ListOfScalars @httpResponseTests([
     }
 ])
 
-// =============================================================================
-// SparseListOfScalars
-//
-// Base case rule: sparse collections carry 3 unique non-null-position elements
-// (2 non-null + 1 null), and null position (beginning/middle/end) is covered
-// across the corpus rather than always defaulting to the middle. This uses 3
-// request + 3 response cases, one per null position, covering all 13 scalar
-// types in each.
-// =============================================================================
 apply SparseListOfScalars @httpRequestTests([
     {
         id: "RpcV2JsonSparseListOfScalarsNullAtStart"
@@ -739,9 +723,6 @@ apply SparseListOfScalars @httpResponseTests([
     }
 ])
 
-// =============================================================================
-// MapOfScalars
-// =============================================================================
 apply MapOfScalars @httpRequestTests([
     {
         id: "RpcV2JsonMapOfScalarsPopulated"
@@ -904,13 +885,6 @@ apply MapOfScalars @httpResponseTests([
     }
 ])
 
-// =============================================================================
-// SparseMapOfScalars
-//
-// Same null-position coverage as SparseListOfScalars: 3 request + 3 response
-// cases (start/middle/end), all 13 scalar types, 2 non-null keys + 1 null key
-// per case.
-// =============================================================================
 apply SparseMapOfScalars @httpRequestTests([
     {
         id: "RpcV2JsonSparseMapOfScalarsNullAtStart"
@@ -1148,9 +1122,6 @@ apply SparseMapOfScalars @httpResponseTests([
     }
 ])
 
-// =============================================================================
-// StructOfScalars
-// =============================================================================
 apply StructOfScalars @httpRequestTests([
     {
         id: "RpcV2JsonStructOfScalarsPopulated"
@@ -1169,7 +1140,6 @@ apply StructOfScalars @httpRequestTests([
                     "floatMember": 1.5,
                     "doubleMember": 2.5,
                     "stringMember": "hello",
-                    "mediaTypeMember": "{\\\"nested\\\":true}",
                     "blobMember": "Zm9v",
                     "dateTimeMember": 1609504496,
                     "epochSecondsMember": 1612325106,
@@ -1192,7 +1162,6 @@ apply StructOfScalars @httpRequestTests([
                 floatMember: 1.5
                 doubleMember: 2.5
                 stringMember: "hello"
-                mediaTypeMember: "{\"nested\":true}"
                 blobMember: "foo"
                 dateTimeMember: 1609504496
                 epochSecondsMember: 1612325106
@@ -1221,7 +1190,6 @@ apply StructOfScalars @httpResponseTests([
                     "floatMember": 1.5,
                     "doubleMember": 2.5,
                     "stringMember": "hello",
-                    "mediaTypeMember": "{\\\"nested\\\":true}",
                     "blobMember": "Zm9v",
                     "dateTimeMember": 1609504496,
                     "epochSecondsMember": 1612325106,
@@ -1242,7 +1210,6 @@ apply StructOfScalars @httpResponseTests([
                 floatMember: 1.5
                 doubleMember: 2.5
                 stringMember: "hello"
-                mediaTypeMember: "{\"nested\":true}"
                 blobMember: "foo"
                 dateTimeMember: 1609504496
                 epochSecondsMember: 1612325106
@@ -1254,9 +1221,6 @@ apply StructOfScalars @httpResponseTests([
     }
 ])
 
-// =============================================================================
-// UnionOfScalars
-// =============================================================================
 apply UnionOfScalars @httpRequestTests([
     {
         id: "RpcV2JsonUnionOfScalarsStringSerialize"
@@ -1436,26 +1400,6 @@ apply UnionOfScalars @httpRequestTests([
         forbidHeaders: ["X-Amz-Target"]
         params: {
             value: { blobValue: "foo" }
-        }
-    }
-    {
-        id: "RpcV2JsonUnionOfScalarsMediaTypeSerialize"
-        documentation: "Serializes union @mediaType string variant"
-        protocol: rpcv2Json
-        method: "POST"
-        uri: "/service/RpcV2JsonCorpusTests/operation/UnionOfScalars"
-        body: """
-            {
-                "value": {
-                    "mediaTypeValue": "{\\\"nested\\\":true}"
-                }
-            }"""
-        bodyMediaType: "application/json"
-        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json", Accept: "application/json" }
-        requireHeaders: ["Content-Length"]
-        forbidHeaders: ["X-Amz-Target"]
-        params: {
-            value: { mediaTypeValue: "{\"nested\":true}" }
         }
     }
     {
@@ -1675,23 +1619,6 @@ apply UnionOfScalars @httpResponseTests([
         }
     }
     {
-        id: "RpcV2JsonUnionOfScalarsMediaTypeDeserialize"
-        documentation: "Deserializes union @mediaType string variant"
-        protocol: rpcv2Json
-        code: 200
-        body: """
-            {
-                "value": {
-                    "mediaTypeValue": "{\\\"nested\\\":true}"
-                }
-            }"""
-        bodyMediaType: "application/json"
-        headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json" }
-        params: {
-            value: { mediaTypeValue: "{\"nested\":true}" }
-        }
-    }
-    {
         id: "RpcV2JsonUnionOfScalarsTimestampDeserialize"
         documentation: "Deserializes union timestamp variant (epoch seconds on wire)"
         protocol: rpcv2Json
@@ -1744,9 +1671,6 @@ apply UnionOfScalars @httpResponseTests([
     }
 ])
 
-// =============================================================================
-// UnionOfStruct
-// =============================================================================
 apply UnionOfStruct @httpRequestTests([
     {
         id: "RpcV2JsonUnionOfStructSerialize"
@@ -1760,8 +1684,7 @@ apply UnionOfStruct @httpRequestTests([
                     "structValue": {
                         "stringMember": "hello",
                         "integerMember": 42,
-                        "booleanMember": true,
-                        "mediaTypeMember": "{\\\"n\\\":1}"
+                        "booleanMember": true
                     }
                 }
             }"""
@@ -1771,7 +1694,7 @@ apply UnionOfStruct @httpRequestTests([
         forbidHeaders: ["X-Amz-Target"]
         params: {
             value: {
-                structValue: { stringMember: "hello", integerMember: 42, booleanMember: true, mediaTypeMember: "{\"n\":1}" }
+                structValue: { stringMember: "hello", integerMember: 42, booleanMember: true }
             }
         }
     }
@@ -1789,8 +1712,7 @@ apply UnionOfStruct @httpResponseTests([
                     "structValue": {
                         "stringMember": "hello",
                         "integerMember": 42,
-                        "booleanMember": true,
-                        "mediaTypeMember": "{\\\"n\\\":1}"
+                        "booleanMember": true
                     }
                 }
             }"""
@@ -1798,15 +1720,12 @@ apply UnionOfStruct @httpResponseTests([
         headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json" }
         params: {
             value: {
-                structValue: { stringMember: "hello", integerMember: 42, booleanMember: true, mediaTypeMember: "{\"n\":1}" }
+                structValue: { stringMember: "hello", integerMember: 42, booleanMember: true }
             }
         }
     }
 ])
 
-// =============================================================================
-// UnionOfList
-// =============================================================================
 apply UnionOfList @httpRequestTests([
     {
         id: "RpcV2JsonUnionOfListSerialize"
@@ -1854,9 +1773,6 @@ apply UnionOfList @httpResponseTests([
     }
 ])
 
-// =============================================================================
-// UnionOfMap
-// =============================================================================
 apply UnionOfMap @httpRequestTests([
     {
         id: "RpcV2JsonUnionOfMapSerialize"
@@ -1910,9 +1826,6 @@ apply UnionOfMap @httpResponseTests([
     }
 ])
 
-// =============================================================================
-// UnionOfUnion
-// =============================================================================
 apply UnionOfUnion @httpRequestTests([
     {
         id: "RpcV2JsonUnionOfUnionSerialize"
@@ -1964,9 +1877,6 @@ apply UnionOfUnion @httpResponseTests([
     }
 ])
 
-// =============================================================================
-// ListOfStructs
-// =============================================================================
 apply ListOfStructs @httpRequestTests([
     {
         id: "RpcV2JsonListOfStructsSerialize"
@@ -1977,8 +1887,8 @@ apply ListOfStructs @httpRequestTests([
         body: """
             {
                 "values": [
-                    {"stringMember": "foo", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"},
-                    {"stringMember": "bar", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"}
+                    {"stringMember": "foo", "integerMember": 1, "booleanMember": true},
+                    {"stringMember": "bar", "integerMember": 2, "booleanMember": false}
                 ]
             }"""
         bodyMediaType: "application/json"
@@ -1991,13 +1901,11 @@ apply ListOfStructs @httpRequestTests([
                     stringMember: "foo"
                     integerMember: 1
                     booleanMember: true
-                    mediaTypeMember: "{\"n\":1}"
                 }
                 {
                     stringMember: "bar"
                     integerMember: 2
                     booleanMember: false
-                    mediaTypeMember: "{\"n\":2}"
                 }
             ]
         }
@@ -2013,8 +1921,8 @@ apply ListOfStructs @httpResponseTests([
         body: """
             {
                 "values": [
-                    {"stringMember": "foo", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"},
-                    {"stringMember": "bar", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"}
+                    {"stringMember": "foo", "integerMember": 1, "booleanMember": true},
+                    {"stringMember": "bar", "integerMember": 2, "booleanMember": false}
                 ]
             }"""
         bodyMediaType: "application/json"
@@ -2025,22 +1933,17 @@ apply ListOfStructs @httpResponseTests([
                     stringMember: "foo"
                     integerMember: 1
                     booleanMember: true
-                    mediaTypeMember: "{\"n\":1}"
                 }
                 {
                     stringMember: "bar"
                     integerMember: 2
                     booleanMember: false
-                    mediaTypeMember: "{\"n\":2}"
                 }
             ]
         }
     }
 ])
 
-// =============================================================================
-// ListOfMaps
-// =============================================================================
 apply ListOfMaps @httpRequestTests([
     {
         id: "RpcV2JsonListOfMapsSerialize"
@@ -2244,9 +2147,6 @@ apply ListOfMaps @httpResponseTests([
     }
 ])
 
-// =============================================================================
-// ListOfLists
-// =============================================================================
 apply ListOfLists @httpRequestTests([
     {
         id: "RpcV2JsonListOfListsSerialize"
@@ -2352,9 +2252,6 @@ apply ListOfLists @httpResponseTests([
     }
 ])
 
-// =============================================================================
-// ListOfUnions
-// =============================================================================
 apply ListOfUnions @httpRequestTests([
     {
         id: "RpcV2JsonListOfUnionsSerialize"
@@ -2414,9 +2311,6 @@ apply ListOfUnions @httpResponseTests([
     }
 ])
 
-// =============================================================================
-// MapOfStructs
-// =============================================================================
 apply MapOfStructs @httpRequestTests([
     {
         id: "RpcV2JsonMapOfStructsSerialize"
@@ -2427,8 +2321,8 @@ apply MapOfStructs @httpRequestTests([
         body: """
             {
                 "values": {
-                    "first": {"stringMember": "foo", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"},
-                    "second": {"stringMember": "bar", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"}
+                    "first": {"stringMember": "foo", "integerMember": 1, "booleanMember": true},
+                    "second": {"stringMember": "bar", "integerMember": 2, "booleanMember": false}
                 }
             }"""
         bodyMediaType: "application/json"
@@ -2437,8 +2331,8 @@ apply MapOfStructs @httpRequestTests([
         forbidHeaders: ["X-Amz-Target"]
         params: {
             values: {
-                first: { stringMember: "foo", integerMember: 1, booleanMember: true, mediaTypeMember: "{\"n\":1}" }
-                second: { stringMember: "bar", integerMember: 2, booleanMember: false, mediaTypeMember: "{\"n\":2}" }
+                first: { stringMember: "foo", integerMember: 1, booleanMember: true }
+                second: { stringMember: "bar", integerMember: 2, booleanMember: false }
             }
         }
     }
@@ -2453,24 +2347,21 @@ apply MapOfStructs @httpResponseTests([
         body: """
             {
                 "values": {
-                    "first": {"stringMember": "foo", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"},
-                    "second": {"stringMember": "bar", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"}
+                    "first": {"stringMember": "foo", "integerMember": 1, "booleanMember": true},
+                    "second": {"stringMember": "bar", "integerMember": 2, "booleanMember": false}
                 }
             }"""
         bodyMediaType: "application/json"
         headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json" }
         params: {
             values: {
-                first: { stringMember: "foo", integerMember: 1, booleanMember: true, mediaTypeMember: "{\"n\":1}" }
-                second: { stringMember: "bar", integerMember: 2, booleanMember: false, mediaTypeMember: "{\"n\":2}" }
+                first: { stringMember: "foo", integerMember: 1, booleanMember: true }
+                second: { stringMember: "bar", integerMember: 2, booleanMember: false }
             }
         }
     }
 ])
 
-// =============================================================================
-// MapOfMaps
-// =============================================================================
 apply MapOfMaps @httpRequestTests([
     {
         id: "RpcV2JsonMapOfMapsSerialize"
@@ -2576,9 +2467,6 @@ apply MapOfMaps @httpResponseTests([
     }
 ])
 
-// =============================================================================
-// MapOfLists
-// =============================================================================
 apply MapOfLists @httpRequestTests([
     {
         id: "RpcV2JsonMapOfListsSerialize"
@@ -2684,9 +2572,6 @@ apply MapOfLists @httpResponseTests([
     }
 ])
 
-// =============================================================================
-// MapOfUnions
-// =============================================================================
 apply MapOfUnions @httpRequestTests([
     {
         id: "RpcV2JsonMapOfUnionsSerialize"
@@ -2738,9 +2623,6 @@ apply MapOfUnions @httpResponseTests([
     }
 ])
 
-// =============================================================================
-// SparseListOfStructs
-// =============================================================================
 apply SparseListOfStructs @httpRequestTests([
     {
         id: "RpcV2JsonSparseListOfStructsNullAtStart"
@@ -2752,8 +2634,8 @@ apply SparseListOfStructs @httpRequestTests([
             {
                 "values": [
                     null,
-                    {"stringMember": "foo", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"},
-                    {"stringMember": "bar", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"}
+                    {"stringMember": "foo", "integerMember": 1, "booleanMember": true},
+                    {"stringMember": "bar", "integerMember": 2, "booleanMember": false}
                 ]
             }"""
         bodyMediaType: "application/json"
@@ -2767,13 +2649,11 @@ apply SparseListOfStructs @httpRequestTests([
                     stringMember: "foo"
                     integerMember: 1
                     booleanMember: true
-                    mediaTypeMember: "{\"n\":1}"
                 }
                 {
                     stringMember: "bar"
                     integerMember: 2
                     booleanMember: false
-                    mediaTypeMember: "{\"n\":2}"
                 }
             ]
         }
@@ -2787,9 +2667,9 @@ apply SparseListOfStructs @httpRequestTests([
         body: """
             {
                 "values": [
-                    {"stringMember": "foo", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"},
+                    {"stringMember": "foo", "integerMember": 1, "booleanMember": true},
                     null,
-                    {"stringMember": "bar", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"}
+                    {"stringMember": "bar", "integerMember": 2, "booleanMember": false}
                 ]
             }"""
         bodyMediaType: "application/json"
@@ -2802,14 +2682,12 @@ apply SparseListOfStructs @httpRequestTests([
                     stringMember: "foo"
                     integerMember: 1
                     booleanMember: true
-                    mediaTypeMember: "{\"n\":1}"
                 }
                 null
                 {
                     stringMember: "bar"
                     integerMember: 2
                     booleanMember: false
-                    mediaTypeMember: "{\"n\":2}"
                 }
             ]
         }
@@ -2823,8 +2701,8 @@ apply SparseListOfStructs @httpRequestTests([
         body: """
             {
                 "values": [
-                    {"stringMember": "foo", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"},
-                    {"stringMember": "bar", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"},
+                    {"stringMember": "foo", "integerMember": 1, "booleanMember": true},
+                    {"stringMember": "bar", "integerMember": 2, "booleanMember": false},
                     null
                 ]
             }"""
@@ -2838,13 +2716,11 @@ apply SparseListOfStructs @httpRequestTests([
                     stringMember: "foo"
                     integerMember: 1
                     booleanMember: true
-                    mediaTypeMember: "{\"n\":1}"
                 }
                 {
                     stringMember: "bar"
                     integerMember: 2
                     booleanMember: false
-                    mediaTypeMember: "{\"n\":2}"
                 }
                 null
             ]
@@ -2862,8 +2738,8 @@ apply SparseListOfStructs @httpResponseTests([
             {
                 "values": [
                     null,
-                    {"stringMember": "foo", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"},
-                    {"stringMember": "bar", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"}
+                    {"stringMember": "foo", "integerMember": 1, "booleanMember": true},
+                    {"stringMember": "bar", "integerMember": 2, "booleanMember": false}
                 ]
             }"""
         bodyMediaType: "application/json"
@@ -2875,13 +2751,11 @@ apply SparseListOfStructs @httpResponseTests([
                     stringMember: "foo"
                     integerMember: 1
                     booleanMember: true
-                    mediaTypeMember: "{\"n\":1}"
                 }
                 {
                     stringMember: "bar"
                     integerMember: 2
                     booleanMember: false
-                    mediaTypeMember: "{\"n\":2}"
                 }
             ]
         }
@@ -2894,9 +2768,9 @@ apply SparseListOfStructs @httpResponseTests([
         body: """
             {
                 "values": [
-                    {"stringMember": "foo", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"},
+                    {"stringMember": "foo", "integerMember": 1, "booleanMember": true},
                     null,
-                    {"stringMember": "bar", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"}
+                    {"stringMember": "bar", "integerMember": 2, "booleanMember": false}
                 ]
             }"""
         bodyMediaType: "application/json"
@@ -2907,14 +2781,12 @@ apply SparseListOfStructs @httpResponseTests([
                     stringMember: "foo"
                     integerMember: 1
                     booleanMember: true
-                    mediaTypeMember: "{\"n\":1}"
                 }
                 null
                 {
                     stringMember: "bar"
                     integerMember: 2
                     booleanMember: false
-                    mediaTypeMember: "{\"n\":2}"
                 }
             ]
         }
@@ -2927,8 +2799,8 @@ apply SparseListOfStructs @httpResponseTests([
         body: """
             {
                 "values": [
-                    {"stringMember": "foo", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"},
-                    {"stringMember": "bar", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"},
+                    {"stringMember": "foo", "integerMember": 1, "booleanMember": true},
+                    {"stringMember": "bar", "integerMember": 2, "booleanMember": false},
                     null
                 ]
             }"""
@@ -2940,13 +2812,11 @@ apply SparseListOfStructs @httpResponseTests([
                     stringMember: "foo"
                     integerMember: 1
                     booleanMember: true
-                    mediaTypeMember: "{\"n\":1}"
                 }
                 {
                     stringMember: "bar"
                     integerMember: 2
                     booleanMember: false
-                    mediaTypeMember: "{\"n\":2}"
                 }
                 null
             ]
@@ -2954,9 +2824,6 @@ apply SparseListOfStructs @httpResponseTests([
     }
 ])
 
-// =============================================================================
-// SparseMapOfStructs
-// =============================================================================
 apply SparseMapOfStructs @httpRequestTests([
     {
         id: "RpcV2JsonSparseMapOfStructsNullAtStart"
@@ -2968,8 +2835,8 @@ apply SparseMapOfStructs @httpRequestTests([
             {
                 "values": {
                     "a": null,
-                    "b": {"stringMember": "foo", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"},
-                    "c": {"stringMember": "bar", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"}
+                    "b": {"stringMember": "foo", "integerMember": 1, "booleanMember": true},
+                    "c": {"stringMember": "bar", "integerMember": 2, "booleanMember": false}
                 }
             }"""
         bodyMediaType: "application/json"
@@ -2979,8 +2846,8 @@ apply SparseMapOfStructs @httpRequestTests([
         params: {
             values: {
                 a: null
-                b: { stringMember: "foo", integerMember: 1, booleanMember: true, mediaTypeMember: "{\"n\":1}" }
-                c: { stringMember: "bar", integerMember: 2, booleanMember: false, mediaTypeMember: "{\"n\":2}" }
+                b: { stringMember: "foo", integerMember: 1, booleanMember: true }
+                c: { stringMember: "bar", integerMember: 2, booleanMember: false }
             }
         }
     }
@@ -2993,9 +2860,9 @@ apply SparseMapOfStructs @httpRequestTests([
         body: """
             {
                 "values": {
-                    "a": {"stringMember": "foo", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"},
+                    "a": {"stringMember": "foo", "integerMember": 1, "booleanMember": true},
                     "b": null,
-                    "c": {"stringMember": "bar", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"}
+                    "c": {"stringMember": "bar", "integerMember": 2, "booleanMember": false}
                 }
             }"""
         bodyMediaType: "application/json"
@@ -3004,9 +2871,9 @@ apply SparseMapOfStructs @httpRequestTests([
         forbidHeaders: ["X-Amz-Target"]
         params: {
             values: {
-                a: { stringMember: "foo", integerMember: 1, booleanMember: true, mediaTypeMember: "{\"n\":1}" }
+                a: { stringMember: "foo", integerMember: 1, booleanMember: true }
                 b: null
-                c: { stringMember: "bar", integerMember: 2, booleanMember: false, mediaTypeMember: "{\"n\":2}" }
+                c: { stringMember: "bar", integerMember: 2, booleanMember: false }
             }
         }
     }
@@ -3019,8 +2886,8 @@ apply SparseMapOfStructs @httpRequestTests([
         body: """
             {
                 "values": {
-                    "a": {"stringMember": "foo", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"},
-                    "b": {"stringMember": "bar", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"},
+                    "a": {"stringMember": "foo", "integerMember": 1, "booleanMember": true},
+                    "b": {"stringMember": "bar", "integerMember": 2, "booleanMember": false},
                     "c": null
                 }
             }"""
@@ -3030,8 +2897,8 @@ apply SparseMapOfStructs @httpRequestTests([
         forbidHeaders: ["X-Amz-Target"]
         params: {
             values: {
-                a: { stringMember: "foo", integerMember: 1, booleanMember: true, mediaTypeMember: "{\"n\":1}" }
-                b: { stringMember: "bar", integerMember: 2, booleanMember: false, mediaTypeMember: "{\"n\":2}" }
+                a: { stringMember: "foo", integerMember: 1, booleanMember: true }
+                b: { stringMember: "bar", integerMember: 2, booleanMember: false }
                 c: null
             }
         }
@@ -3048,8 +2915,8 @@ apply SparseMapOfStructs @httpResponseTests([
             {
                 "values": {
                     "a": null,
-                    "b": {"stringMember": "foo", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"},
-                    "c": {"stringMember": "bar", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"}
+                    "b": {"stringMember": "foo", "integerMember": 1, "booleanMember": true},
+                    "c": {"stringMember": "bar", "integerMember": 2, "booleanMember": false}
                 }
             }"""
         bodyMediaType: "application/json"
@@ -3057,8 +2924,8 @@ apply SparseMapOfStructs @httpResponseTests([
         params: {
             values: {
                 a: null
-                b: { stringMember: "foo", integerMember: 1, booleanMember: true, mediaTypeMember: "{\"n\":1}" }
-                c: { stringMember: "bar", integerMember: 2, booleanMember: false, mediaTypeMember: "{\"n\":2}" }
+                b: { stringMember: "foo", integerMember: 1, booleanMember: true }
+                c: { stringMember: "bar", integerMember: 2, booleanMember: false }
             }
         }
     }
@@ -3070,18 +2937,18 @@ apply SparseMapOfStructs @httpResponseTests([
         body: """
             {
                 "values": {
-                    "a": {"stringMember": "foo", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"},
+                    "a": {"stringMember": "foo", "integerMember": 1, "booleanMember": true},
                     "b": null,
-                    "c": {"stringMember": "bar", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"}
+                    "c": {"stringMember": "bar", "integerMember": 2, "booleanMember": false}
                 }
             }"""
         bodyMediaType: "application/json"
         headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json" }
         params: {
             values: {
-                a: { stringMember: "foo", integerMember: 1, booleanMember: true, mediaTypeMember: "{\"n\":1}" }
+                a: { stringMember: "foo", integerMember: 1, booleanMember: true }
                 b: null
-                c: { stringMember: "bar", integerMember: 2, booleanMember: false, mediaTypeMember: "{\"n\":2}" }
+                c: { stringMember: "bar", integerMember: 2, booleanMember: false }
             }
         }
     }
@@ -3093,8 +2960,8 @@ apply SparseMapOfStructs @httpResponseTests([
         body: """
             {
                 "values": {
-                    "a": {"stringMember": "foo", "integerMember": 1, "booleanMember": true, "mediaTypeMember": "{\\\"n\\\":1}"},
-                    "b": {"stringMember": "bar", "integerMember": 2, "booleanMember": false, "mediaTypeMember": "{\\\"n\\\":2}"},
+                    "a": {"stringMember": "foo", "integerMember": 1, "booleanMember": true},
+                    "b": {"stringMember": "bar", "integerMember": 2, "booleanMember": false},
                     "c": null
                 }
             }"""
@@ -3102,17 +2969,14 @@ apply SparseMapOfStructs @httpResponseTests([
         headers: { "smithy-protocol": "rpc-v2-json", "Content-Type": "application/json" }
         params: {
             values: {
-                a: { stringMember: "foo", integerMember: 1, booleanMember: true, mediaTypeMember: "{\"n\":1}" }
-                b: { stringMember: "bar", integerMember: 2, booleanMember: false, mediaTypeMember: "{\"n\":2}" }
+                a: { stringMember: "foo", integerMember: 1, booleanMember: true }
+                b: { stringMember: "bar", integerMember: 2, booleanMember: false }
                 c: null
             }
         }
     }
 ])
 
-// =============================================================================
-// RecursiveStruct
-// =============================================================================
 apply RecursiveStruct @httpRequestTests([
     {
         id: "RpcV2JsonRecursiveStructTwoLevelsDeep"
@@ -3298,9 +3162,6 @@ apply RecursiveStruct @httpResponseTests([
     }
 ])
 
-// =============================================================================
-// RecursiveUnion
-// =============================================================================
 apply RecursiveUnion @httpRequestTests([
     {
         id: "RpcV2JsonRecursiveUnionDirectRecursion"
@@ -3405,9 +3266,6 @@ apply RecursiveUnion @httpResponseTests([
     }
 ])
 
-// =============================================================================
-// EmptyInputOutput
-// =============================================================================
 apply EmptyInputOutput @httpRequestTests([
     {
         id: "RpcV2JsonEmptyInputOutputSerialize"
@@ -3451,9 +3309,6 @@ apply EmptyInputOutput @httpResponseTests([
     }
 ])
 
-// =============================================================================
-// NoInputOutput
-// =============================================================================
 apply NoInputOutput @httpRequestTests([
     {
         id: "RpcV2JsonNoInputOutputSerialize"
@@ -3470,9 +3325,6 @@ apply NoInputOutput @httpRequestTests([
     }
 ])
 
-// =============================================================================
-// ErrorOperation
-// =============================================================================
 apply SimpleError @httpResponseTests([
     {
         id: "RpcV2JsonSimpleErrorDeserialize"

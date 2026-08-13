@@ -8,9 +8,16 @@ use aws.protocols#awsQueryError
 use smithy.protocols#rpcv2Cbor
 use smithy.protocols#rpcv2Json
 
-// =============================================================================
-// Query-compatible services — tests @awsQueryCompatible + @awsQueryError
-// =============================================================================
+// @awsQueryCompatible, for services that migrated off awsQuery and have to keep
+// exposing awsQuery error codes to old callers. Standalone services rather than a
+// mixin layer, because the trait is service-level and only three protocols accept
+// it. All three share QueryCompatErrorOp, whose two errors cover the code being
+// derived from the shape name and the code being overridden by @awsQueryError.
+//
+// Extend by adding a service when another protocol accepts the trait, or an error
+// shape when a new code-mapping case is needed. Note @awsQueryError's
+// httpResponseCode is not applied here: it records what awsQuery would have
+// returned, and the status still comes from @error.
 @awsJson1_0
 @awsQueryCompatible
 service AwsJson10QueryCompatCorpusTests {
@@ -27,9 +34,6 @@ service RpcV2CborQueryCompatCorpusTests {
     ]
 }
 
-/// Carries @aws.api#service / @aws.auth#sigv4 because Go codegen requires an
-/// AWS service trait to build a client at all; the other two query-compat
-/// services above are not wired into codegen and so have never needed them.
 @rpcv2Json
 @awsQueryCompatible
 @aws.api#service(sdkId: "RpcV2JsonQueryCompatCorpus", arnNamespace: "rpcv2jsonquerycompatcorpus")
@@ -40,17 +44,18 @@ service RpcV2JsonQueryCompatCorpusTests {
     ]
 }
 
-// =============================================================================
-// Operation with query-compat errors
-// =============================================================================
 operation QueryCompatErrorOp {
-    input := {}
-    output := {}
+    input: QueryCompatErrorOpInput
+    output: QueryCompatErrorOpOutput
     errors: [
         QueryCompatError
         QueryCompatCustomCodeError
     ]
 }
+
+structure QueryCompatErrorOpInput {}
+
+structure QueryCompatErrorOpOutput {}
 
 @error("client")
 structure QueryCompatError {

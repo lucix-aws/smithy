@@ -2,9 +2,11 @@ $version: "2.0"
 
 namespace aws.protocoltests.corpus
 
-/// Document type operations. Only applicable to protocols that support the
-/// document type (awsJson1_0, awsJson1_1, rpcv2Cbor, restJson1).
-/// XML/query protocols do not support documents.
+// The document type, split out of Core because rpcv2Cbor, restXml, and the query
+// protocols don't support it. Services opt in by mixing this in.
+//
+// Covers document as the target of each container: struct, list, map, and union.
+// Extend only for a container that can hold a document and isn't covered yet.
 @mixin
 service DocumentProtocolTestService with [CoreProtocolTestService] {
     operations: [
@@ -15,25 +17,25 @@ service DocumentProtocolTestService with [CoreProtocolTestService] {
     ]
 }
 
-// =============================================================================
-// struct -> document
-// =============================================================================
 operation DocumentMembers {
-    input := {
-        @jsonName("jsonDocumentValue")
-        documentValue: Document
+    input: DocumentMembersInput
+    output: DocumentMembersOutput
+}
 
-        @jsonName("jsonNestedStruct")
-        nestedStruct: DocumentStruct
-    }
+structure DocumentMembersInput {
+    @jsonName("jsonDocumentValue")
+    documentValue: Document
 
-    output := {
-        @jsonName("jsonDocumentValue")
-        documentValue: Document
+    @jsonName("jsonNestedStruct")
+    nestedStruct: DocumentStruct
+}
 
-        @jsonName("jsonNestedStruct")
-        nestedStruct: DocumentStruct
-    }
+structure DocumentMembersOutput {
+    @jsonName("jsonDocumentValue")
+    documentValue: Document
+
+    @jsonName("jsonNestedStruct")
+    nestedStruct: DocumentStruct
 }
 
 structure DocumentStruct {
@@ -44,38 +46,38 @@ structure DocumentStruct {
     stringMember: String
 }
 
-// =============================================================================
-// list -> document
-// =============================================================================
 operation ListOfDocuments {
-    input := {
-        @jsonName("jsonValues")
-        values: DocumentList
-    }
+    input: ListOfDocumentsInput
+    output: ListOfDocumentsOutput
+}
 
-    output := {
-        @jsonName("jsonValues")
-        values: DocumentList
-    }
+structure ListOfDocumentsInput {
+    @jsonName("jsonValues")
+    values: DocumentList
+}
+
+structure ListOfDocumentsOutput {
+    @jsonName("jsonValues")
+    values: DocumentList
 }
 
 list DocumentList {
     member: Document
 }
 
-// =============================================================================
-// map -> document
-// =============================================================================
 operation MapOfDocuments {
-    input := {
-        @jsonName("jsonValues")
-        values: DocumentMap
-    }
+    input: MapOfDocumentsInput
+    output: MapOfDocumentsOutput
+}
 
-    output := {
-        @jsonName("jsonValues")
-        values: DocumentMap
-    }
+structure MapOfDocumentsInput {
+    @jsonName("jsonValues")
+    values: DocumentMap
+}
+
+structure MapOfDocumentsOutput {
+    @jsonName("jsonValues")
+    values: DocumentMap
 }
 
 map DocumentMap {
@@ -83,19 +85,19 @@ map DocumentMap {
     value: Document
 }
 
-// =============================================================================
-// union -> document
-// =============================================================================
 operation DocumentUnion {
-    input := {
-        @jsonName("jsonValue")
-        value: DocumentUnionShape
-    }
+    input: DocumentUnionInput
+    output: DocumentUnionOutput
+}
 
-    output := {
-        @jsonName("jsonValue")
-        value: DocumentUnionShape
-    }
+structure DocumentUnionInput {
+    @jsonName("jsonValue")
+    value: DocumentUnionShape
+}
+
+structure DocumentUnionOutput {
+    @jsonName("jsonValue")
+    value: DocumentUnionShape
 }
 
 union DocumentUnionShape {

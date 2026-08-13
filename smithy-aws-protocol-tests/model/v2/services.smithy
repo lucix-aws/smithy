@@ -11,9 +11,6 @@ use aws.protocols#restXml
 use smithy.protocols#rpcv2Cbor
 use smithy.protocols#rpcv2Json
 
-// =============================================================================
-// JSON RPC protocols — body serde + defaults, no HTTP bindings
-// =============================================================================
 @awsJson1_0
 @aws.api#service(sdkId: "Json10Corpus", arnNamespace: "json10corpus")
 @aws.auth#sigv4(name: "json10corpus")
@@ -40,9 +37,6 @@ service AwsJson11CorpusTests with [
     MiscSerdeTraitProtocolTestService
 ] {}
 
-// =============================================================================
-// RPC v2 — body serde + defaults, no HTTP bindings
-// =============================================================================
 @rpcv2Cbor
 service RpcV2CborCorpusTests with [
     CoreProtocolTestService
@@ -66,9 +60,6 @@ service RpcV2JsonCorpusTests with [
     MiscSerdeTraitProtocolTestService
 ] {}
 
-// =============================================================================
-// REST protocols — all three layers
-// =============================================================================
 @restJson1
 service RestJson1CorpusTests with [
     HttpBindingProtocolTestService
@@ -92,11 +83,6 @@ service RestXmlCorpusTests with [
     MiscSerdeTraitProtocolTestService
 ] {}
 
-// =============================================================================
-// Apply @http to core operations for REST protocol compatibility.
-// REST protocols require every operation to have an @http trait.
-// =============================================================================
-// Core operations
 apply ScalarMembers @http(method: "POST", uri: "/corpus/ScalarMembers")
 
 apply ListOfScalars @http(method: "POST", uri: "/corpus/ListOfScalars")
@@ -149,7 +135,6 @@ apply NoInputOutput @http(method: "POST", uri: "/corpus/NoInputOutput")
 
 apply ErrorOperation @http(method: "POST", uri: "/corpus/ErrorOperation")
 
-// Document operations
 apply DocumentMembers @http(method: "POST", uri: "/corpus/DocumentMembers")
 
 apply ListOfDocuments @http(method: "POST", uri: "/corpus/ListOfDocuments")
@@ -158,7 +143,6 @@ apply MapOfDocuments @http(method: "POST", uri: "/corpus/MapOfDocuments")
 
 apply DocumentUnion @http(method: "POST", uri: "/corpus/DocumentUnion")
 
-// Event stream operations
 apply EventStreamResponse @http(method: "POST", uri: "/corpus/EventStreamResponse")
 
 apply EventStreamResponseBlobPayload @http(method: "POST", uri: "/corpus/EventStreamResponseBlobPayload")
@@ -173,7 +157,6 @@ apply EventStreamRequest @http(method: "POST", uri: "/corpus/EventStreamRequest"
 
 apply EventStreamInitialResponse @http(method: "POST", uri: "/corpus/EventStreamInitialResponse")
 
-// Defaults operations
 apply DefaultScalars @http(method: "POST", uri: "/corpus/DefaultScalars")
 
 apply DefaultCollections @http(method: "POST", uri: "/corpus/DefaultCollections")
@@ -186,7 +169,6 @@ apply NullSparseMembers @http(method: "POST", uri: "/corpus/NullSparseMembers")
 
 apply ClientOptionalDefaults @http(method: "POST", uri: "/corpus/ClientOptionalDefaults")
 
-// XML traits operations
 apply FlattenedListOfScalars @http(method: "POST", uri: "/corpus/FlattenedListOfScalars")
 
 apply FlattenedListOfStructs @http(method: "POST", uri: "/corpus/FlattenedListOfStructs")
@@ -229,10 +211,8 @@ apply XmlNamePrefixed @http(method: "POST", uri: "/corpus/XmlNamePrefixed")
 
 apply XmlNamespaceOnUnion @http(method: "POST", uri: "/corpus/XmlNamespaceOnUnion")
 
-// Http error operation
 apply HttpErrorOperation @http(method: "POST", uri: "/corpus/HttpErrorOperation")
 
-// No-traits operations
 apply NoTraitScalarMembers @http(method: "POST", uri: "/corpus/NoTraitScalarMembers")
 
 apply NoTraitStructOfScalars @http(method: "POST", uri: "/corpus/NoTraitStructOfScalars")
@@ -243,7 +223,6 @@ apply NoTraitMapOfScalars @http(method: "POST", uri: "/corpus/NoTraitMapOfScalar
 
 apply NoTraitUnionMembers @http(method: "POST", uri: "/corpus/NoTraitUnionMembers")
 
-// Misc serde trait operations
 apply EndpointHostPrefix @http(method: "POST", uri: "/corpus/EndpointHostPrefix")
 
 apply EndpointHostLabel @http(method: "POST", uri: "/corpus/EndpointHostLabel")
@@ -252,9 +231,8 @@ apply IdempotencyTokenOp @http(method: "POST", uri: "/corpus/IdempotencyTokenOp"
 
 apply RequestCompressionOp @http(method: "POST", uri: "/corpus/RequestCompressionOp")
 
-// =============================================================================
-// Query protocols
-// =============================================================================
+apply MediaTypeOp @http(method: "POST", uri: "/corpus/MediaTypeOp")
+
 @awsQuery
 @xmlNamespace(uri: "https://corpus.example.com/")
 service AwsQueryCorpusTests with [

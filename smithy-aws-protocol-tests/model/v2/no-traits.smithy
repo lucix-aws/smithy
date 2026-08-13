@@ -2,22 +2,14 @@ $version: "2.0"
 
 namespace aws.protocoltests.corpus
 
-/// NoProtocolTraitsBehavior — operations where naming/format traits are ABSENT.
-/// Tests verify protocols fall back to default behavior:
-/// - Wire names = member names (no @jsonName, @xmlName, @ec2QueryName)
-/// - Timestamp format = protocol default (no @timestampFormat)
-///
-/// This does NOT need to re-test the full transition matrix. A representative
-/// subset of operations covers the fallback logic.
-///
-/// For query protocols, the name resolution hierarchy is:
-///   ec2Query: @ec2QueryName > @xmlName > member name
-///   awsQuery: @xmlName > member name
-/// The NoTraitScalarMembers operation covers the bottom (member name only).
-/// Core operations cover the top (all traits present).
-/// The middle level (xmlName without ec2QueryName) is NOT separately tested
-/// here — that fallback is inherent in the spec and validated by test cases
-/// on the Core operations where both are present.
+// The control group for the corpus bet that every member carries a wire-name
+// trait. Nothing here has @jsonName, @xmlName, @ec2QueryName, or
+// @timestampFormat, so every member must use its plain member name on the wire
+// and every timestamp must use the protocol's default format. A protocol that
+// only ever read the override trait passes Core and fails here.
+//
+// Deliberately a representative subset, not the full transition matrix. Extend
+// only if a transition would resolve wire names differently, not for breadth.
 @mixin
 service NoProtocolTraitsBehaviorService with [CoreProtocolTestService] {
     operations: [
@@ -29,17 +21,11 @@ service NoProtocolTraitsBehaviorService with [CoreProtocolTestService] {
     ]
 }
 
-// =============================================================================
-// Scalar members with no naming/format traits — wire names = member names,
-// timestamps use protocol default format
-// =============================================================================
 operation NoTraitScalarMembers {
     input: NoTraitScalarStruct
     output: NoTraitScalarStruct
 }
 
-/// All members use plain member names, no @jsonName/@xmlName/@ec2QueryName.
-/// Timestamp members have no @timestampFormat — protocol uses its default.
 structure NoTraitScalarStruct {
     booleanMember: Boolean
     byteMember: Byte
@@ -52,72 +38,76 @@ structure NoTraitScalarStruct {
     bigDecimalMember: BigDecimal
     stringMember: String
     blobMember: Blob
-    timestampMember: Timestamp
+    timestampMember: NoFormatTimestamp
     enumMember: CorpusStringEnum
     intEnumMember: CorpusIntEnum
 }
 
-// =============================================================================
-// Struct nesting with no traits
-// =============================================================================
 operation NoTraitStructOfScalars {
-    input := {
-        nested: NoTraitSimpleStruct
-    }
-    output := {
-        nested: NoTraitSimpleStruct
-    }
+    input: NoTraitStructOfScalarsInput
+    output: NoTraitStructOfScalarsOutput
+}
+
+structure NoTraitStructOfScalarsInput {
+    nested: NoTraitSimpleStruct
+}
+
+structure NoTraitStructOfScalarsOutput {
+    nested: NoTraitSimpleStruct
 }
 
 structure NoTraitSimpleStruct {
     stringMember: String
     integerMember: Integer
     booleanMember: Boolean
-    timestampMember: Timestamp
+    timestampMember: NoFormatTimestamp
 }
 
-// =============================================================================
-// List with no traits
-// =============================================================================
 operation NoTraitListOfScalars {
-    input := {
-        strings: StringList
-        integers: IntegerList
-        timestamps: TimestampList
-    }
-    output := {
-        strings: StringList
-        integers: IntegerList
-        timestamps: TimestampList
-    }
+    input: NoTraitListOfScalarsInput
+    output: NoTraitListOfScalarsOutput
 }
 
-// =============================================================================
-// Map with no traits
-// =============================================================================
+structure NoTraitListOfScalarsInput {
+    strings: StringList
+    integers: IntegerList
+    timestamps: TimestampList
+}
+
+structure NoTraitListOfScalarsOutput {
+    strings: StringList
+    integers: IntegerList
+    timestamps: TimestampList
+}
+
 operation NoTraitMapOfScalars {
-    input := {
-        strings: StringMap
-        integers: IntegerMap
-        timestamps: TimestampMap
-    }
-    output := {
-        strings: StringMap
-        integers: IntegerMap
-        timestamps: TimestampMap
-    }
+    input: NoTraitMapOfScalarsInput
+    output: NoTraitMapOfScalarsOutput
 }
 
-// =============================================================================
-// Union with no traits — verifies union member name resolution defaults
-// =============================================================================
+structure NoTraitMapOfScalarsInput {
+    strings: StringMap
+    integers: IntegerMap
+    timestamps: TimestampMap
+}
+
+structure NoTraitMapOfScalarsOutput {
+    strings: StringMap
+    integers: IntegerMap
+    timestamps: TimestampMap
+}
+
 operation NoTraitUnionMembers {
-    input := {
-        value: NoTraitUnion
-    }
-    output := {
-        value: NoTraitUnion
-    }
+    input: NoTraitUnionMembersInput
+    output: NoTraitUnionMembersOutput
+}
+
+structure NoTraitUnionMembersInput {
+    value: NoTraitUnion
+}
+
+structure NoTraitUnionMembersOutput {
+    value: NoTraitUnion
 }
 
 union NoTraitUnion {

@@ -4,10 +4,13 @@ namespace aws.protocoltests.corpus
 
 use aws.protocols#ec2QueryName
 
-/// @httpError trait coverage. This overrides the default HTTP status code
-/// derived from @error("client"|"server"). Separated into its own mixin because
-/// the RPC v2 family supports @httpError independently of the full HTTP binding
-/// traits layer.
+// @httpError, which overrides the status code that @error("client"|"server")
+// would otherwise imply. Its own layer because the RPC v2 family supports
+// @httpError without supporting the HTTP binding traits, so it can't live in
+// HttpBindings. Mixed into every non-query protocol.
+//
+// The cases apply to the error structures, not to the operation. Extend by adding
+// an error shape with a status code that isn't represented yet.
 @mixin
 service HttpErrorProtocolTestService with [CoreProtocolTestService] {
     operations: [
@@ -16,14 +19,18 @@ service HttpErrorProtocolTestService with [CoreProtocolTestService] {
 }
 
 operation HttpErrorOperation {
-    input := {}
-    output := {}
+    input: HttpErrorOperationInput
+    output: HttpErrorOperationOutput
     errors: [
         HttpErrorConflict
         HttpErrorGone
         HttpErrorServiceUnavailable
     ]
 }
+
+structure HttpErrorOperationInput {}
+
+structure HttpErrorOperationOutput {}
 
 @error("client")
 @httpError(409)

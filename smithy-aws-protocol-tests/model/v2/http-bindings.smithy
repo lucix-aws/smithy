@@ -2,9 +2,13 @@ $version: "2.0"
 
 namespace aws.protocoltests.corpus
 
-/// HTTP binding operations. These exercise the @http* traits that determine
-/// where members are serialized in REST protocols (headers, query string,
-/// URI labels, payload). Only applies to restJson1, restXml, etc.
+// REST HTTP binding traits: values bound to the URI, query string, headers, and
+// payload rather than to a document body. Mixed into restJson1 and restXml only.
+// It mixes in Core itself, so those two services pick up the whole transition
+// matrix through this layer rather than listing Core separately.
+//
+// One operation per binding trait. Body serde belongs in Core, so don't grow
+// these operations into general shape coverage.
 @mixin
 service HttpBindingProtocolTestService with [CoreProtocolTestService] {
     operations: [
@@ -26,351 +30,366 @@ service HttpBindingProtocolTestService with [CoreProtocolTestService] {
     ]
 }
 
-// =============================================================================
-// URI labels
-// =============================================================================
 @http(method: "GET", uri: "/HttpLabelScalars/{string}/{integer}/{boolean}/{timestamp}/{enumValue}")
 operation HttpLabelScalars {
-    input := {
-        @required
-        @httpLabel
-        string: String
-
-        @required
-        @httpLabel
-        integer: Integer
-
-        @required
-        @httpLabel
-        boolean: Boolean
-
-        @required
-        @httpLabel
-        @timestampFormat("date-time")
-        timestamp: Timestamp
-
-        @required
-        @httpLabel
-        enumValue: CorpusStringEnum
-    }
-
-    output := {}
+    input: HttpLabelScalarsInput
+    output: HttpLabelScalarsOutput
 }
+
+structure HttpLabelScalarsInput {
+    @required
+    @httpLabel
+    string: String
+
+    @required
+    @httpLabel
+    integer: Integer
+
+    @required
+    @httpLabel
+    boolean: Boolean
+
+    @required
+    @httpLabel
+    timestamp: DateTimeTimestamp
+
+    @required
+    @httpLabel
+    enumValue: CorpusStringEnum
+}
+
+structure HttpLabelScalarsOutput {}
 
 @http(method: "GET", uri: "/HttpLabelGreedy/{prefix}/{greedy+}")
 operation HttpLabelGreedy {
-    input := {
-        @required
-        @httpLabel
-        prefix: String
-
-        @required
-        @httpLabel
-        greedy: String
-    }
-
-    output := {}
+    input: HttpLabelGreedyInput
+    output: HttpLabelGreedyOutput
 }
 
-// =============================================================================
-// Query string
-// =============================================================================
+structure HttpLabelGreedyInput {
+    @required
+    @httpLabel
+    prefix: String
+
+    @required
+    @httpLabel
+    greedy: String
+}
+
+structure HttpLabelGreedyOutput {}
+
 @http(method: "GET", uri: "/HttpQueryScalars")
 operation HttpQueryScalars {
-    input := {
-        @httpQuery("str")
-        string: String
-
-        @httpQuery("int")
-        integer: Integer
-
-        @httpQuery("bool")
-        boolean: Boolean
-
-        @httpQuery("ts")
-        @timestampFormat("date-time")
-        timestamp: Timestamp
-
-        @httpQuery("enum")
-        enumValue: CorpusStringEnum
-
-        @httpQuery("intEnum")
-        intEnumValue: CorpusIntEnum
-    }
-
-    output := {}
+    input: HttpQueryScalarsInput
+    output: HttpQueryScalarsOutput
 }
+
+structure HttpQueryScalarsInput {
+    @httpQuery("str")
+    string: String
+
+    @httpQuery("int")
+    integer: Integer
+
+    @httpQuery("bool")
+    boolean: Boolean
+
+    @httpQuery("ts")
+    timestamp: DateTimeTimestamp
+
+    @httpQuery("enum")
+    enumValue: CorpusStringEnum
+
+    @httpQuery("intEnum")
+    intEnumValue: CorpusIntEnum
+}
+
+structure HttpQueryScalarsOutput {}
 
 @http(method: "GET", uri: "/HttpQueryList")
 operation HttpQueryList {
-    input := {
-        @httpQuery("strings")
-        strings: StringList
-
-        @httpQuery("integers")
-        integers: IntegerList
-
-        @httpQuery("timestamps")
-        timestamps: DateTimeTimestampList
-
-        @httpQuery("enums")
-        enums: CorpusStringEnumList
-    }
-
-    output := {}
+    input: HttpQueryListInput
+    output: HttpQueryListOutput
 }
+
+structure HttpQueryListInput {
+    @httpQuery("strings")
+    strings: StringList
+
+    @httpQuery("integers")
+    integers: IntegerList
+
+    @httpQuery("timestamps")
+    timestamps: DateTimeTimestampList
+
+    @httpQuery("enums")
+    enums: CorpusStringEnumList
+}
+
+structure HttpQueryListOutput {}
 
 @http(method: "GET", uri: "/HttpQueryMap")
 operation HttpQueryMap {
-    input := {
-        @httpQueryParams
-        params: StringMap
-    }
-
-    output := {}
+    input: HttpQueryMapInput
+    output: HttpQueryMapOutput
 }
 
-// =============================================================================
-// Headers
-// =============================================================================
+structure HttpQueryMapInput {
+    @httpQueryParams
+    params: StringMap
+}
+
+structure HttpQueryMapOutput {}
+
 @http(method: "GET", uri: "/HttpHeaderScalars")
 operation HttpHeaderScalars {
-    input := {
-        @httpHeader("X-String")
-        string: String
+    input: HttpHeaderScalarsInput
+    output: HttpHeaderScalarsOutput
+}
 
-        @httpHeader("X-Integer")
-        integer: Integer
+structure HttpHeaderScalarsInput {
+    @httpHeader("X-String")
+    string: String
 
-        @httpHeader("X-Boolean")
-        boolean: Boolean
+    @httpHeader("X-Integer")
+    integer: Integer
 
-        @httpHeader("X-Timestamp")
-        @timestampFormat("http-date")
-        timestamp: Timestamp
+    @httpHeader("X-Boolean")
+    boolean: Boolean
 
-        @httpHeader("X-Enum")
-        enumValue: CorpusStringEnum
+    @httpHeader("X-Timestamp")
+    timestamp: HttpDateTimestamp
 
-        @httpHeader("X-IntEnum")
-        intEnumValue: CorpusIntEnum
-    }
+    @httpHeader("X-Enum")
+    enumValue: CorpusStringEnum
 
-    output := {
-        @httpHeader("X-String")
-        string: String
+    @httpHeader("X-IntEnum")
+    intEnumValue: CorpusIntEnum
+}
 
-        @httpHeader("X-Integer")
-        integer: Integer
+structure HttpHeaderScalarsOutput {
+    @httpHeader("X-String")
+    string: String
 
-        @httpHeader("X-Boolean")
-        boolean: Boolean
+    @httpHeader("X-Integer")
+    integer: Integer
 
-        @httpHeader("X-Timestamp")
-        @timestampFormat("http-date")
-        timestamp: Timestamp
+    @httpHeader("X-Boolean")
+    boolean: Boolean
 
-        @httpHeader("X-Enum")
-        enumValue: CorpusStringEnum
+    @httpHeader("X-Timestamp")
+    timestamp: HttpDateTimestamp
 
-        @httpHeader("X-IntEnum")
-        intEnumValue: CorpusIntEnum
-    }
+    @httpHeader("X-Enum")
+    enumValue: CorpusStringEnum
+
+    @httpHeader("X-IntEnum")
+    intEnumValue: CorpusIntEnum
 }
 
 @http(method: "GET", uri: "/HttpHeaderList")
 operation HttpHeaderList {
-    input := {
-        @httpHeader("X-Strings")
-        strings: StringList
+    input: HttpHeaderListInput
+    output: HttpHeaderListOutput
+}
 
-        @httpHeader("X-Integers")
-        integers: IntegerList
+structure HttpHeaderListInput {
+    @httpHeader("X-Strings")
+    strings: StringList
 
-        @httpHeader("X-Booleans")
-        booleans: BooleanList
+    @httpHeader("X-Integers")
+    integers: IntegerList
 
-        @httpHeader("X-Timestamps")
-        timestamps: HttpDateTimestampList
+    @httpHeader("X-Booleans")
+    booleans: BooleanList
 
-        @httpHeader("X-Enums")
-        enums: CorpusStringEnumList
-    }
+    @httpHeader("X-Timestamps")
+    timestamps: HttpDateTimestampList
 
-    output := {
-        @httpHeader("X-Strings")
-        strings: StringList
+    @httpHeader("X-Enums")
+    enums: CorpusStringEnumList
+}
 
-        @httpHeader("X-Integers")
-        integers: IntegerList
+structure HttpHeaderListOutput {
+    @httpHeader("X-Strings")
+    strings: StringList
 
-        @httpHeader("X-Booleans")
-        booleans: BooleanList
+    @httpHeader("X-Integers")
+    integers: IntegerList
 
-        @httpHeader("X-Timestamps")
-        timestamps: HttpDateTimestampList
+    @httpHeader("X-Booleans")
+    booleans: BooleanList
 
-        @httpHeader("X-Enums")
-        enums: CorpusStringEnumList
-    }
+    @httpHeader("X-Timestamps")
+    timestamps: HttpDateTimestampList
+
+    @httpHeader("X-Enums")
+    enums: CorpusStringEnumList
 }
 
 @http(method: "GET", uri: "/HttpHeaderTimestamps")
 operation HttpHeaderTimestamps {
-    input := {
-        @httpHeader("X-DateTime")
-        @timestampFormat("date-time")
-        dateTime: Timestamp
+    input: HttpHeaderTimestampsInput
+    output: HttpHeaderTimestampsOutput
+}
 
-        @httpHeader("X-EpochSeconds")
-        @timestampFormat("epoch-seconds")
-        epochSeconds: Timestamp
+structure HttpHeaderTimestampsInput {
+    @httpHeader("X-DateTime")
+    dateTime: DateTimeTimestamp
 
-        @httpHeader("X-HttpDate")
-        @timestampFormat("http-date")
-        httpDate: Timestamp
-    }
+    @httpHeader("X-EpochSeconds")
+    epochSeconds: EpochSecondsTimestamp
 
-    output := {
-        @httpHeader("X-DateTime")
-        @timestampFormat("date-time")
-        dateTime: Timestamp
+    @httpHeader("X-HttpDate")
+    httpDate: HttpDateTimestamp
+}
 
-        @httpHeader("X-EpochSeconds")
-        @timestampFormat("epoch-seconds")
-        epochSeconds: Timestamp
+structure HttpHeaderTimestampsOutput {
+    @httpHeader("X-DateTime")
+    dateTime: DateTimeTimestamp
 
-        @httpHeader("X-HttpDate")
-        @timestampFormat("http-date")
-        httpDate: Timestamp
-    }
+    @httpHeader("X-EpochSeconds")
+    epochSeconds: EpochSecondsTimestamp
+
+    @httpHeader("X-HttpDate")
+    httpDate: HttpDateTimestamp
 }
 
 @http(method: "GET", uri: "/HttpPrefixHeaders")
 operation HttpPrefixHeaders {
-    input := {
-        @httpPrefixHeaders("X-Prefix-")
-        prefixHeaders: StringMap
-    }
-
-    output := {
-        @httpPrefixHeaders("X-Prefix-")
-        prefixHeaders: StringMap
-    }
+    input: HttpPrefixHeadersInput
+    output: HttpPrefixHeadersOutput
 }
 
-// =============================================================================
-// Implicit payload — members without HTTP binding traits become the body
-// =============================================================================
+structure HttpPrefixHeadersInput {
+    @httpPrefixHeaders("X-Prefix-")
+    prefixHeaders: StringMap
+}
+
+structure HttpPrefixHeadersOutput {
+    @httpPrefixHeaders("X-Prefix-")
+    prefixHeaders: StringMap
+}
+
 @http(method: "POST", uri: "/HttpImplicitPayload")
 operation HttpImplicitPayload {
-    input := {
-        @httpHeader("X-Token")
-        token: String
-
-        @httpQuery("query")
-        queryParam: String
-
-        // These are the implicit payload (serialized as JSON/XML body):
-        name: String
-
-        age: Integer
-
-        nested: SimpleStruct
-    }
-
-    output := {
-        @httpHeader("X-Token")
-        token: String
-
-        // These are the implicit payload:
-        name: String
-
-        age: Integer
-
-        nested: SimpleStruct
-    }
+    input: HttpImplicitPayloadInput
+    output: HttpImplicitPayloadOutput
 }
 
-// =============================================================================
-// Explicit payload
-// =============================================================================
+structure HttpImplicitPayloadInput {
+    @httpHeader("X-Token")
+    token: String
+
+    @httpQuery("query")
+    queryParam: String
+
+    name: String
+
+    age: Integer
+
+    nested: SimpleStruct
+}
+
+structure HttpImplicitPayloadOutput {
+    @httpHeader("X-Token")
+    token: String
+
+    name: String
+
+    age: Integer
+
+    nested: SimpleStruct
+}
+
 @http(method: "POST", uri: "/HttpPayloadStruct")
 operation HttpPayloadStruct {
-    input := {
-        @httpPayload
-        payload: SimpleStruct
-    }
+    input: HttpPayloadStructInput
+    output: HttpPayloadStructOutput
+}
 
-    output := {
-        @httpPayload
-        payload: SimpleStruct
-    }
+structure HttpPayloadStructInput {
+    @httpPayload
+    payload: SimpleStruct
+}
+
+structure HttpPayloadStructOutput {
+    @httpPayload
+    payload: SimpleStruct
 }
 
 @http(method: "POST", uri: "/HttpPayloadBlob")
 operation HttpPayloadBlob {
-    input := {
-        @httpHeader("Content-Type")
-        contentType: String
+    input: HttpPayloadBlobInput
+    output: HttpPayloadBlobOutput
+}
 
-        @httpPayload
-        payload: Blob
-    }
+structure HttpPayloadBlobInput {
+    @httpHeader("Content-Type")
+    contentType: String
 
-    output := {
-        @httpHeader("Content-Type")
-        contentType: String
+    @httpPayload
+    payload: Blob
+}
 
-        @httpPayload
-        payload: Blob
-    }
+structure HttpPayloadBlobOutput {
+    @httpHeader("Content-Type")
+    contentType: String
+
+    @httpPayload
+    payload: Blob
 }
 
 @http(method: "POST", uri: "/HttpPayloadString")
 operation HttpPayloadString {
-    input := {
-        @httpPayload
-        payload: String
-    }
+    input: HttpPayloadStringInput
+    output: HttpPayloadStringOutput
+}
 
-    output := {
-        @httpPayload
-        payload: String
-    }
+structure HttpPayloadStringInput {
+    @httpPayload
+    payload: String
+}
+
+structure HttpPayloadStringOutput {
+    @httpPayload
+    payload: String
 }
 
 @http(method: "POST", uri: "/HttpPayloadStreamingBlob")
 operation HttpPayloadStreamingBlob {
-    input := {
-        @httpHeader("Content-Type")
-        contentType: String
+    input: HttpPayloadStreamingBlobInput
+    output: HttpPayloadStreamingBlobOutput
+}
 
-        @httpPayload
-        payload: StreamingBlob = ""
-    }
+structure HttpPayloadStreamingBlobInput {
+    @httpHeader("Content-Type")
+    contentType: String
 
-    output := {
-        @httpHeader("Content-Type")
-        contentType: String
+    @httpPayload
+    payload: StreamingBlob = ""
+}
 
-        @httpPayload
-        payload: StreamingBlob = ""
-    }
+structure HttpPayloadStreamingBlobOutput {
+    @httpHeader("Content-Type")
+    contentType: String
+
+    @httpPayload
+    payload: StreamingBlob = ""
 }
 
 @streaming
 blob StreamingBlob
 
-// =============================================================================
-// Response code
-// =============================================================================
 @http(method: "POST", uri: "/HttpResponseCode")
 operation HttpResponseCode {
-    input := {}
+    input: HttpResponseCodeInput
+    output: HttpResponseCodeOutput
+}
 
-    output := {
-        @httpResponseCode
-        statusCode: Integer
-    }
+structure HttpResponseCodeInput {}
+
+structure HttpResponseCodeOutput {
+    @httpResponseCode
+    statusCode: Integer
 }

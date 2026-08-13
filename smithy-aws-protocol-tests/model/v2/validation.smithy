@@ -4,29 +4,15 @@ namespace aws.protocoltests.corpus
 
 use smithy.framework#ValidationException
 
-/// Server-side constraint trait validation: @range, @length, @pattern,
-/// @uniqueItems, @enum, and presence (@required). This is architecturally
-/// separate from every other layer in the corpus because it uses
-/// smithy.test#httpMalformedRequestTests rather than httpRequestTests /
-/// httpResponseTests: cases specify a literal raw HTTP request and a literal
-/// expected HTTP response (status code + body assertion), not typed params
-/// serialized through the operation's shapes. There is no appliesTo field on
-/// this trait at all -- every case here is implicitly server-only, because
-/// constraint traits are enforced when a server deserializes a request and
-/// are not enforced by clients (see the Smithy spec's "Constraint trait
-/// enforcement" section: enforced after deserializing input, not enforced
-/// when serializing or deserializing output).
-///
-/// Not mixed into CoreProtocolTestService or any other layer -- kept
-/// standalone and wired directly into RestJson1CorpusTests only, matching
-/// upstream's real-world precedent (server validation coverage exists only
-/// under restJson1 today).
-///
-/// Each operation below declares its own @http trait inline (rather than via
-/// the mixin-then-apply-in-services.smithy pattern used elsewhere in the
-/// corpus) because each httpMalformedRequestTests case's request.uri must
-/// exactly match the operation's bound URI, so keeping them co-located in one
-/// file is simpler to keep in sync.
+// Constraint trait enforcement, which is a server concern: the server rejects a
+// non-compliant request after deserializing it. Note this is the opposite
+// direction from the @required coverage in Defaults, which is a client repairing
+// a non-compliant response.
+//
+// One operation per constraint trait, each with a member per constrained type.
+// Cases use @httpMalformedRequestTests, so they're literal HTTP requests and
+// responses with no typed params, and they're implicitly server-only since that
+// trait has no appliesTo field. restJson1 only today.
 @mixin
 service ValidationProtocolTestService {
     operations: [
@@ -39,9 +25,6 @@ service ValidationProtocolTestService {
     ]
 }
 
-// =============================================================================
-// @range — byte, short, integer, long, float, double
-// =============================================================================
 @suppress(["UnstableTrait"])
 @http(uri: "/corpus/MalformedRange", method: "POST")
 operation MalformedRange {
@@ -78,9 +61,6 @@ float RangeFloat
 @range(min: 2.0, max: 8.0)
 double RangeDouble
 
-// =============================================================================
-// @length — string, blob, list, map
-// =============================================================================
 @suppress(["UnstableTrait"])
 @http(uri: "/corpus/MalformedLength", method: "POST")
 operation MalformedLength {
@@ -114,9 +94,6 @@ map LengthMap {
     value: String
 }
 
-// =============================================================================
-// @pattern — string
-// =============================================================================
 @suppress(["UnstableTrait"])
 @http(uri: "/corpus/MalformedPattern", method: "POST")
 operation MalformedPattern {
@@ -133,9 +110,6 @@ structure MalformedPatternInput {
 @pattern("^[a-m]+$")
 string PatternString
 
-// =============================================================================
-// @uniqueItems — list
-// =============================================================================
 @suppress(["UnstableTrait"])
 @http(uri: "/corpus/MalformedUniqueItems", method: "POST")
 operation MalformedUniqueItems {
@@ -154,9 +128,6 @@ list UniqueItemsList {
     member: String
 }
 
-// =============================================================================
-// @enum — unknown value on deserialize
-// =============================================================================
 @suppress(["UnstableTrait"])
 @http(uri: "/corpus/MalformedEnum", method: "POST")
 operation MalformedEnum {
@@ -176,9 +147,6 @@ enum ValidationEnum {
     BAZ = "Baz"
 }
 
-// =============================================================================
-// @required — presence
-// =============================================================================
 @suppress(["UnstableTrait"])
 @http(uri: "/corpus/MalformedRequired", method: "POST")
 operation MalformedRequired {

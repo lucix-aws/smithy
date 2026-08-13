@@ -2,9 +2,14 @@ $version: "2.0"
 
 namespace aws.protocoltests.corpus
 
-/// XML-specific serialization traits. These operations mirror the list/map
-/// transitions from CoreProtocolTestService but with @xmlFlattened applied.
-/// Only mixed into XML-based protocol services (restXml, awsQuery, ec2Query).
+// XML structural traits. Mixed into restXml, awsQuery, and ec2Query. Traits that
+// change document structure get their own operations rather than being applied
+// globally, which is why @xmlFlattened has a full parallel set of list and map
+// operations here instead of riding along on Core.
+//
+// Extend with one operation per structural trait, or per trait combination where
+// the combination is what's interesting (flattened plus a renamed member target).
+// Naming traits that only override a wire name stay global on Core members.
 @mixin
 service XmlTraitsProtocolTestService with [CoreProtocolTestService] {
     operations: [
@@ -32,289 +37,317 @@ service XmlTraitsProtocolTestService with [CoreProtocolTestService] {
     ]
 }
 
-// =============================================================================
-// Flattened lists
-// =============================================================================
 operation FlattenedListOfScalars {
-    input := {
-        @xmlFlattened
-        @xmlName("xmlBooleans")
-        booleans: BooleanList
+    input: FlattenedListOfScalarsInput
+    output: FlattenedListOfScalarsOutput
+}
 
-        @xmlFlattened
-        @xmlName("xmlIntegers")
-        integers: IntegerList
+structure FlattenedListOfScalarsInput {
+    @xmlFlattened
+    @xmlName("xmlBooleans")
+    booleans: BooleanList
 
-        @xmlFlattened
-        @xmlName("xmlStrings")
-        strings: StringList
+    @xmlFlattened
+    @xmlName("xmlIntegers")
+    integers: IntegerList
 
-        @xmlFlattened
-        @xmlName("xmlBlobs")
-        blobs: BlobList
+    @xmlFlattened
+    @xmlName("xmlStrings")
+    strings: StringList
 
-        @xmlFlattened
-        @xmlName("xmlTimestamps")
-        timestamps: TimestampList
+    @xmlFlattened
+    @xmlName("xmlBlobs")
+    blobs: BlobList
 
-        @xmlFlattened
-        @xmlName("xmlEnums")
-        enums: CorpusStringEnumList
+    @xmlFlattened
+    @xmlName("xmlTimestamps")
+    timestamps: TimestampList
 
-        @xmlFlattened
-        @xmlName("xmlIntEnums")
-        intEnums: CorpusIntEnumList
-    }
+    @xmlFlattened
+    @xmlName("xmlEnums")
+    enums: CorpusStringEnumList
 
-    output := {
-        @xmlFlattened
-        @xmlName("xmlBooleans")
-        booleans: BooleanList
+    @xmlFlattened
+    @xmlName("xmlIntEnums")
+    intEnums: CorpusIntEnumList
+}
 
-        @xmlFlattened
-        @xmlName("xmlIntegers")
-        integers: IntegerList
+structure FlattenedListOfScalarsOutput {
+    @xmlFlattened
+    @xmlName("xmlBooleans")
+    booleans: BooleanList
 
-        @xmlFlattened
-        @xmlName("xmlStrings")
-        strings: StringList
+    @xmlFlattened
+    @xmlName("xmlIntegers")
+    integers: IntegerList
 
-        @xmlFlattened
-        @xmlName("xmlBlobs")
-        blobs: BlobList
+    @xmlFlattened
+    @xmlName("xmlStrings")
+    strings: StringList
 
-        @xmlFlattened
-        @xmlName("xmlTimestamps")
-        timestamps: TimestampList
+    @xmlFlattened
+    @xmlName("xmlBlobs")
+    blobs: BlobList
 
-        @xmlFlattened
-        @xmlName("xmlEnums")
-        enums: CorpusStringEnumList
+    @xmlFlattened
+    @xmlName("xmlTimestamps")
+    timestamps: TimestampList
 
-        @xmlFlattened
-        @xmlName("xmlIntEnums")
-        intEnums: CorpusIntEnumList
-    }
+    @xmlFlattened
+    @xmlName("xmlEnums")
+    enums: CorpusStringEnumList
+
+    @xmlFlattened
+    @xmlName("xmlIntEnums")
+    intEnums: CorpusIntEnumList
 }
 
 operation FlattenedListOfStructs {
-    input := {
-        @xmlFlattened
-        @xmlName("xmlValues")
-        values: SimpleStructList
-    }
+    input: FlattenedListOfStructsInput
+    output: FlattenedListOfStructsOutput
+}
 
-    output := {
-        @xmlFlattened
-        @xmlName("xmlValues")
-        values: SimpleStructList
-    }
+structure FlattenedListOfStructsInput {
+    @xmlFlattened
+    @xmlName("xmlValues")
+    values: SimpleStructList
+}
+
+structure FlattenedListOfStructsOutput {
+    @xmlFlattened
+    @xmlName("xmlValues")
+    values: SimpleStructList
 }
 
 operation FlattenedListOfLists {
-    input := {
-        @xmlFlattened
-        @xmlName("xmlValues")
-        values: ListOfStringList
-    }
+    input: FlattenedListOfListsInput
+    output: FlattenedListOfListsOutput
+}
 
-    output := {
-        @xmlFlattened
-        @xmlName("xmlValues")
-        values: ListOfStringList
-    }
+structure FlattenedListOfListsInput {
+    @xmlFlattened
+    @xmlName("xmlValues")
+    values: ListOfStringList
+}
+
+structure FlattenedListOfListsOutput {
+    @xmlFlattened
+    @xmlName("xmlValues")
+    values: ListOfStringList
 }
 
 operation FlattenedListOfMaps {
-    input := {
-        @xmlFlattened
-        @xmlName("xmlValues")
-        values: ListOfStringMap
-    }
+    input: FlattenedListOfMapsInput
+    output: FlattenedListOfMapsOutput
+}
 
-    output := {
-        @xmlFlattened
-        @xmlName("xmlValues")
-        values: ListOfStringMap
-    }
+structure FlattenedListOfMapsInput {
+    @xmlFlattened
+    @xmlName("xmlValues")
+    values: ListOfStringMap
+}
+
+structure FlattenedListOfMapsOutput {
+    @xmlFlattened
+    @xmlName("xmlValues")
+    values: ListOfStringMap
 }
 
 operation FlattenedListOfUnions {
-    input := {
-        @xmlFlattened
-        @xmlName("xmlValues")
-        values: CorpusUnionList
-    }
-
-    output := {
-        @xmlFlattened
-        @xmlName("xmlValues")
-        values: CorpusUnionList
-    }
+    input: FlattenedListOfUnionsInput
+    output: FlattenedListOfUnionsOutput
 }
 
-// =============================================================================
-// Flattened maps
-// =============================================================================
+structure FlattenedListOfUnionsInput {
+    @xmlFlattened
+    @xmlName("xmlValues")
+    values: CorpusUnionList
+}
+
+structure FlattenedListOfUnionsOutput {
+    @xmlFlattened
+    @xmlName("xmlValues")
+    values: CorpusUnionList
+}
+
 operation FlattenedMapOfScalars {
-    input := {
-        @xmlFlattened
-        @xmlName("xmlBooleans")
-        booleans: BooleanMap
+    input: FlattenedMapOfScalarsInput
+    output: FlattenedMapOfScalarsOutput
+}
 
-        @xmlFlattened
-        @xmlName("xmlIntegers")
-        integers: IntegerMap
+structure FlattenedMapOfScalarsInput {
+    @xmlFlattened
+    @xmlName("xmlBooleans")
+    booleans: BooleanMap
 
-        @xmlFlattened
-        @xmlName("xmlStrings")
-        strings: StringMap
+    @xmlFlattened
+    @xmlName("xmlIntegers")
+    integers: IntegerMap
 
-        @xmlFlattened
-        @xmlName("xmlBlobs")
-        blobs: BlobMap
+    @xmlFlattened
+    @xmlName("xmlStrings")
+    strings: StringMap
 
-        @xmlFlattened
-        @xmlName("xmlTimestamps")
-        timestamps: TimestampMap
+    @xmlFlattened
+    @xmlName("xmlBlobs")
+    blobs: BlobMap
 
-        @xmlFlattened
-        @xmlName("xmlEnums")
-        enums: CorpusStringEnumMap
+    @xmlFlattened
+    @xmlName("xmlTimestamps")
+    timestamps: TimestampMap
 
-        @xmlFlattened
-        @xmlName("xmlIntEnums")
-        intEnums: CorpusIntEnumMap
-    }
+    @xmlFlattened
+    @xmlName("xmlEnums")
+    enums: CorpusStringEnumMap
 
-    output := {
-        @xmlFlattened
-        @xmlName("xmlBooleans")
-        booleans: BooleanMap
+    @xmlFlattened
+    @xmlName("xmlIntEnums")
+    intEnums: CorpusIntEnumMap
+}
 
-        @xmlFlattened
-        @xmlName("xmlIntegers")
-        integers: IntegerMap
+structure FlattenedMapOfScalarsOutput {
+    @xmlFlattened
+    @xmlName("xmlBooleans")
+    booleans: BooleanMap
 
-        @xmlFlattened
-        @xmlName("xmlStrings")
-        strings: StringMap
+    @xmlFlattened
+    @xmlName("xmlIntegers")
+    integers: IntegerMap
 
-        @xmlFlattened
-        @xmlName("xmlBlobs")
-        blobs: BlobMap
+    @xmlFlattened
+    @xmlName("xmlStrings")
+    strings: StringMap
 
-        @xmlFlattened
-        @xmlName("xmlTimestamps")
-        timestamps: TimestampMap
+    @xmlFlattened
+    @xmlName("xmlBlobs")
+    blobs: BlobMap
 
-        @xmlFlattened
-        @xmlName("xmlEnums")
-        enums: CorpusStringEnumMap
+    @xmlFlattened
+    @xmlName("xmlTimestamps")
+    timestamps: TimestampMap
 
-        @xmlFlattened
-        @xmlName("xmlIntEnums")
-        intEnums: CorpusIntEnumMap
-    }
+    @xmlFlattened
+    @xmlName("xmlEnums")
+    enums: CorpusStringEnumMap
+
+    @xmlFlattened
+    @xmlName("xmlIntEnums")
+    intEnums: CorpusIntEnumMap
 }
 
 operation FlattenedMapOfStructs {
-    input := {
-        @xmlFlattened
-        @xmlName("xmlValues")
-        values: SimpleStructMap
-    }
+    input: FlattenedMapOfStructsInput
+    output: FlattenedMapOfStructsOutput
+}
 
-    output := {
-        @xmlFlattened
-        @xmlName("xmlValues")
-        values: SimpleStructMap
-    }
+structure FlattenedMapOfStructsInput {
+    @xmlFlattened
+    @xmlName("xmlValues")
+    values: SimpleStructMap
+}
+
+structure FlattenedMapOfStructsOutput {
+    @xmlFlattened
+    @xmlName("xmlValues")
+    values: SimpleStructMap
 }
 
 operation FlattenedMapOfMaps {
-    input := {
-        @xmlFlattened
-        @xmlName("xmlValues")
-        values: MapOfStringMap
-    }
+    input: FlattenedMapOfMapsInput
+    output: FlattenedMapOfMapsOutput
+}
 
-    output := {
-        @xmlFlattened
-        @xmlName("xmlValues")
-        values: MapOfStringMap
-    }
+structure FlattenedMapOfMapsInput {
+    @xmlFlattened
+    @xmlName("xmlValues")
+    values: MapOfStringMap
+}
+
+structure FlattenedMapOfMapsOutput {
+    @xmlFlattened
+    @xmlName("xmlValues")
+    values: MapOfStringMap
 }
 
 operation FlattenedMapOfLists {
-    input := {
-        @xmlFlattened
-        @xmlName("xmlValues")
-        values: MapOfStringList
-    }
+    input: FlattenedMapOfListsInput
+    output: FlattenedMapOfListsOutput
+}
 
-    output := {
-        @xmlFlattened
-        @xmlName("xmlValues")
-        values: MapOfStringList
-    }
+structure FlattenedMapOfListsInput {
+    @xmlFlattened
+    @xmlName("xmlValues")
+    values: MapOfStringList
+}
+
+structure FlattenedMapOfListsOutput {
+    @xmlFlattened
+    @xmlName("xmlValues")
+    values: MapOfStringList
 }
 
 operation FlattenedMapOfUnions {
-    input := {
-        @xmlFlattened
-        @xmlName("xmlValues")
-        values: CorpusUnionMap
-    }
-
-    output := {
-        @xmlFlattened
-        @xmlName("xmlValues")
-        values: CorpusUnionMap
-    }
+    input: FlattenedMapOfUnionsInput
+    output: FlattenedMapOfUnionsOutput
 }
 
-// =============================================================================
-// Flattened sparse containers
-// =============================================================================
-operation FlattenedSparseListOfStructs {
-    input := {
-        @xmlFlattened
-        @xmlName("xmlValues")
-        values: SparseSimpleStructList
-    }
+structure FlattenedMapOfUnionsInput {
+    @xmlFlattened
+    @xmlName("xmlValues")
+    values: CorpusUnionMap
+}
 
-    output := {
-        @xmlFlattened
-        @xmlName("xmlValues")
-        values: SparseSimpleStructList
-    }
+structure FlattenedMapOfUnionsOutput {
+    @xmlFlattened
+    @xmlName("xmlValues")
+    values: CorpusUnionMap
+}
+
+operation FlattenedSparseListOfStructs {
+    input: FlattenedSparseListOfStructsInput
+    output: FlattenedSparseListOfStructsOutput
+}
+
+structure FlattenedSparseListOfStructsInput {
+    @xmlFlattened
+    @xmlName("xmlValues")
+    values: SparseSimpleStructList
+}
+
+structure FlattenedSparseListOfStructsOutput {
+    @xmlFlattened
+    @xmlName("xmlValues")
+    values: SparseSimpleStructList
 }
 
 operation FlattenedSparseMapOfStructs {
-    input := {
-        @xmlFlattened
-        @xmlName("xmlValues")
-        values: SparseSimpleStructMap
-    }
-
-    output := {
-        @xmlFlattened
-        @xmlName("xmlValues")
-        values: SparseSimpleStructMap
-    }
+    input: FlattenedSparseMapOfStructsInput
+    output: FlattenedSparseMapOfStructsOutput
 }
 
-// =============================================================================
-// @xmlAttribute — scalar members serialized as XML attributes
-// =============================================================================
+structure FlattenedSparseMapOfStructsInput {
+    @xmlFlattened
+    @xmlName("xmlValues")
+    values: SparseSimpleStructMap
+}
+
+structure FlattenedSparseMapOfStructsOutput {
+    @xmlFlattened
+    @xmlName("xmlValues")
+    values: SparseSimpleStructMap
+}
+
 operation XmlAttributeMembers {
-    input := {
-        value: XmlAttributeStruct
-    }
-    output := {
-        value: XmlAttributeStruct
-    }
+    input: XmlAttributeMembersInput
+    output: XmlAttributeMembersOutput
+}
+
+structure XmlAttributeMembersInput {
+    value: XmlAttributeStruct
+}
+
+structure XmlAttributeMembersOutput {
+    value: XmlAttributeStruct
 }
 
 structure XmlAttributeStruct {
@@ -342,16 +375,17 @@ structure XmlAttributeNestedStruct {
     value: String
 }
 
-// =============================================================================
-// @xmlNamespace — xmlns declarations on structs and members
-// =============================================================================
 operation XmlNamespaceMembers {
-    input := {
-        value: XmlNamespaceStruct
-    }
-    output := {
-        value: XmlNamespaceStruct
-    }
+    input: XmlNamespaceMembersInput
+    output: XmlNamespaceMembersOutput
+}
+
+structure XmlNamespaceMembersInput {
+    value: XmlNamespaceStruct
+}
+
+structure XmlNamespaceMembersOutput {
+    value: XmlNamespaceStruct
 }
 
 @xmlNamespace(uri: "https://example.com/ns")
@@ -374,25 +408,25 @@ structure XmlNamespaceNestedStruct {
     value: String
 }
 
-// =============================================================================
-// @xmlName on list member — changes the element name inside the wrapper
-// =============================================================================
 operation XmlNamedListMembers {
-    input := {
-        @xmlName("xmlStrings")
-        strings: XmlNamedStringList
+    input: XmlNamedListMembersInput
+    output: XmlNamedListMembersOutput
+}
 
-        @xmlName("xmlIntegers")
-        integers: XmlNamedIntegerList
-    }
+structure XmlNamedListMembersInput {
+    @xmlName("xmlStrings")
+    strings: XmlNamedStringList
 
-    output := {
-        @xmlName("xmlStrings")
-        strings: XmlNamedStringList
+    @xmlName("xmlIntegers")
+    integers: XmlNamedIntegerList
+}
 
-        @xmlName("xmlIntegers")
-        integers: XmlNamedIntegerList
-    }
+structure XmlNamedListMembersOutput {
+    @xmlName("xmlStrings")
+    strings: XmlNamedStringList
+
+    @xmlName("xmlIntegers")
+    integers: XmlNamedIntegerList
 }
 
 @xmlNamespace(uri: "https://xml-list.example.com")
@@ -407,25 +441,25 @@ list XmlNamedIntegerList {
     member: Integer
 }
 
-// =============================================================================
-// @xmlName on map key/value — changes key/value element names inside entry
-// =============================================================================
 operation XmlNamedMapMembers {
-    input := {
-        @xmlName("xmlStrings")
-        strings: XmlNamedStringMap
+    input: XmlNamedMapMembersInput
+    output: XmlNamedMapMembersOutput
+}
 
-        @xmlName("xmlIntegers")
-        integers: XmlNamedIntegerMap
-    }
+structure XmlNamedMapMembersInput {
+    @xmlName("xmlStrings")
+    strings: XmlNamedStringMap
 
-    output := {
-        @xmlName("xmlStrings")
-        strings: XmlNamedStringMap
+    @xmlName("xmlIntegers")
+    integers: XmlNamedIntegerMap
+}
 
-        @xmlName("xmlIntegers")
-        integers: XmlNamedIntegerMap
-    }
+structure XmlNamedMapMembersOutput {
+    @xmlName("xmlStrings")
+    strings: XmlNamedStringMap
+
+    @xmlName("xmlIntegers")
+    integers: XmlNamedIntegerMap
 }
 
 @xmlNamespace(uri: "https://xml-map.example.com")
@@ -446,70 +480,65 @@ map XmlNamedIntegerMap {
     value: Integer
 }
 
-// =============================================================================
-// @xmlFlattened + @xmlName on list/map member target — the member-level xmlName
-// becomes the repeated element name when flattened
-// =============================================================================
 operation FlattenedXmlNamedListMembers {
-    input := {
-        @xmlFlattened
-        strings: XmlNamedStringList
+    input: FlattenedXmlNamedListMembersInput
+    output: FlattenedXmlNamedListMembersOutput
+}
 
-        @xmlFlattened
-        integers: XmlNamedIntegerList
-    }
+structure FlattenedXmlNamedListMembersInput {
+    @xmlFlattened
+    strings: XmlNamedStringList
 
-    output := {
-        @xmlFlattened
-        strings: XmlNamedStringList
+    @xmlFlattened
+    integers: XmlNamedIntegerList
+}
 
-        @xmlFlattened
-        integers: XmlNamedIntegerList
-    }
+structure FlattenedXmlNamedListMembersOutput {
+    @xmlFlattened
+    strings: XmlNamedStringList
+
+    @xmlFlattened
+    integers: XmlNamedIntegerList
 }
 
 operation FlattenedXmlNamedMapMembers {
-    input := {
-        @xmlFlattened
-        strings: XmlNamedStringMap
-
-        @xmlFlattened
-        integers: XmlNamedIntegerMap
-    }
-
-    output := {
-        @xmlFlattened
-        strings: XmlNamedStringMap
-
-        @xmlFlattened
-        integers: XmlNamedIntegerMap
-    }
+    input: FlattenedXmlNamedMapMembersInput
+    output: FlattenedXmlNamedMapMembersOutput
 }
 
-// =============================================================================
-// @xmlName on a structure/union SHAPE — renames that shape's own root element,
-// but MUST NOT influence the element name of a member that targets it. The
-// member name (or member-level @xmlName) always wins; the target shape's
-// @xmlName must never appear on the wire for the member element.
-// =============================================================================
+structure FlattenedXmlNamedMapMembersInput {
+    @xmlFlattened
+    strings: XmlNamedStringMap
+
+    @xmlFlattened
+    integers: XmlNamedIntegerMap
+}
+
+structure FlattenedXmlNamedMapMembersOutput {
+    @xmlFlattened
+    strings: XmlNamedStringMap
+
+    @xmlFlattened
+    integers: XmlNamedIntegerMap
+}
+
 operation XmlNameOnTargetShape {
-    input := {
-        // No member-level @xmlName: element must be the member name "structTarget",
-        // never the target shape's @xmlName ("ShouldNotAppearStruct").
-        structTarget: XmlNameStruct
+    input: XmlNameOnTargetShapeInput
+    output: XmlNameOnTargetShapeOutput
+}
 
-        // Member-level @xmlName present: element must be "xmlUnionTarget",
-        // never the target union's @xmlName ("ShouldNotAppearUnion").
-        @xmlName("xmlUnionTarget")
-        unionTarget: XmlNameUnion
-    }
+structure XmlNameOnTargetShapeInput {
+    structTarget: XmlNameStruct
 
-    output := {
-        structTarget: XmlNameStruct
+    @xmlName("xmlUnionTarget")
+    unionTarget: XmlNameUnion
+}
 
-        @xmlName("xmlUnionTarget")
-        unionTarget: XmlNameUnion
-    }
+structure XmlNameOnTargetShapeOutput {
+    structTarget: XmlNameStruct
+
+    @xmlName("xmlUnionTarget")
+    unionTarget: XmlNameUnion
 }
 
 @xmlName("ShouldNotAppearStruct")
@@ -527,48 +556,41 @@ union XmlNameUnion {
     integerValue: Integer
 }
 
-// =============================================================================
-// @xmlName with an embedded namespace prefix — the value adheres to the
-// XmlName ABNF (XmlIdentifier ":" XmlIdentifier) and inserts a prefix before
-// the element name. Two cases:
-//   (a) bare prefix with no matching declaration ("hello:foo")
-//   (b) prefix matching a @xmlNamespace prefix declared on the enclosing struct
-//       ("baz:bar" against xmlns:baz)
-// =============================================================================
 operation XmlNamePrefixed {
-    input := {
-        value: XmlNamePrefixedStruct
-    }
-    output := {
-        value: XmlNamePrefixedStruct
-    }
+    input: XmlNamePrefixedInput
+    output: XmlNamePrefixedOutput
+}
+
+structure XmlNamePrefixedInput {
+    value: XmlNamePrefixedStruct
+}
+
+structure XmlNamePrefixedOutput {
+    value: XmlNamePrefixedStruct
 }
 
 @xmlNamespace(uri: "https://example.com/baz", prefix: "baz")
 structure XmlNamePrefixedStruct {
-    // Bare prefixed name, no matching declared namespace prefix.
     @xmlName("hello:foo")
     foo: String
 
-    // Prefixed name matching the struct's declared "baz" namespace prefix.
     @xmlName("baz:bar")
     bar: String
 }
 
-// =============================================================================
-// @xmlNamespace on a UNION shape — the xmlNamespace selector permits unions.
-// Verifies namespace declaration propagates onto the union's serialized element.
-// =============================================================================
 operation XmlNamespaceOnUnion {
-    input := {
-        @xmlName("xmlValue")
-        value: XmlNamespacedUnion
-    }
+    input: XmlNamespaceOnUnionInput
+    output: XmlNamespaceOnUnionOutput
+}
 
-    output := {
-        @xmlName("xmlValue")
-        value: XmlNamespacedUnion
-    }
+structure XmlNamespaceOnUnionInput {
+    @xmlName("xmlValue")
+    value: XmlNamespacedUnion
+}
+
+structure XmlNamespaceOnUnionOutput {
+    @xmlName("xmlValue")
+    value: XmlNamespacedUnion
 }
 
 @xmlNamespace(uri: "https://example.com/union")
